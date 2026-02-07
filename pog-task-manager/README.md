@@ -68,7 +68,7 @@ Agent 建立 `record.md` 來記錄其計畫。它執行工作（編碼、研究�
 
 提供直觀的側邊欄樹狀視圖 (Tree View)，自動依照 Project 與 Module 分組顯示任務。支援豐富的狀態圖示與層級展開，讓您一眼掌握專案進度。
 
-![Task List](assets/Detail-Plugin-Task-List.png)
+![Task List](https://github.com/enjtorian/pog-task/raw/HEAD/pog-task-manager/assets/Detail-Plugin-Task-List.png)
 
 *   **即時監聽**：自動監聽 `pog-task/list/*.jsonl` 檔案變更，新增或修改任務會立即反映在列表中。
 *   **狀態篩選**：可過濾顯示特定狀態（如 In Progress, Pending）的任務。
@@ -77,7 +77,7 @@ Agent 建立 `record.md` 來記錄其計畫。它執行工作（編碼、研究�
 
 內建 Agent Prompt Template 管理功能，針對不同場景（如：建立新任務、執行現有任務）提供標準化的 Prompt。
 
-![Prompt Templates](assets/Detail-Plugin-Prompt-Templates.png)
+![Prompt Templates](https://github.com/enjtorian/pog-task/raw/HEAD/pog-task-manager/assets/Detail-Plugin-Prompt-Templates.png)
 
 *   **一鍵複製**：快速產生並複製 Agent 指令，直接貼上給 LLM 使用。
 *   **上下文注入**：自動將任務上下文 (Context) 整合進 Prompt 中。

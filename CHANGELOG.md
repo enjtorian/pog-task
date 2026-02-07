@@ -12,6 +12,9 @@ All notable changes to the POG Task project will be documented in this file.
 *   **Guides & References**:
     *   Created **Agent Instructions** (`pog-task-agent-instructions.md`) for standardized AI behavior.
     *   Developed **System Design** (`pog-task-design.md`) detailing the JSONL state stream and `record.md` audit logs.
+    *   Added **Reference Guides**: **FAQ**, **Glossary**, and **Quickstart** for immediate onboarding.
+*   **Localization**:
+    *   Translated core documentation (Index, FAQ, Glossary, Quickstart) to **Traditional Chinese (zh-tw)**.
 *   **Website**:
     *   Launched documentation site with MkDocs Material theme, deployed via GitHub Pages.
 

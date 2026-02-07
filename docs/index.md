@@ -109,7 +109,7 @@ flowchart LR
 | `pog-task/list/*.jsonl` | **Structured Stream of State** |
 | `pog-task/declare.jsonl` | Task categories and metadata definition |
 | `pog-task/list/record/{uuid}/record.md` | **Execution & Reasoning Log** |
-| `pog-task/wiki/*.md` | Agent guide and system documentation |
+| `pog-task/pog-task-agent-instructions.md` | Agent guide and system documentation |
 | VS Code Plugin | Human-friendly visualization interface |
 | Multi-agent System | AI agents for autonomous execution |
 
@@ -146,7 +146,7 @@ flowchart TB
 POG Agent interacts via two main modes:
 
 ### Mode A: Read + Create/Join Task
-1.  Read wiki & sample tasks to understand the **Protocol**.
+1.  Read pog-task-design.md and pog-task-agent-instructions.md to understand the **Protocol**.
 2.  Create or join JSONL task (establish **Intent**).
 3.  Generate `record.md` with prompt, plan, references.
 
@@ -209,6 +209,9 @@ A full **AI-native task ecosystem** that integrates AI agents as first-class con
 
 ## 11. Appendices
 
+### Useful Links
+*   [Frequently Asked Questions (FAQ)](faq.md)
+
 ### File Structure Overview
 
 ```
@@ -220,6 +223,7 @@ pog-task/
 ├─ list/
 │   └─ *.jsonl
 │   └─ record/{uuid}/record.md
+├─ faq.md
 ```
 
 ### Task JSONL Schema

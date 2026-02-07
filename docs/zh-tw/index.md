@@ -110,7 +110,7 @@ flowchart LR
 | `pog-task/list/*.jsonl` | **結構化狀態流** |
 | `pog-task/declare.jsonl` | 任務分類與元數據定義 |
 | `pog-task/list/record/{uuid}/record.md` | **執行與推理日誌** |
-| `pog-task/wiki/*.md` | Agent 指南與系統文檔 |
+| `pog-task/pog-task-agent-instructions.md` | Agent 指南與系統文檔 |
 | VS Code Plugin | 人類友善的視覺化介面 |
 | Multi-agent System | 用於自主執行的 AI Agent |
 
@@ -147,7 +147,7 @@ flowchart TB
 POG Agent 透過兩種主要模式互動：
 
 ### 模式 A：讀取 + 創建/加入任務
-1.  讀取 wiki & 範例任務以理解 **協議 (Protocol)**。
+1.  讀取 pog-task-design.md and pog-task-agent-instructions.md 任務以理解 **協議 (Protocol)**。
 2.  創建或加入 JSONL 任務（建立 **意圖 (Intent)**）。
 3.  生成帶有提示詞、計畫、參考資料的 `record.md`。
 
@@ -210,6 +210,9 @@ agent_pipeline:
 
 ## 11. 附錄
 
+### 常用連結
+*   [常見問題 (FAQ)](faq.md)
+
 ### 檔案結構概覽
 
 ```
@@ -221,6 +224,7 @@ pog-task/
 ├─ list/
 │   └─ *.jsonl
 │   └─ record/{uuid}/record.md
+├─ faq.md
 ```
 
 ### 任務 JSONL Schema
