@@ -1,0 +1,242 @@
+{
+    "name": "pog-task-manager",
+    "displayName": "POG Task Manager",
+    "icon": "assets/POG-Task-Manager.png",
+    "description": "POG Task Management Plugin",
+    "publisher": "enjtorian",
+    "license": "Apache-2.0",
+    "version": "1.0.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/enjtorian/pog-task-manager.git"
+    },
+    "engines": {
+        "vscode": "^1.90.0"
+    },
+    "categories": [
+        "Other",
+        "Visualization",
+        "AI",
+        "SCM Providers"
+    ],
+    "keywords": [
+        "pog task",
+        "task manager",
+        "ai"
+    ],
+    "activationEvents": [
+        "workspaceContains:pog-task/list/**/*.jsonl"
+    ],
+    "main": "./dist/extension.js",
+    "extensionKind": [
+        "ui",
+        "workspace"
+    ],
+    "contributes": {
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "pog-task-manager",
+                    "title": "POG Task Manager",
+                    "icon": "$(checklist)"
+                }
+            ]
+        },
+        "views": {
+            "pog-task-manager": [
+                {
+                    "id": "pog-task-manager.taskList",
+                    "name": "Task List"
+                },
+                {
+                    "id": "pog-task-manager.promptTemplates",
+                    "name": "Prompt Templates"
+                }
+            ]
+        },
+        "commands": [
+            {
+                "command": "pog-task-manager.refreshTasks",
+                "title": "POG Task Manager: Refresh Tasks",
+                "icon": "$(refresh)"
+            },
+            {
+                "command": "pog-task-manager.openTaskDetail",
+                "title": "POG Task Manager: Open Task Detail"
+            },
+            {
+                "command": "pog-task-manager.quickAdd",
+                "title": "POG Task Manager: Quick Add Task",
+                "icon": "$(add)"
+            },
+            {
+                "command": "pog-task-manager.copyExecutePrompt",
+                "title": "POG Task Manager: Copy Execute Prompt",
+                "icon": "$(play)"
+            },
+            {
+                "command": "pog-task-manager.copyContext",
+                "title": "POG Task Manager: Copy Task Context"
+            },
+            {
+                "command": "pog-task-manager.copyCreatePrompt",
+                "title": "POG Task Manager: Copy Create Prompt"
+            },
+            {
+                "command": "pog-task-manager.refreshPromptTemplates",
+                "title": "POG Task Manager: Refresh Prompt Templates",
+                "icon": "$(refresh)"
+            },
+            {
+                "command": "pog-task-manager.copyPromptTemplate",
+                "title": "POG Task Manager: Copy Prompt Template",
+                "icon": "$(copy)"
+            },
+            {
+                "command": "pog-task-manager.previewPromptTemplate",
+                "title": "POG Task Manager: Preview Prompt Template",
+                "icon": "$(eye)"
+            },
+            {
+                "command": "pog-task-manager.openPromptTemplateFile",
+                "title": "POG Task Manager: Open Prompt Template File",
+                "icon": "$(go-to-file)"
+            },
+            {
+                "command": "pog-task-manager.filterByStatus",
+                "title": "POG Task Manager: Filter Tasks by Status",
+                "icon": "$(filter)"
+            },
+            {
+                "command": "pog-task-manager.clearFilter",
+                "title": "POG Task Manager: Clear Task Filter",
+                "icon": "$(clear-all)"
+            },
+            {
+                "command": "pog-task-manager.collapseAll",
+                "title": "POG Task Manager: Collapse All Tasks",
+                "icon": "$(collapse-all)"
+            },
+            {
+                "command": "pog-task-manager.expandAll",
+                "title": "POG Task Manager: Expand All Tasks",
+                "icon": "$(expand-all)"
+            }
+        ],
+        "menus": {
+            "view/title": [
+                {
+                    "command": "pog-task-manager.quickAdd",
+                    "when": "view == pog-task-manager.taskList",
+                    "group": "navigation"
+                },
+                {
+                    "command": "pog-task-manager.refreshTasks",
+                    "when": "view == pog-task-manager.taskList",
+                    "group": "navigation"
+                },
+                {
+                    "command": "pog-task-manager.filterByStatus",
+                    "when": "view == pog-task-manager.taskList",
+                    "group": "navigation"
+                },
+                {
+                    "command": "pog-task-manager.clearFilter",
+                    "when": "view == pog-task-manager.taskList",
+                    "group": "navigation"
+                },
+                {
+                    "command": "pog-task-manager.collapseAll",
+                    "when": "view == pog-task-manager.taskList",
+                    "group": "navigation"
+                },
+                {
+                    "command": "pog-task-manager.expandAll",
+                    "when": "view == pog-task-manager.taskList",
+                    "group": "navigation"
+                },
+                {
+                    "command": "pog-task-manager.refreshPromptTemplates",
+                    "when": "view == pog-task-manager.promptTemplates",
+                    "group": "navigation"
+                }
+            ],
+            "view/item/context": [
+                {
+                    "command": "pog-task-manager.copyExecutePrompt",
+                    "when": "view == pog-task-manager.taskList && viewItem == task",
+                    "group": "inline"
+                },
+                {
+                    "command": "pog-task-manager.copyContext",
+                    "when": "view == pog-task-manager.taskList && viewItem == task",
+                    "group": "2_actions"
+                },
+                {
+                    "command": "pog-task-manager.copyCreatePrompt",
+                    "when": "view == pog-task-manager.taskList && viewItem == task",
+                    "group": "2_actions"
+                },
+                {
+                    "command": "pog-task-manager.copyPromptTemplate",
+                    "when": "view == pog-task-manager.promptTemplates && viewItem == promptTemplate",
+                    "group": "inline"
+                },
+                {
+                    "command": "pog-task-manager.openPromptTemplateFile",
+                    "when": "view == pog-task-manager.promptTemplates && viewItem == promptTemplate",
+                    "group": "1_actions"
+                },
+                {
+                    "command": "pog-task-manager.previewPromptTemplate",
+                    "when": "view == pog-task-manager.promptTemplates && viewItem == promptTemplate",
+                    "group": "1_actions"
+                }
+            ]
+        },
+        "configuration": {
+            "title": "POG Task Manager",
+            "properties": {
+                "pog.taskManager.taskDirectories": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [
+                        "./pog-task/list"
+                    ],
+                    "description": "Directories containing task JSONL files."
+                },
+                "pog.taskManager.promptTemplateDirectory": {
+                    "type": "string",
+                    "default": "./.github/prompts",
+                    "description": "Directory containing prompt templates."
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run package",
+        "compile": "webpack",
+        "watch": "webpack --watch",
+        "package": "webpack --mode production --devtool hidden-source-map",
+        "compile-tests": "tsc -p . --outDir out",
+        "watch-tests": "tsc -p . -w --outDir out",
+        "pretest": "npm run compile-tests && npm run compile && npm run lint",
+        "lint": "eslint src",
+        "test": "vscode-test"
+    },
+    "devDependencies": {
+        "@types/mocha": "^10.0.10",
+        "@types/node": "^22.19.8",
+        "@types/vscode": "^1.90.0",
+        "@vscode/test-cli": "^0.0.12",
+        "@vscode/test-electron": "^2.5.2",
+        "eslint": "^9.39.2",
+        "ts-loader": "^9.5.4",
+        "typescript": "^5.9.3",
+        "typescript-eslint": "^8.54.0",
+        "webpack": "^5.104.1",
+        "webpack-cli": "^6.0.1"
+    }
+}
