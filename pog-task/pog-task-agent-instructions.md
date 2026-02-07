@@ -11,7 +11,7 @@
 ```
 
 **元件說明**：
-- `{project}` - 專案前綴 (如 `dgs`)
+- `{project}` - 專案前綴 (如 `pog-task`)
 - `{module-name}` - 模組名稱，**完全自定義**
   - 可以是任何名稱：`main`, `api`, `ui`, `auth`
   - 可加數字前綴排序：`01-core`, `02-plugin`
@@ -22,18 +22,15 @@
 
 | 類型 | 檔案範例 | 說明 |
 |------|---------|------|
-| 一般任務 | `dgs-main-task.jsonl` | 標準開發任務 |
-| Agent 任務 | `dgs-main-task-agent.jsonl` | 可自動認領 |
-| 審查任務 | `dgs-main-task-review.jsonl` | Code Review |
-| 排程任務 | `dgs-schedule-task.jsonl` | 定時執行 |
+| **一般任務** | `common-improve-task.jsonl` | 標準開發任務 |
+| **Agent 任務** | `common-improve-task-agent.jsonl` | Agent 可自動認領執行 |
+| **審查任務** | `common-improve-task-review.jsonl` | Code Review、文檔審查 |
+| **排程任務** | `common-schedule-task.jsonl` | 定時執行的週期性任務 |
 
-### 命名範例
+### 檔案命名範例
 
 ```
-dgs-main-task.jsonl              # DGS 主模組任務
-dgs-api-task-agent.jsonl          # DGS API 模組 Agent 任務
-dgs-01-core-task.jsonl            # DGS 01-core 模組（數字排序）
-frontend-auth-task-review.jsonl   # Frontend 認證模組審查任務
+common-improve-task.jsonl         # Common 專案，Improve 模組
 ```
 
 ## 📊 文件結構
@@ -57,7 +54,7 @@ frontend-auth-task-review.jsonl   # Frontend 認證模組審查任務
 {
   "type": "metadata",
   "version": "1.0.0",
-  "project": "dgs",
+  "project": "pog-task",
   "module": "main",
   "file_type": "regular"
 }
@@ -179,7 +176,7 @@ frontend-auth-task-review.jsonl   # Frontend 認證模組審查任務
 
 ```bash
 # 使用 jq
-cat pog-task/list/dgs-main-task.jsonl | \
+cat pog-task/list/pog-task-main-task.jsonl | \
   jq -r 'select(.type=="task") | .title'
 ```
 
@@ -337,7 +334,6 @@ pog-task/list/record/{task-uuid}/record.md
 
 ### 範例
 
-查看：`pog-task/sample/record/c3d4e5f6-a7b8-9012-cdef-123456789012/record.md`  
 實例範例：`pog-task/list/record/37920c43-5a14-4016-ac43-2fd4973a8c3f/record.md`
 
 ## ⚙️ History 標準
@@ -398,19 +394,6 @@ pog-task/list/record/{task-uuid}/record.md
 - `review_config` (審查任務)
 - `schedule` (排程任務)
 - `auto_execute` (排程任務)
-
-## 🔍 範例參考
-
-所有範例位於 `pog-task/sample/`：
-
-| 文件 | 展示內容 |
-|------|---------|
-| [dgs-main-task.jsonl](../sample/dgs-main-task.jsonl) | 一般任務範例 |
-| [dgs-main-task-agent.jsonl](../sample/dgs-main-task-agent.jsonl) | Agent 任務和配置 |
-| [dgs-main-task-review.jsonl](../sample/dgs-main-task-review.jsonl) | 審查任務和配置 |
-| [dgs-schedule-task.jsonl](../sample/dgs-schedule-task.jsonl) | 排程任務和 cron |
-
-查看 [sample/README.md](../sample/README.md) 了解每個範例的詳細說明。
 
 ## 🚫 注意事項
 

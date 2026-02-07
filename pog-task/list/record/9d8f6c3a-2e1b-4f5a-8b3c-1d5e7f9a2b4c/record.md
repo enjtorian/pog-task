@@ -54,7 +54,7 @@
 ### 2.3 快速操作與命令 (Quick Actions)
 
 *   **快速新增任務 (Quick Add)**:
-    *   Project/Module 自動偵測：若當前編輯器打開了 `dgs-api` 的檔案，新增任務時預設選中該模組。
+    *   Project/Module 自動偵測：若當前編輯器打開了 `pog-task-api` 的檔案，新增任務時預設選中該模組。
     *   Inline Input：在 Explorer 中直接輸入標題按 Enter 新增。
     *   Slash Commands：支援 `/bug`, `/feature` 快速帶入 Templates。
 *   **右鍵選單 (Context Menu)**:

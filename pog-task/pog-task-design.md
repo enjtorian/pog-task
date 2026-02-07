@@ -144,7 +144,7 @@ pog-schedule-task.jsonl           # 專案 pog，排程任務（通常無模組�
 {
   "type": "metadata",
   "version": "1.0.0",
-  "project": "dgs",
+  "project": "pog-task",
   "module": "main",
   "file_type": "regular|agent|review|scheduled",
   "active_agents": []
