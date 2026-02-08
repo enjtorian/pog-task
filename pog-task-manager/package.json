@@ -5,7 +5,7 @@
     "description": "POG Task Management Plugin",
     "publisher": "enjtorian",
     "license": "Apache-2.0",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/enjtorian/pog-task.git"
@@ -29,7 +29,7 @@
         "ai"
     ],
     "activationEvents": [
-        "workspaceContains:pog-task/list/**/*.jsonl"
+        "workspaceContains:pog-task/list/**/*.yaml"
     ],
     "main": "./dist/extension.js",
     "extensionKind": [
@@ -50,11 +50,13 @@
             "pog-task-manager": [
                 {
                     "id": "pog-task-manager.taskList",
-                    "name": "Task List"
+                    "name": "Task List",
+                    "icon": "$(checklist)"
                 },
                 {
                     "id": "pog-task-manager.promptTemplates",
-                    "name": "Prompt Templates"
+                    "name": "Prompt Templates",
+                    "icon": "$(megaphone)"
                 }
             ]
         },
@@ -214,7 +216,7 @@
                     "default": [
                         "./pog-task/list"
                     ],
-                    "description": "Directories containing task JSONL files."
+                    "description": "Directories containing task YAML files."
                 },
                 "pog.taskManager.promptTemplateDirectory": {
                     "type": "string",
@@ -236,6 +238,7 @@
         "test": "vscode-test"
     },
     "devDependencies": {
+        "@types/js-yaml": "^4.0.9",
         "@types/mocha": "^10.0.10",
         "@types/node": "^22.19.8",
         "@types/vscode": "^1.90.0",
@@ -247,5 +250,8 @@
         "typescript-eslint": "^8.54.0",
         "webpack": "^5.104.1",
         "webpack-cli": "^6.0.1"
+    },
+    "dependencies": {
+        "js-yaml": "^4.1.1"
     }
 }

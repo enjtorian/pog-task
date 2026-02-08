@@ -1,8 +1,0 @@
-{"type": "category", "id": "feature", "name": "Feature", "description": "New feature implementation"}
-{"type": "category", "id": "bugfix", "name": "Bugfix", "description": "Bug fix"}
-{"type": "category", "id": "refactor", "name": "Refactor", "description": "Code refactoring"}
-{"type": "category", "id": "test", "name": "Test", "description": "Testing"}
-{"type": "category", "id": "doc", "name": "Documentation", "description": "Documentation"}
-{"type": "category", "id": "research", "name": "Research", "description": "Research and analysis"}
-{"type": "category", "id": "review", "name": "Review", "description": "Code review"}
-{"type": "category", "id": "chore", "name": "Chore", "description": "Maintenance and chores"}

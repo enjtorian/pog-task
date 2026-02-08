@@ -1,0 +1,42 @@
+type: "task"
+id: "j9a0b1c2-d3e4-4f5a-6b7c-8d9e0f1g2h3i"
+title: "POG Task Manager Plugin 優化：Agent Prompt 區分 Create 與 Execute"
+description: "將 Agent Prompt 功能拆分為 Create（建立新任務）與 Execute（執行現有任務）。Execute 功能將取代原有的 Assign to Agent，改為複製執行用的 Prompt。"
+category: "improvement"
+priority: "medium"
+status: "completed"
+created_at: "2026-02-04T18:20:00+08:00"
+started_at: "2026-02-04T18:20:00+08:00"
+completed_at: "2026-02-04T18:25:00+08:00"
+estimated_hours: 1
+actual_hours: 0.2
+parent_task: "9d8f6c3a-2e1b-4f5a-8b3c-1d5e7f9a2b4c"
+claimed_by: "antigravity"
+claimed_at: "2026-02-04T18:20:00+08:00"
+related_files: []
+dependencies:
+  - i8a9b0c1-d2e3-4f5a-6b7c-8d9e0f1g2h3i
+blocking: []
+tags:
+  - agent
+  - refactor
+checklist:
+  - text: "重構 assignAgent 為 copyExecutePrompt"
+    completed: true
+  - text: "重命名 copyAgentPrompt 為 copyCreatePrompt"
+    completed: true
+  - text: "更新 Webview 與選單"
+    completed: true
+history:
+  - timestamp: "2026-02-04T18:20:00+08:00"
+    agent: "antigravity"
+    action: "created"
+    message: "建立 Prompt 分離任務"
+  - timestamp: "2026-02-04T18:20:00+08:00"
+    agent: "antigravity"
+    action: "claimed"
+    message: "開始實作"
+  - timestamp: "2026-02-04T18:25:00+08:00"
+    agent: "antigravity"
+    action: "completed"
+    message: "完成實作"

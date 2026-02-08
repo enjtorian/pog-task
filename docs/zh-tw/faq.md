@@ -11,7 +11,7 @@ POG Task 是一個 **AI 原生任務治理模型**，專為 AI Agent 作為一�
 
 ### POG Task 與 Jira 或 Trello 等工具有何不同？
 傳統工具假設任務由人類解讀與執行，這對 AI 來說會造成模稜兩可。POG Task 專為 AI 優先環境設計：
-- **結構化**：使用結構化、確定性的 JSONL 串流，而非自由格式文字。
+- **結構化**：使用結構化、確定性的 YAML 檔案，而非自由格式文字。
 - **可追溯性**：在 `record.md` 中捕捉決策推理與執行過程。
 - **治理**：確保完整的審計軌跡並嚴格治理「副作用」。
 
@@ -31,14 +31,14 @@ Agent 透過兩種主要模式互動：
 
 ## 架構與設計
 
-### `task.jsonl` 和 `record.md` 的關係是什麼？
-`task.jsonl` 是任務流的 **骨幹**，每一行代表一個任務的狀態，適合機器快速讀取與檢索。
+### YAML 任務檔案與 `record.md` 的關係是什麼？
+`*.yaml` 任務檔案是任務狀態的 **骨幹**，每個檔案代表一個任務，適合機器快速讀取與檢索。
 `record.md` 是任務的 **大腦**，用於儲存詳細的執行計畫、推理過程、對話記錄與產出物。當任務變得複雜時，Agent 會在 `record.md` 中進行思考與記錄。
 
 ### 為什麼專案需要特定的 `pog-task/list/` 目錄結構？
 這是為了讓 POG Task Manager (以及 Agent) 能自動識別與管理任務。
-- `pog-task/list/*.jsonl`: 活躍的任務列表。
-- `pog-task/list/record/{uuid}/`: 每個任務的專屬資料夾，包含 `record.md`。
+- `pog-task/list/{project}/{module}/*.yaml`: 活躍的任務列表。
+- `pog-task/list/{project}/{module}/record/{uuid}/`: 每個任務的專屬資料夾，包含 `record.md`。
 
 ## VS Code 擴充套件
 
@@ -56,7 +56,7 @@ Agent 透過兩種主要模式互動：
 ### 什麼是 "Create Task" Prompt？
 當您想從頭建立一個新任務時使用。它會指示 Agent：
 1.  閱讀專案上下文與規範。
-2.  在 `.jsonl` 中建立新任務條目。
+2.  在 `.yaml` 中建立新任務條目。
 3.  初始化 `record.md` 並填寫任務目標與執行計畫。
 
 ### 什麼是 "Execute Task" Prompt？

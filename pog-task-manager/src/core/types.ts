@@ -45,7 +45,6 @@ export interface Task {
     claimed_at?: string | null;
 
     related_files?: string[];
-    related_docs?: string[];
     dependencies?: string[];
     blocking?: string[];
     tags?: string[];
@@ -58,10 +57,10 @@ export interface Task {
     notes?: string;
     history: TaskHistory[];
 
-    // Runtime properties (not in JSON)
+    // Runtime properties (not in YAML)
     _filePath?: string;
     _project?: string;
     _module?: string;
 }
 
-export type JsonlRecord = TaskMetadata | TaskCategory | Task;
+export type TaskRecord = TaskMetadata | TaskCategory | Task;

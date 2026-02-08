@@ -1,0 +1,23 @@
+type: "task"
+id: "d06e19a1-f5b8-4b38-addc-34c3e3c304ca"
+title: "POG Task Manager: Task List 增加 日期欄位 & View JSON"
+description: |
+  1. 在 Task List Item 增加 created_at (yyyy-mm-dd)
+  2. 在 Webview 底部顯示完整 JSON
+category: "feature"
+priority: "medium"
+status: "completed"
+created_at: "2026-02-05T02:37:00+08:00"
+estimated_hours: 1
+parent_task: "9d8f6c3a-2e1b-4f5a-8b3c-1d5e7f9a2b4c"
+related_files: []
+checklist:
+  - text: "Modify TaskTreeDataProvider"
+    completed: true
+  - text: "Modify TaskWebviewPanel"
+    completed: true
+history:
+  - timestamp: "2026-02-05T02:37:00+08:00"
+    agent: "antigravity"
+    action: "created"
+    message: "Task created from user prompt"

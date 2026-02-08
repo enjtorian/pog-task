@@ -1,0 +1,42 @@
+type: "task"
+id: "i8a9b0c1-d2e3-4f5a-6b7c-8d9e0f1g2h3i"
+title: "POG Task Manager Plugin 實作：Agent Prompt 生成按鈕"
+description: "新增「產生 Agent Prompt」功能，依據當前 Task 的 Project/Module 生成標準化 Prompt 並複製到剪貼簿。"
+category: "feature"
+priority: "medium"
+status: "completed"
+created_at: "2026-02-04T18:10:00+08:00"
+started_at: "2026-02-04T18:10:00+08:00"
+completed_at: "2026-02-04T18:15:00+08:00"
+estimated_hours: 1
+actual_hours: 0.2
+parent_task: "9d8f6c3a-2e1b-4f5a-8b3c-1d5e7f9a2b4c"
+claimed_by: "antigravity"
+claimed_at: "2026-02-04T18:10:00+08:00"
+related_files: []
+dependencies:
+  - f5a6b7c8-d9e0-1f2a-3b4c-5d6e7f8g9h0i
+blocking: []
+tags:
+  - agent
+  - productivity
+checklist:
+  - text: "實作 copyAgentPrompt Command"
+    completed: true
+  - text: "在 Webview 加入按鈕"
+    completed: true
+  - text: "在 Tree View 加入 Context Menu"
+    completed: true
+history:
+  - timestamp: "2026-02-04T18:10:00+08:00"
+    agent: "antigravity"
+    action: "created"
+    message: "建立 Agent Prompt 功能任務"
+  - timestamp: "2026-02-04T18:10:00+08:00"
+    agent: "antigravity"
+    action: "claimed"
+    message: "開始實作"
+  - timestamp: "2026-02-04T18:15:00+08:00"
+    agent: "antigravity"
+    action: "completed"
+    message: "完成實作"

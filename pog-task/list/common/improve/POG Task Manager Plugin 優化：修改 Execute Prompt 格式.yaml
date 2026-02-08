@@ -1,0 +1,34 @@
+type: "task"
+id: "e5d4c3b2-a1f0-9e8d-7c6b-5a4f3e2d1c0b"
+title: "POG Task Manager Plugin 優化：修改 Execute Prompt 格式"
+description: "更新 Agent Execute Prompt 的生成格式，以符合新的標準化流程（Step 1-3）。"
+category: "improvement"
+priority: "medium"
+status: "completed"
+created_at: "2026-02-05T01:50:00+08:00"
+estimated_hours: 1
+parent_task: "9d8f6c3a-2e1b-4f5a-8b3c-1d5e7f9a2b4c"
+claimed_by: "antigravity"
+claimed_at: "2026-02-05T01:52:00+08:00"
+started_at: "2026-02-05T01:52:00+08:00"
+completed_at: "2026-02-05T01:57:00+08:00"
+actual_hours: 0.2
+related_files: []
+checklist:
+  - text: "更新 Execute Prompt Template"
+    completed: true
+  - text: "驗證新格式"
+    completed: true
+history:
+  - timestamp: "2026-02-05T01:50:00+08:00"
+    agent: "antigravity"
+    action: "created"
+    message: "建立任務以修改 Execute Prompt 格式"
+  - timestamp: "2026-02-05T01:52:00+08:00"
+    agent: "antigravity"
+    action: "claimed"
+    message: "開始執行任務"
+  - timestamp: "2026-02-05T01:57:00+08:00"
+    agent: "antigravity"
+    action: "completed"
+    message: "完成格式修改與編譯驗證"

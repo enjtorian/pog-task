@@ -11,7 +11,7 @@ POG Task is an **AI-native task governance model** designed for environments whe
 
 ### How is POG Task different from tools like Jira or Trello?
 Traditional tools assume humans interpret and execute tasks, which leads to ambiguity for AI. POG Task is designed for AI-first environments:
-- **Structure**: Uses structured, deterministic JSONL streams instead of free-form text.
+- **Structure**: Uses structured, deterministic YAML files instead of free-form text.
 - **Traceability**: Captures decision reasoning and execution in `record.md`.
 - **Governance**: Ensures full audit trails and strict control over "side effects".
 
@@ -31,14 +31,14 @@ It is for organizations using AI-assisted development that need:
 
 ## Architecture & Design
 
-### What is the relationship between `task.jsonl` and `record.md`?
-`task.jsonl` is the **backbone** of the task stream, where each line represents a task state, optimized for machine reading and retrieval.
+### What is the relationship between YAML task files and `record.md`?
+`task.yaml` (or any individual YAML task file) is the **backbone** of the task state, where each file represents a task, optimized for machine reading and retrieval.
 `record.md` is the **brain** of the task, storing detailed execution plans, reasoning processes, conversation logs, and artifacts. When a task becomes complex, the Agent thinks and records in `record.md`.
 
 ### Why does the project need a specific `pog-task/list/` directory structure?
 This allows the POG Task Manager (and Agents) to automatically identify and manage tasks.
-- `pog-task/list/*.jsonl`: Active task lists.
-- `pog-task/list/record/{uuid}/`: Exclusive folder for each task, containing `record.md`.
+- `pog-task/list/{project}/{module}/*.yaml`: Active task lists.
+- `pog-task/list/{project}/{module}/record/{uuid}/`: Exclusive folder for each task, containing `record.md`.
 
 ## VS Code Extension
 
@@ -56,7 +56,7 @@ The extension automatically watches for file changes. However, in rare cases, yo
 ### What is the "Create Task" Prompt?
 Used when you want to start a new task from scratch. It instructs the Agent to:
 1.  Read project context and specifications.
-2.  Create a new task entry in `.jsonl`.
+2.  Create a new task entry in `.yaml`.
 3.  Initialize `record.md` and fill in the task goal and execution plan.
 
 ### What is the "Execute Task" Prompt?

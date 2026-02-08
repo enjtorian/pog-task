@@ -1,0 +1,15 @@
+type: "task"
+id: "0194e8c1-7f32-7234-8c43-8f0a2e5d9b1c"
+title: "完善 POG Task Manager README 文件"
+description: "完整的說明 POG Task Manager 的功能，加入操作截圖，移除安裝部署說明，並加入 POG Task 的概念說明。"
+category: "doc"
+priority: "medium"
+status: "completed"
+created_at: "2026-02-07T17:15:07+08:00"
+estimated_hours: 1
+related_files: []
+history:
+  - timestamp: "2026-02-07T17:15:07+08:00"
+    agent: "antigravity"
+    action: "created"
+    message: "建立 README 優化任務"

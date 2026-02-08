@@ -15,20 +15,22 @@ Before using POG Task Manager, ensure your project complies with the POG Task fi
 
 1.  **Initialize Project**: Open Command Palette (`Cmd+Shift+P`), type `POG Task Manager: Init POG Task` and run it. This will automatically create the `pog-task` directory and download necessary configuration files.
 2.  (Manual Alternative) **Create Directory**: Create a `pog-task/list/` folder in the project root directory.
-3.  (Manual Alternative) **Create Task File**: Create a `.jsonl` file that complies with the POG Task specification (e.g., `common-improve-task.jsonl`).
-4.  (Manual Alternative) **Define Categories**: Create `pog-task/declare.jsonl` to define task categories.
+3.  (Manual Alternative) **Create Task File**: Create a `.yaml` file that complies with the POG Task specification (e.g., `建立優化任務.yaml`).
+4.  (Manual Alternative) **Define Categories**: Create `pog-task/task.schema.json` to define task categories.
 
 The standard directory structure is as follows:
 
 ```
 pog-task/
-├── declare.jsonl                               # Task category definitions
 ├── pog-task-agent-instructions.md              # Agent operation guide
+├── task.schema.json                            # Task schema definition
 ├── list/                                       # Active task database
-│   ├── task.jsonl                              # Structured task stream (AI readable)
-│   └── record/                                 # Execution artifacts
-│       └── {uuid}/                             # Unique folder for each task
-│           └── record.md                       # Execution and reasoning trace
+│   └── {project}/                              # Project namespace
+│       └── {module}/                           # Module namespace
+│           ├── {task-title}.yaml               # Structured task (AI readable)
+│           └── record/                         # Execution artifacts
+│               └── {uuid}/                     # Unique folder for each task
+│                   └── record.md               # Execution and reasoning trace
 ```
 
 ## Core Workflow
@@ -42,7 +44,7 @@ When you have a new idea or requirement and need an Agent's help to transform it
 1.  Open the POG Task Manager sidebar.
 2.  Select **"Create Task"** in the **Prompt Templates** list, or right-click in the empty space of the task list and select **"Copy Create Prompt"**.
 3.  Paste the copied instructions to the LLM Agent.
-4.  After the Agent executes this instruction, it will help you create a task in the `.jsonl` file and generate an initial `record.md`.
+4.  After the Agent executes this instruction, it will help you create a task in a `.yaml` file and generate an initial `record.md`.
 
 ### 2. Execute Task
 
@@ -51,12 +53,12 @@ When a task has been created (status is usually `pending` or `in_progress`) and 
 1.  Right-click on the target task in the task list.
 2.  Select **"Copy Execute Prompt"**.
 3.  Paste the copied instructions to the LLM Agent.
-4.  The instruction will automatically include the task context (JSONL content, Record path, etc.), and the Agent will execute the task and update progress based on this.
+4.  The instruction will automatically include the task context (YAML content, Record path, etc.), and the Agent will execute the task and update progress based on this.
 
 ### 3. View & Manage
 
 *   **Open Record**: Right-click on a task and select **"Open Record"** to open the corresponding `record.md` and view the Agent's thought process, execution plan, and outputs.
-*   **Update Status**: You can modify the status directly in the `.jsonl` file, or perform partial operations via the extension interface (such as switching status), and the list will reflect changes in real-time.
+*   **Update Status**: You can modify the status directly in the `.yaml` file, or perform partial operations via the extension interface (such as switching status), and the list will reflect changes in real-time.
 *   **Refresh**: If file changes are not immediately displayed, you can click the refresh button at the top of the list or use the command `POG Task Manager: Refresh Tasks`.
 
 ## Next Steps

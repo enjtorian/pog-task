@@ -1,0 +1,21 @@
+type: "task"
+id: "k8l9m0n1-o2p3-q4r5-s6t7-u8v9w0x1y2z3"
+title: "POG Task Manager Plugin 優化：目錄參數化"
+description: "將 pog-task/list 的目錄設計成參數化配置，支援多專案或自定義路徑，讓 Task Manager 能適應不同專案結構。"
+category: "feature"
+priority: "high"
+status: "completed"
+created_at: "2026-02-04T23:58:00+08:00"
+estimated_hours: 1
+parent_task: "9d8f6c3a-2e1b-4f5a-8b3c-1d5e7f9a2b4c"
+related_files: []
+checklist: []
+history:
+  - timestamp: "2026-02-04T23:58:00+08:00"
+    agent: "antigravity"
+    action: "created"
+    message: "建立目錄參數化設計任務"
+  - timestamp: "2026-02-05T00:07:00+08:00"
+    agent: "antigravity"
+    action: "completed"
+    message: "完成實作，已更新 package.json 與 watcher"

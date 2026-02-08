@@ -1,0 +1,21 @@
+type: "task"
+id: "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6"
+title: "POG Task Manager Plugin 優化：Record.md 流程優化"
+description: "優化 Record.md 的閱讀體驗，將其入口或提示設計在 Save 等操作之後，確保與任務執行流程緊密結合。"
+category: "improvement"
+priority: "medium"
+status: "completed"
+created_at: "2026-02-04T23:58:00+08:00"
+estimated_hours: 1
+parent_task: "9d8f6c3a-2e1b-4f5a-8b3c-1d5e7f9a2b4c"
+related_files: []
+checklist: []
+history:
+  - timestamp: "2026-02-04T23:58:00+08:00"
+    agent: "antigravity"
+    action: "created"
+    message: "建立 Record 流程優化設計任務"
+  - timestamp: "2026-02-05T00:07:00+08:00"
+    agent: "antigravity"
+    action: "completed"
+    message: "完成實作，已更新 Webview UI 與提示流程"

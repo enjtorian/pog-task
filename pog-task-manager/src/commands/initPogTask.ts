@@ -33,33 +33,52 @@ export async function initPogTask() {
 
     // Download files
     const instructionsUrl = 'https://raw.githubusercontent.com/enjtorian/pog-task/main/pog-task/pog-task-agent-instructions.md';
-    const declareUrl = 'https://raw.githubusercontent.com/enjtorian/pog-task/main/pog-task/declare.jsonl';
+    const declareUrl = 'https://raw.githubusercontent.com/enjtorian/pog-task/main/pog-task/task.schema.json';
 
     const instructionsPath = path.join(pogTaskDir, 'pog-task-agent-instructions.md');
-    const declarePath = path.join(pogTaskDir, 'declare.jsonl');
+    const schemaPath = path.join(pogTaskDir, 'task.schema.json');
 
     try {
         await downloadFile(instructionsUrl, instructionsPath);
-        await downloadFile(declareUrl, declarePath);
+        await downloadFile(declareUrl, schemaPath);
     } catch (error) {
         vscode.window.showErrorMessage(`Failed to download configuration files: ${error}`);
         // Continue even if download fails, to creates the task file
     }
 
     // Create initial task file
-    const taskFilePath = path.join(listDir, 'alpha-activate-task.jsonl');
+    const projectDir = path.join(listDir, 'alpha');
+    const moduleDir = path.join(projectDir, 'activate');
+    if (!fs.existsSync(projectDir)) { fs.mkdirSync(projectDir); }
+    if (!fs.existsSync(moduleDir)) { fs.mkdirSync(moduleDir); }
+
+    const taskFilePath = path.join(moduleDir, '初始化系統任務.yaml');
     if (!fs.existsSync(taskFilePath)) {
         const metadata = {
-            type: "metadata",
-            version: "1.0.0",
-            project: "alpha",
-            module: "activate",
-            file_type: "regular",
-            created_at: new Date().toISOString()
+            type: "task",
+            id: "00000000-0000-0000-0000-000000000000", // Example UUID
+            title: "初始化系統任務",
+            description: "這是系統自動生成的初始化任務",
+            category: "feature",
+            priority: "medium",
+            status: "pending",
+            created_at: new Date().toISOString(),
+            checklist: [
+                { text: "確認系統環境", completed: false }
+            ],
+            history: [
+                {
+                    timestamp: new Date().toISOString(),
+                    agent: "system",
+                    action: "created",
+                    message: "系統初始化生成"
+                }
+            ]
         };
 
         try {
-            fs.writeFileSync(taskFilePath, JSON.stringify(metadata) + '\n');
+            const yaml = require('js-yaml');
+            fs.writeFileSync(taskFilePath, yaml.dump(metadata));
             vscode.window.showInformationMessage('POG Task initialized successfully!');
         } catch (error) {
             vscode.window.showErrorMessage(`Failed to create task file: ${error}`);

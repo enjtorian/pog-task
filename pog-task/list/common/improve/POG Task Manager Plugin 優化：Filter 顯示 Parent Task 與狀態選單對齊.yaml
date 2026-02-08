@@ -1,0 +1,33 @@
+type: "task"
+id: "bb31459b-73d0-45dd-ab25-1bcc6a5c337f"
+title: "POG Task Manager Plugin 優化：Filter 顯示 Parent Task 與狀態選單對齊"
+description: |
+  1. 在 filter 模式下，如果子任務沒有被排除，則 parent task 也要在樹狀圖中出現
+  2. 對齊下拉選單狀態選項：pending|in_design|in_planning|in_progress|in_review|blocked|completed|cancelled
+category: "feature"
+priority: "medium"
+status: "completed"
+created_at: "2026-02-06T02:00:00+08:00"
+estimated_hours: 2
+parent_task: "9d8f6c3a-2e1b-4f5a-8b3c-1d5e7f9a2b4c"
+related_files: []
+dependencies:
+  - 702d661e-35f2-471d-a868-a54d7b6f1c8c
+blocking: []
+tags:
+  - ui
+  - tree-view
+  - filter
+checklist:
+  - text: "實作 Filter 時保留有子任務通過篩選的 Parent Task"
+    completed: false
+  - text: "對齊狀態選單選項（新增 in_design, in_planning, cancelled）"
+    completed: false
+  - text: "測試 Filter 與 Parent Task 的顯示邏輯"
+    completed: false
+notes: ""
+history:
+  - timestamp: "2026-02-06T02:00:00+08:00"
+    agent: "copilot"
+    action: "created"
+    message: "建立 Filter Parent Task 與狀態對齊任務"

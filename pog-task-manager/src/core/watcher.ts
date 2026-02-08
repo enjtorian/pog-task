@@ -26,7 +26,7 @@ export class TaskWatcher {
             // Remove leading ./ or /
             cleanDir = cleanDir.replace(/^\.?\//, '');
 
-            const pattern = `${cleanDir}/**/*.jsonl`;
+            const pattern = `${cleanDir}/**/*.yaml`;
 
             // Create watcher for each configured directory
             // Note: createFileSystemWatcher pattern is glob string relative to workspace or absolute path glob

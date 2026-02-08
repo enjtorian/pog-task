@@ -2,6 +2,15 @@
 
 All notable changes to the POG Task project will be documented in this file.
 
+## [1.1.0] - 2026-02-08
+
+### ⚡ `pog-task/` (Core Specification)
+
+*   **Major Refactor**: Fully transitioned from JSONL to **YAML-based** task management.
+*   **Structure**: Implemented project/module nested directory structure (`list/{project}/{module}/`).
+*   **Documentation**: Global update of all guides, whitepapers, and manuals to reflect the new YAML design.
+*   **Cleanup**: Removed all references to `declare.jsonl`.
+
 ## [1.0.1] - 2026-02-08
 
 ### 🧩 `pog-task-manager/` (VS Code Plugin)

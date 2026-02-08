@@ -4,7 +4,7 @@ This document defines the technical architecture, coding standards, and workflow
 
 ## 🤖 Project Overview
 
-**POG Task Manager** is a VSCode extension that provides a GUI for managing tasks defined in `*.jsonl` files. It adheres to the "Prompt Orchestration Governance" (POG) methodology, bridging human intent (Tasks) with Agent execution.
+**POG Task Manager** is a VSCode extension that provides a GUI for managing tasks defined in `*.yaml` files. It adheres to the "Prompt Orchestration Governance" (POG) methodology, bridging human intent (Tasks) with Agent execution.
 
 ## 🛠 Tech Stack
 
@@ -12,7 +12,7 @@ This document defines the technical architecture, coding standards, and workflow
 - **UI**:
     - **Tree View**: `vscode.TreeDataProvider`
     - **Task Details**: Webview (Raw HTML/JS with message passing)
-- **Data Persistence**: JSONL (Newline Delimited JSON)
+- **Data Persistence**: YAML
 - **Build System**: Webpack, ESLint
 
 ## 🏗 Architecture
@@ -23,19 +23,20 @@ The project follows a **Store-Observer** pattern to ensure data consistency acro
 
 - **`TaskStore`** (`src/core/store.ts`):
     - The **Single Source of Truth**.
-    - Loads `.jsonl` files from configured directories (`pog.taskManager.taskDirectories`).
-    - Parses files using `JsonlParser` (`src/core/parser.ts`).
+    - Loads `.yaml` files from configured directories (`pog.taskManager.taskDirectories`).
+    - Parses files using `YamlParser` (`src/core/yamlParser.ts`).
     - Maintains an in-memory `Map` of tasks.
-    - Handles data relationships (Project/Module grouping, Parent/Child hierarchy).
+    - **Automatic Organization**: Extracts `Project` and `Module` names directly from the directory path (e.g., `list/{project}/{module}/{title}.yaml`).
+    - Handles Parent/Child hierarchy.
     - Emits `onDidUpdate` event when data changes.
 
 - **`TaskWatcher`** (`src/core/watcher.ts`):
-    - Uses `vscode.FileSystemWatcher` to monitor `.jsonl` changes.
+    - Uses `vscode.FileSystemWatcher` to monitor `.yaml` changes.
     - Triggers `store.load()` on file change/create/delete.
 
 - **`Types`** (`src/core/types.ts`):
     - Defines the Schema: `Task`, `TaskMetadata`, `TaskHistory`.
-    - STRICTLY matches the JSONL file format.
+    - STRICTLY matches the YAML schema and JSON Schema validation.
 
 ### 2. UI Layer (`src/ui/`)
 
@@ -51,7 +52,7 @@ The project follows a **Store-Observer** pattern to ensure data consistency acro
     - **Bi-directional Communication**:
         - **To Webview**: Sends HTML content with Task data.
         - **From Webview**: Receives `updateTask`, `openFile`, `copyExecutePrompt` messages.
-    - **Record.md Integration**: Auto-discovers and links to `pog-task/list/record/{uuid}/record.md`.
+    - **Record.md Integration**: Auto-discovers and links to `pog-task/list/{project}/{module}/record/{uuid}/record.md`.
 
 ### 3. Command Layer (`src/commands/`)
 
@@ -91,9 +92,9 @@ pog-task-manager/
 
 ## 🔍 Key Design Rules
 
-- **JSONL Formatting**: When writing to files, ensure valid JSON per line.
+- **YAML Formatting**: When writing to files, ensure valid YAML.
 - **Webview Security**: Use `vscode.postMessage` for all actions. Escape HTML user input tasks.
 - **Performance**: `TaskStore.load()` reads all files. Optimize for < 1000 tasks.
 
 ---
-*Updated by Agent on 2026-02-05*
+*Updated by Agent on 2026-02-08*

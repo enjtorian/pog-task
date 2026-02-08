@@ -15,7 +15,7 @@ export async function quickAddTask(store: TaskStore) {
     let targetFile: string | undefined;
 
     if (files.length === 0) {
-        vscode.window.showErrorMessage('No task files found. Please create a .jsonl file in pog-task/list/ first.');
+        vscode.window.showErrorMessage('No task files found. Please create a .yaml file in pog-task/list/ first.');
         return;
     } else if (files.length === 1) {
         targetFile = files[0];

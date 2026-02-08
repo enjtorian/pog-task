@@ -1,0 +1,22 @@
+type: "task"
+id: "9d868972-7472-4687-951c-06723223126f"
+title: "POG Task Manager: 更新文檔與新增 Init Command"
+description: "1. 更新所有重要對外文件，加入 Marketplace 連結。 2. 在 pog-task-manager/README.md 加入 git 連結。 3. 實作 Init POG Task 指令，自動從 git 取得設定檔並初始化專案。"
+category: "feature"
+priority: "high"
+status: "completed"
+created_at: "2026-02-08T10:15:00+08:00"
+estimated_hours: 2
+related_files: []
+dependencies: []
+blocking: []
+tags:
+  - doc
+  - feature
+  - init-command
+checklist: []
+history:
+  - timestamp: "2026-02-08T10:15:00+08:00"
+    agent: "antigravity"
+    action: "created"
+    message: "建立任務 from prompt"

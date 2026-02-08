@@ -4,7 +4,10 @@ import { TaskStore } from '../core/store';
 import { Task } from '../core/types';
 
 export async function copyExecutePrompt(store: TaskStore, task: Task) {
-    let filename = 'unknown.jsonl';
+    let filename = 'unknown.yaml';
+    const project = task._project || 'alpha';
+    const module = task._module || 'activate';
+
     if (task._filePath) {
         filename = path.basename(task._filePath);
     }
@@ -14,11 +17,11 @@ export async function copyExecutePrompt(store: TaskStore, task: Task) {
 # Step 1: Read Context
 請閱讀以下文件及相關資源：
 - pog-task/pog-task-agent-instructions.md
-- pog-task/list/${filename}
-- pog-task/list/record/${task.id}/record.md
+- pog-task/list/${project}/${module}/${filename}
+- pog-task/list/${project}/${module}/record/${task.id}/record.md
 
 # Step 2: Execute Task
-請執行 pog-task/list/${filename} 中指定 Task：
+請執行 pog-task/list/${project}/${module}/${filename} 中指定 Task：
 - task id: ${task.id}
 
 # Step 3: Update Progress
@@ -52,10 +55,10 @@ ${(task.related_files || []).map(f => `- ${f}`).join('\n')}
 }
 
 export async function copyCreatePrompt(task: Task) {
-    const project = task._project || 'common';
-    const module = task._module || 'improve';
+    const project = task._project || 'alpha';
+    const module = task._module || 'activate';
 
-    // Default to 'common' and 'improve' if unknown, but usually they are populated.
+    // Default to 'alpha' and 'activate' if unknown, but usually they are populated.
     // If they are 'Unknown Project', maybe prompt user? 
     // For now, let's just use what's in the task or fallback placeholders.
 
@@ -64,7 +67,7 @@ export async function copyCreatePrompt(task: Task) {
 # Step 1: Read Context
 請閱讀以下文件及相關資源：
 - pog-task/pog-task-agent-instructions.md
-- pog-task/declare.jsonl
+- pog-task/task.schema.json
 
 # Step 2: Create or Join Task
 請在 pog-task/list 下操作：
@@ -78,7 +81,7 @@ export async function copyCreatePrompt(task: Task) {
     xxxxxxxx
 
 # Step 4: Generate Task Record
-請生成 record.md 檔案（位於 pog-task/list/record/{task-uuid}/record.md），內容包含：
+請生成 record.md 檔案（位於 pog-task/list/${project}/${module}/record/{task-uuid}/record.md），內容包含：
 - Original Prompt
 - Task 目標
 - Execution Plan / Checklist

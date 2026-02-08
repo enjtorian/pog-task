@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import * as yaml from 'js-yaml';
 import { TaskStore } from '../core/store';
 import { Task } from '../core/types';
 
@@ -122,7 +123,9 @@ export class TaskWebviewPanel {
         const webview = this._panel.webview;
 
         // Auto-discover files in record directory
-        const recordDir = `pog-task/list/record/${this._currentTask.id}`;
+        const project = this._currentTask._project || 'alpha';
+        const module = this._currentTask._module || 'activate';
+        const recordDir = `pog-task/list/${project}/${module}/record/${this._currentTask.id}`;
         const workspaceFolders = vscode.workspace.workspaceFolders;
         let autoDiscoveredFiles: string[] = [];
         let recordMdExists = false;
@@ -247,8 +250,8 @@ export class TaskWebviewPanel {
 
                 <div class="form-group">
                     <details>
-                        <summary style="cursor: pointer; color: var(--vscode-descriptionForeground);">Debug: Raw JSON</summary>
-                        <pre style="background: var(--vscode-textBlockQuote-background); padding: 10px; overflow: auto; font-size: 0.9em;">${JSON.stringify(task, null, 2)}</pre>
+                        <summary style="cursor: pointer; color: var(--vscode-descriptionForeground);">Debug: Raw YAML</summary>
+                        <pre style="background: var(--vscode-textBlockQuote-background); padding: 10px; overflow: auto; font-size: 0.9em;">${yaml.dump(task)}</pre>
                     </details>
                 </div>
 
@@ -333,7 +336,9 @@ export class TaskWebviewPanel {
         if (!workspaceFolders) { return; }
 
         const rootUri = workspaceFolders[0].uri;
-        const recordDir = `pog-task/list/record/${this._currentTask.id}`;
+        const project = this._currentTask._project || 'alpha';
+        const module = this._currentTask._module || 'activate';
+        const recordDir = `pog-task/list/${project}/${module}/record/${this._currentTask.id}`;
         const recordDirUri = vscode.Uri.joinPath(rootUri, recordDir);
         const recordMdUri = vscode.Uri.joinPath(recordDirUri, 'record.md');
 

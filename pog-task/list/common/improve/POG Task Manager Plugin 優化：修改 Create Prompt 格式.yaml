@@ -1,0 +1,34 @@
+type: "task"
+id: "f8a1b2c3-d4e5-6f7a-8b9c-0d1e2f3a4b5c"
+title: "POG Task Manager Plugin 優化：修改 Create Prompt 格式"
+description: "更新 Agent Create Prompt 的生成格式，以符合新的標準化流程（Step 1-4）。"
+category: "improvement"
+priority: "medium"
+status: "completed"
+created_at: "2026-02-05T01:45:00+08:00"
+estimated_hours: 1
+parent_task: "9d8f6c3a-2e1b-4f5a-8b3c-1d5e7f9a2b4c"
+claimed_by: "antigravity"
+claimed_at: "2026-02-05T01:47:00+08:00"
+started_at: "2026-02-05T01:47:00+08:00"
+completed_at: "2026-02-05T01:54:00+08:00"
+actual_hours: 0.3
+related_files: []
+checklist:
+  - text: "更新 Create Prompt Template"
+    completed: true
+  - text: "驗證新格式"
+    completed: true
+history:
+  - timestamp: "2026-02-05T01:45:00+08:00"
+    agent: "antigravity"
+    action: "created"
+    message: "建立任務以修改 Create Prompt 格式"
+  - timestamp: "2026-02-05T01:47:00+08:00"
+    agent: "antigravity"
+    action: "claimed"
+    message: "開始執行任務"
+  - timestamp: "2026-02-05T01:54:00+08:00"
+    agent: "antigravity"
+    action: "completed"
+    message: "已更新 Prompt Template 並驗證通過"

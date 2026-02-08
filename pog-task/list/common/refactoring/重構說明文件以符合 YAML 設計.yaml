@@ -1,0 +1,47 @@
+type: task
+id: 58187266-b7d1-4075-8973-59ad2e13c1b7
+title: 重構說明文件以符合 YAML 設計
+description: 依照目前 JSONL 調整成 YAML 的設計重構整個說明文件，包含 root 檔案、docs 檔案及 README.md，並移除 declare.jsonl。
+category: refactor
+priority: medium
+status: completed
+created_at: '2026-02-08T22:07:47+08:00'
+started_at: '2026-02-08T22:07:47+08:00'
+completed_at: '2026-02-08T22:09:05+08:00'
+estimated_hours: 4
+actual_hours: 0.5
+claimed_by: antigravity
+claimed_at: '2026-02-08T22:07:47+08:00'
+related_files:
+  - pog-task/README.md
+  - pog-task/pog-task-agent-instructions.md
+dependencies:
+  - 1f6e4a2d-3b9c-4d8e-a2f0-5c6b7d8e9f01
+blocking: []
+tags:
+  - refactoring
+  - documentation
+  - yaml
+checklist:
+  - text: 檢查 root 所有的檔案
+    completed: true
+  - text: 檢查 docs 所有的檔案
+    completed: true
+  - text: 以最新的資料結構更新 pog-task/README.md 與說明
+    completed: true
+  - text: 確保移除 declare.jsonl
+    completed: true
+notes: ''
+history:
+  - timestamp: '2026-02-08T22:07:47+08:00'
+    agent: antigravity
+    action: created
+    message: 建立重構說明文件任務
+  - timestamp: '2026-02-08T22:07:47+08:00'
+    agent: antigravity
+    action: claimed
+    message: 認領並開始執行任務
+  - timestamp: '2026-02-08T22:09:05+08:00'
+    agent: antigravity
+    action: completed
+    message: 完成說明文件重構與驗證

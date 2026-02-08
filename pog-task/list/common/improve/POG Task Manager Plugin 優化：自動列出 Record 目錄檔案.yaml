@@ -1,0 +1,40 @@
+type: "task"
+id: "h7a8b9c0-d1e2-3f4a-5b6c-7d8e9f0g1h2i"
+title: "POG Task Manager Plugin 優化：自動列出 Record 目錄檔案"
+description: "在 Related Files 區塊自動列出 pog-task/list/record/{uuid}/ 下的所有檔案。"
+category: "improvement"
+priority: "medium"
+status: "completed"
+created_at: "2026-02-04T17:30:00+08:00"
+started_at: "2026-02-04T17:30:00+08:00"
+completed_at: "2026-02-04T17:35:00+08:00"
+estimated_hours: 1
+actual_hours: 0.2
+parent_task: "9d8f6c3a-2e1b-4f5a-8b3c-1d5e7f9a2b4c"
+claimed_by: "antigravity"
+claimed_at: "2026-02-04T17:30:00+08:00"
+related_files: []
+dependencies:
+  - e4f5a6b7-c8d9-0e1f-2a3b-4c5d6e7f8g9h
+blocking: []
+tags:
+  - ui
+  - webview
+checklist:
+  - text: "查詢 record 目錄下所有檔案"
+    completed: true
+  - text: "合併 Explicit 與 Implicit Related Files"
+    completed: true
+history:
+  - timestamp: "2026-02-04T17:30:00+08:00"
+    agent: "antigravity"
+    action: "created"
+    message: "建立 Record 目錄優化任務"
+  - timestamp: "2026-02-04T17:30:00+08:00"
+    agent: "antigravity"
+    action: "claimed"
+    message: "開始實作"
+  - timestamp: "2026-02-04T17:35:00+08:00"
+    agent: "antigravity"
+    action: "completed"
+    message: "完成實作"

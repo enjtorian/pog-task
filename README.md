@@ -17,7 +17,7 @@ POG Task bridges the gap between human intent and agent execution. It treats tas
 
 ### Key Concepts
 
-*   **AI-Native Structured Tasks (JSONL)**: A deterministic format for machine interpretation, minimizing hallucinations.
+*   **AI-Native Structured Tasks (YAML)**: A deterministic format for machine interpretation, minimizing hallucinations.
 *   **Reasoning & Execution Trace (`record.md`)**: Captures the "why" behind AI actions, not just the "what".
 *   **File-Native Governance**: Zero vendor lock-in; tasks live in your repo and evolve with your code.
 *   **Multi-Agent Collaboration**: Designed for complex handoffs between human and AI agents.
@@ -74,7 +74,7 @@ Visit the published documentation:
     # Step 1: Read Context
     Please read the following documents and resources:
     - pog-task/pog-task-agent-instructions.md
-    - pog-task/declare.jsonl
+    - pog-task/task.schema.json
 
     # Step 2: Create or Join Task
     Please perform the following in pog-task/list:
@@ -89,7 +89,7 @@ Visit the published documentation:
         xxxxxxxx
 
     # Step 4: Generate Task Record
-    Please generate a record.md file (located at pog-task/list/record/{task-uuid}/record.md), containing:
+    Please generate a record.md file (located at pog-task/list/{project}/{module}/record/{task-uuid}/record.md), containing:
     - Original Prompt
     - Task Objective
     - Execution Plan / Checklist
@@ -105,10 +105,14 @@ pog-task/
 │   └── zh-tw/                              # Chinese (Traditional) version
 │       ├── index.md                        # 主要白皮書（繁體中文）
 ├── pog-task/                               # The POG Task reference structure
-│   ├── list/                               # Where active tasks live (JSONL)
+│   ├── list/                               # Where active tasks live
+│   │   └── {project}/
+│   │       └── {module}/
+│   │           ├── {task-title}.yaml
+│   │           └── record/{uuid}/record.md
 │   ├── pog-task-agent-instructions.md      # Agent instructions
 │   ├── pog-task-design.md                  # Design
-│   └── declare.jsonl                       # Task definitions
+│   └── task.schema.json                    # YAML Schema
 ├── pog-task-manager/                       # (Optional) VS Code Plugin implementation
 ├── mkdocs.yml                              # Site configuration
 └── README.md                               # This file
@@ -128,7 +132,7 @@ pog-task/
 ## 📊 Architecture
 
 POG Task utilizes a **Governance Layer** consisting of:
-1.  **Structured Stream of State** (`*.jsonl`)
+1.  **Structured Stream of State** (`*.yaml`)
 2.  **Execution & Reasoning Logs** (`record.md`)
 3.  **Agent-Guided Workflows**
 
@@ -224,8 +228,8 @@ For questions, suggestions, or collaboration opportunities:
 
 ---
 
-**Version:** 1.0.1  
-**Last Updated:** January 2026  
+**Version:** 1.1.0
+**Last Updated:** February 2026  
 **Status:** Published
 
 ---

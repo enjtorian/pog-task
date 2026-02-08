@@ -4,6 +4,11 @@ All notable changes to the "pog-task-manager" extension will be documented in th
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.1.0]
+
+- **YAML Transition**: Updated extension to support the new YAML-based project/module nested directory structure.
+- **Task View**: Improved task list rendering for YAML files.
+
 ## [1.0.1]
 
 - Add `Init POG Task` command to automatically setup project structure and download configuration files.

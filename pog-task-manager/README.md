@@ -1,6 +1,6 @@
 # POG Task Manager
 
-這是一個專為管理 POG Task (`pog-task/list/*.jsonl`) 設計的 VS Code 擴充套件。它旨在協助開發者與 LLM Agent 高效協作，提供直觀的介面來檢視、管理和追蹤專案任務。
+這是一個專為管理 POG Task (`pog-task/list/**/*.yaml`) 設計的 VS Code 擴充套件。它旨在協助開發者與 LLM Agent 高效協作，提供直觀的介面來檢視、管理和追蹤專案任務。
 
 ## 核心概念：什麼是 POG Task？
 
@@ -9,7 +9,7 @@
 POG Task 是一個 AI 原生的任務治理模型，將任務視為結構化、可解釋且可審計的意圖單元 (Units of Intention)。
 
 不僅僅是將任務視為待辦事項清單，POG Task 強調：
-*   **結構化流 (Structured Stream)**：使用 JSONL 格式儲存，對 AI 友善且易於解析。
+*   **結構化流 (Structured Stream)**：使用 YAML 格式儲存，對 AI 友善且易於解析。
 *   **推理軌跡 (Reasoning Trace)**：透過 `record.md` 記錄 Agent 的思考過程與執行細節。
 *   **人機協作**：明確區分人類的「意圖定義」與 Agent 的「執行與推理」。
 
@@ -23,35 +23,37 @@ POG Task 是一個 AI 原生的任務治理模型，將任務視為結構化、�
 
 ```
 pog-task/
-├── declare.jsonl      # 任務分類定義
 ├── pog-task-agent-instructions.md # Agent 操作指南
-├── list/              # 活躍任務資料庫
-│   ├── task.jsonl     # 結構化任務流 (AI 可讀)
-│   └── record/        # 執行產物
-│       └── {uuid}/    # 每個任務的唯一資料夾
-│           └── record.md # 執行和推理軌跡
+├── pog-task-design.md             # 系統設計文檔
+├── list/                          # 活躍任務資料庫
+│   └── {project}/
+│       └── {module}/
+│           ├── {task}.yaml        # 結構化任務 (AI 可讀)
+│           └── record/            # 執行產物
+│               └── {uuid}/        # 每個任務的唯一資料夾
+│                   └── record.md  # 執行和推理軌跡
 ```
 
 ### 為什麼選擇基於檔案？
 *   **Git 整合**：利用最經久考驗的版本化記憶體系統。
-*   **共通語言**：Markdown 和 JSON 是人類和 LLM 原生的共通語言。
+*   **共通語言**：Markdown 和 YAML 是人類和 LLM 原生的共通語言。
 *   **可攜性**：零鎖定。適用於 VS Code、CI/CD、Agent 框架或任何文字編輯器。
 
 ### 組件
 
-#### 1. 任務流 (`*.jsonl`)
-任務儲存在 JSONL 檔案中，允許高效的追加和串流。每一行都是一個獨立的 JSON 物件，代表任務狀態或更新。關於檔案命名約定請參閱 `pog-task/README.md`，分類定義請參閱 [`pog-task/declare.jsonl`](https://github.com/enjtorian/pog-task/blob/main/pog-task/declare.jsonl)。
+#### 1. 任務流 (`*.yaml`)
+任務儲存在 YAML 檔案中，分層目錄組織。關於目錄結構與命名約定請參閱 `pog-task/README.md` 或 `pog-task/pog-task-design.md`。
 
 #### 2. 推理記錄 (`record.md`)
 對於複雜任務，`record.md` 檔案充當執行過程的「大腦」。它捕捉 Agent 的思考過程、原始使用者提示詞 (Prompt) 以及計畫的演變。這對於除錯 Agent 行為和確保意圖對齊至關重要。
 
 #### 3. VS Code 外掛 (可選介面)
-該外掛是一個介面，而非核心。它用於視覺化 `task.jsonl` 流，協助人類編寫對 AI 友好的任務，並檢查執行記錄。
+該外掛是一個介面，而非核心。它用於視覺化 `task.yaml` 流，協助人類編寫對 AI 友好的任務，並檢查執行記錄。
 
 ## 工作流
 
 ### 1. 定義意圖
-人類（或 Agent）在 `*.jsonl` 檔案中建立一個任務。它定義了目標、優先級和初始上下文。
+人類（或 Agent）在 `*.yaml` 檔案中建立一個任務。它定義了目標、優先級和初始上下文。
 
 ### 2. 指派與認領
 Agent（或人類）識別待處理的任務並透過更新任務狀態和將其指派給自己來「認領」它。這避免了多 Agent 環境中的衝突。
@@ -60,7 +62,7 @@ Agent（或人類）識別待處理的任務並透過更新任務狀態和將其
 Agent 建立 `record.md` 來記錄其計畫。它執行工作（編碼、研究等），並隨之更新記錄。
 
 ### 4. 完成與驗證
-一旦完成，Agent 在 JSONL 檔案中將任務標記為完成並完善記錄。人類可以審查 `record.md`，不僅驗證輸出，也驗證過程。
+一旦完成，Agent 在 YAML 檔案中將任務標記為完成並完善記錄。人類可以審查 `record.md`，不僅驗證輸出，也驗證過程。
 
 ## 功能特色 (Features)
 
@@ -70,7 +72,7 @@ Agent 建立 `record.md` 來記錄其計畫。它執行工作（編碼、研究�
 
 ![Task List](https://github.com/enjtorian/pog-task/raw/HEAD/pog-task-manager/assets/Detail-Plugin-Task-List.png)
 
-*   **即時監聽**：自動監聽 `pog-task/list/*.jsonl` 檔案變更，新增或修改任務會立即反映在列表中。
+*   **即時監聽**：自動監聽 `pog-task/list/**/*.yaml` 檔案變更，新增或修改任務會立即反映在列表中。
 *   **狀態篩選**：可過濾顯示特定狀態（如 In Progress, Pending）的任務。
 
 ### 2. Agent 協作整合 (Prompt Templates)
@@ -102,7 +104,7 @@ POG Task Manager 提供了兩種主要的 Prompt 生成功能，協助您快速�
     # Step 1: Read Context
     請閱讀以下文件及相關資源：
     - pog-task/pog-task-agent-instructions.md
-    - pog-task/declare.jsonl
+    - pog-task/task.schema.json
 
     # Step 2: Create or Join Task
     請在 pog-task/list 下操作：
@@ -116,7 +118,7 @@ POG Task Manager 提供了兩種主要的 Prompt 生成功能，協助您快速�
         xxxxxxxx
 
     # Step 4: Generate Task Record
-    請生成 record.md 檔案（位於 pog-task/list/record/{task-uuid}/record.md），內容包含：
+    請生成 record.md 檔案（位於 pog-task/list/{project}/{module}/record/{task-uuid}/record.md），內容包含：
     - Original Prompt
     - Task 目標
     - Execution Plan / Checklist
@@ -127,7 +129,7 @@ POG Task Manager 提供了兩種主要的 Prompt 生成功能，協助您快速�
 適用於執行已經存在的任務。
 *   **使用時機**：當任務已經建立（處於 Pending 或 In Progress 狀態），您希望指派 Agent 開始實際工作。
 *   **產生內容**：
-    *   **Context**：自動包含任務所在的 JSONL 檔案與對應的 `record.md` 路徑。
+    *   **Context**：自動包含任務所在的 YAML 檔案與對應的 `record.md` 路徑。
     *   **指令**：明確指示 Agent 執行特定 ID 的任務，並更新狀態與進度。
 *   **操作方式**：在任務列表中的特定任務上右鍵，選擇 "Copy Execute Prompt"。
 
@@ -137,7 +139,7 @@ POG Task Manager 提供了兩種主要的 Prompt 生成功能，協助您快速�
     請閱讀以下文件及相關資源：
     - pog-task/pog-task-agent-instructions.md
     - pog-task/list/${filename}
-    - pog-task/list/record/${task.id}/record.md
+    - pog-task/list/${project}/${module}/record/${task.id}/record.md
 
     # Step 2: Execute Task
     請執行 pog-task/list/${filename} 中指定 Task：
@@ -153,7 +155,7 @@ POG Task Manager 提供了兩種主要的 Prompt 生成功能，協助您快速�
 ## 使用方式 (Usage)
 
 1.  **專案結構準備**:
-    確保您的專案根目錄下有 `pog-task/list/` 資料夾，並包含符合 POG Task 規範的 `.jsonl` 檔案 (例如 `common-improve-task.jsonl`)。
+    確保您的專案根目錄下有 `pog-task/list/` 資料夾，並包含符合 POG Task 規範的 `.yaml` 檔案 (例如 `common/improve/task.yaml`)。
 
 2.  **啟動與瀏覽**:
     安裝套件後，點擊 VS Code Activity Bar 中的 POG Task Manager 圖示，即可開啟任務列表。
@@ -164,6 +166,10 @@ POG Task Manager 提供了兩種主要的 Prompt 生成功能，協助您快速�
     *   **Init POG Task**: 在 Command Palette 輸入 `POG Task Manager: Init POG Task` 可快速初始化專案結構。
 
 ## 版本資訊 (Release Notes)
+
+### 1.1.0
+*   **YAML 全面轉型**：外掛程式現在支援全新的 YAML 格式與 `{project}/{module}` 巢狀目錄結構。
+*   **效能優化**：改進了 YAML 任務列表的讀取與渲染效能。
 
 ### 1.0.1
 *   新增 `Init POG Task` 指令，自動初始化專案結構。

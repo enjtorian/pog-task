@@ -28,7 +28,7 @@ POG Task is a next-generation **AI-native task governance model**, designed for 
 Unlike traditional task systems built for humans, POG Task ensures that tasks are treated as **Units of Intention** — structured, machine-readable, auditable, and agent-governed.
 
 **Key highlights:**
-*   **AI-native structured tasks (JSONL)**: A deterministic format for machine interpretation.
+*   **AI-native structured tasks (YAML)**: A deterministic format for machine interpretation.
 *   **Reasoning & Execution Trace (`record.md`)**: Captures the "why" behind AI actions.
 *   **File-native & Git-centric**: Ensures versioned memory and zero vendor lock-in.
 *   **Multi-agent collaborative support**: Designed for complex handoffs.
@@ -49,7 +49,7 @@ Traditional task management tools (Trello, Jira, Asana) share a flaw: they assum
 
 **Key Principles:**
 *   **Intent-first**: The goal is explicit and constrained.
-*   **Structured**: Uses machine-readable JSONL streams.
+*   **Structured**: Uses machine-readable YAML files.
 *   **Auditable**: Governance logs and `record.md` capture reasoning.
 *   **Governed**: Agent autonomy is constrained, reviewable, and earned.
 
@@ -71,16 +71,16 @@ These gaps make it impossible to have reliable, AI-executable, and auditable wor
 
 POG Task proposes a standardized **Governance Layer**:
 
-1.  **Structured Stream of State**: `pog-task/list/*.jsonl` for deterministic parsing.
-2.  **Execution & Reasoning Logs**: `pog-task/list/record/{uuid}/record.md` for human review.
+1.  **Structured Stream of State**: `pog-task/list/{project}/{module}/*.yaml` for deterministic parsing.
+2.  **Execution & Reasoning Logs**: `pog-task/list/{project}/{module}/record/{uuid}/record.md` for human review.
 3.  **Agent-Guided Workflows**: Agents can autonomously create, claim, execute, and report.
 4.  **Governance-First Design**: Status, history, checklists, and dependencies are strictly typed.
 
 **Example Workflow:**
 1.  Agent reads `pog-task-agent-instructions.md` & task files.
-2.  Creates a new task in JSONL → initializes `record.md`.
+2.  Creates a new task in YAML → initializes `record.md`.
 3.  Claims and executes the task (contract accepted).
-4.  Updates JSONL status, history, checklist (state stream).
+4.  Updates YAML status, history, checklist (state stream).
 5.  `record.md` stores reasoning, timeline, artifacts (audit trail).
 
 ### Basic Flow
@@ -88,8 +88,8 @@ POG Task proposes a standardized **Governance Layer**:
 ```mermaid
 flowchart LR
     U[User] -->|requests task| A[LLM Agent]
-    A -->|create/read/write| TL[pog-task/list/*.jsonl]
-    TL -->|record| R["pog-task/list/record/{uuid}/record.md"]
+    A -->|create/read/write| TL["pog-task/list/{project}/{module}/*.yaml"]
+    TL -->|record| R["pog-task/list/{project}/{module}/record/{uuid}/record.md"]
     A -->|update status| TL
     TL -->|output| O[Artifacts & Code]
 ```
@@ -97,8 +97,8 @@ flowchart LR
 ## 5. POG Task Design Principles
 
 1.  **Simplicity & Clarity**: Easy to understand file naming and directory structure.
-2.  **Separation of Concerns**: Different JSONL files for regular, agent, review, and scheduled tasks.
-3.  **AI-Friendliness**: Structured, deterministic format (JSONL) minimizes hallucinations.
+2.  **關注點分離**: 使用不同的目錄與檔案來組織專案與模組。
+3.  **AI 友善性**: 結構化、確定性的格式 (YAML) 最小化幻覺。
 4.  **Auditable Execution**: History and `record.md` track every action and decision.
 5.  **Modular & Extensible**: Supports multi-agent, nested tasks, and future integrations.
 
@@ -106,9 +106,9 @@ flowchart LR
 
 | Component | Role |
 | :--- | :--- |
-| `pog-task/list/*.jsonl` | **Structured Stream of State** |
-| `pog-task/declare.jsonl` | Task categories and metadata definition |
-| `pog-task/list/record/{uuid}/record.md` | **Execution & Reasoning Log** |
+| `pog-task/list/{project}/{module}/*.yaml` | **Structured Stream of State** |
+| `pog-task/task.schema.json` | Task categories and metadata definition |
+| `pog-task/list/{project}/{module}/record/{uuid}/record.md` | **Execution & Reasoning Log** |
 | `pog-task/pog-task-agent-instructions.md` | Agent guide and system documentation |
 | VS Code Plugin | [Human-friendly visualization interface](https://marketplace.visualstudio.com/items?itemName=enjtorian.pog-task-manager) |
 | Multi-agent System | AI agents for autonomous execution |
@@ -127,11 +127,11 @@ flowchart TB
     end
     
     subgraph Core["Governance Layer"]
-        TL[pog-task/list/*.jsonl]
+        TL[pog-task/list/*.yaml]
     end
     
     subgraph Records["Audit Trail"]
-        R1["pog-task/list/record/{uuid}/record.md"]
+        R1["pog-task/list/{project}/{module}/record/{uuid}/record.md"]
     end
 
     U1 -->|create/view tasks| TL
@@ -147,11 +147,11 @@ POG Agent interacts via two main modes:
 
 ### Mode A: Read + Create/Join Task
 1.  Read pog-task-design.md and pog-task-agent-instructions.md to understand the **Protocol**.
-2.  Create or join JSONL task (establish **Intent**).
+2.  Create or join YAML task (establish **Intent**).
 3.  Generate `record.md` with prompt, plan, references.
 
 ### Mode B: Read + Execute Task
-1.  Read JSONL and `record.md`.
+1.  Read YAML and `record.md`.
 2.  **Claim task** (Accept Contract), execute steps, update checklist & status.
 3.  Record reasoning, decisions, and artifacts in `record.md`.
 
@@ -165,12 +165,12 @@ agent_pipeline:
 
 ## 8. Task Lifecycle
 
-1.  **Creation**: Generate UUID, assign project/module, append to JSONL Stream.
+1.  **Creation**: Generate UUID, assign project/module, create YAML file.
 2.  **Claiming**: Update status to `in_progress`, set `claimed_by`.
 3.  **Execution**: Complete checklist items, generate outputs, log side effects.
 4.  **Completion**: Update status to `completed`, record actual hours, artifact links.
 5.  **Review / Governance**: Optional review tasks, trace in history.
-6.  **Archival**: Git versioned task streams and `record.md` retained forever.
+6.  **Archival**: Git versioned task files and `record.md` retained forever.
 
 *Note: Nested Tasks support parent-child relationships and unlimited depth.*
 
@@ -199,7 +199,7 @@ agent_pipeline:
 
 | Phase | Feature |
 | :--- | :--- |
-| **v0** | Core JSONL structure, `record.md`, agent pipelines |
+| **v0** | Core YAML structure, `record.md`, agent pipelines |
 | **v1** | VS Code plugin refinement, nested tasks, checklist analytics |
 | **v2** | Web UI + dashboard, Jira/Git integration, multi-agent orchestration |
 | **v3** | Automated evaluation & reporting, KPI metrics, AI governance rules |
@@ -217,18 +217,20 @@ A full **AI-native task ecosystem** that integrates AI agents as first-class con
 ```
 pog-task/
 ├─ README.md
-├─ declare.jsonl
+├─ task.schema.json
 ├─ pog-task-agent-instructions.md
 ├─ pog-task-design.md
 ├─ list/
-│   └─ *.jsonl
-│   └─ record/{uuid}/record.md
+│   └─ {project}/
+│       └─ {module}/
+│           ├─ *.yaml
+│           └─ record/{uuid}/record.md
 ├─ faq.md
 ```
 
-### Task JSONL Schema
+### Task YAML Schema
 
-```json
+```yaml
 {
   "type": "task",
   "id": "uuid",
@@ -264,3 +266,41 @@ Clearly describe the objective
 ## Technical Notes
 - Technical decisions and notes
 ```
+
+---
+
+## About the Author
+
+**Ted Enjtorian**  
+*Framework Observer & Primary Author*
+
+As a software systems architect with over 20 years of experience, I had a front-row seat to how teams organize their work. When LLM-powered coding tools emerged, I noticed a recurring pattern: colleagues were achieving remarkable things with prompts, but those instructions remained invisible, undocumented, and unrepeated—buried in ephemeral chat logs.
+
+**Behind the immense execution power of LLMs, a critical gap became evident:** we granted AI the agency to modify systems, yet lacked a structural unit, like a Git Commit, to define the boundaries of behavior.
+
+This framework is not an invention; it is an attempt to name a missing, overdue structural layer. POG Task acknowledges AI as a legitimate workforce and elevates its behavior to the status of a formal artifact—transforming AI work from transient notes into binding contracts.
+
+The patterns described here were already happening independently across teams; they just needed a name. By making these invisible assets visible and governed, we accelerate the conversation about responsible AI execution.
+
+**Connect:**  
+- 🔗 LinkedIn: https://tw.linkedin.com/in/enjtorian
+- 💻 GitHub: [@enjtorian](https://github.com/enjtorian)
+
+For detailed contributor information and citation guidelines, see [AUTHORS.md](https://github.com/enjtorian/pog-task/blob/main/AUTHORS.md).
+
+---
+
+*POG Version 1.0 | February 2026*  
+*For updates and contributions, visit [GitHub Repository](https://github.com/enjtorian/pog-task)*
+
+---
+
+**License:** This work is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). You are free to share and adapt with attribution.
+
+---
+
+## Content Authority Statement
+
+The content presented in this document is intended to provide a consistent definition and conceptual framework for **Prompt Orchestration Governance (POG)** for purposes of research, implementation, and discussion. This work draws from observed patterns in mature AI development teams and represents a governance-first approach to prompt management across the SDLC. It is offered as a unified logical framework for evolving industry practice, not as a prescriptive standard or academic assertion.
+
+*Last Updated: February 2026 | POG Version 1.0*

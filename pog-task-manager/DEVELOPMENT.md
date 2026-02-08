@@ -71,7 +71,7 @@ This command will:
 You can install the packaged `.vsix` file in VS Code:
 
 ```bash
-code --install-extension pog-task-manager-1.0.1.vsix
+code --install-extension pog-task-manager-1.1.0.vsix
 ```
 
 ## 🧪 Testing

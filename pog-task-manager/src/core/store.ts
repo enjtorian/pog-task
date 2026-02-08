@@ -1,7 +1,8 @@
 import * as fs from 'fs';
 import * as vscode from 'vscode';
-import { JsonlParser } from './parser';
-import { Task } from './types';
+import * as yaml from 'js-yaml';
+import { YamlParser } from './yamlParser';
+import { Task, TaskMetadata } from './types';
 
 export class TaskStore {
     private tasks: Map<string, Task> = new Map();
@@ -24,8 +25,8 @@ export class TaskStore {
                 // Remove leading ./ or /
                 cleanDir = cleanDir.replace(/^\.?\//, '');
 
-                // Convert to glob pattern
-                return `${cleanDir}/**/*.jsonl`;
+                // Convert to glob pattern for YAML
+                return `${cleanDir}/**/*.yaml`;
             });
         }
 
@@ -57,26 +58,25 @@ export class TaskStore {
     }
 
     private async loadFile(filePath: string) {
-        const records = await JsonlParser.parseFile(filePath);
-
-        // Extract Metadata
-        const metadata = records.find(r => r.type === 'metadata') as any; // Cast as any or specific Metadata type if imported
-        const project = metadata?.project || 'Unknown Project';
-        const module = metadata?.module || 'Unknown Module';
-
-        // Use 'for...of' to preserve order
-        for (const record of records) {
-            if (record.type === 'task') {
-                const task = record as Task;
-                task._filePath = filePath;
-                task._project = project;
-                task._module = module;
-
-                // If subtasks are not defined, we could potentially imply them later, 
-                // but for now we assume explicit or we just strictly store them.
-                this.tasks.set(task.id, task);
-            }
+        const data = YamlParser.parseFile(filePath);
+        if (!data || data.type !== 'task') {
+            return;
         }
+
+        const task = data as Task;
+
+        // Extract Project/Module from path
+        // Expected path: .../list/{project}/{module}/{title}.yaml
+        const pathParts = filePath.split(/[\\/]/);
+        const fileName = pathParts.pop();
+        const module = pathParts.pop();
+        const project = pathParts.pop();
+
+        task._filePath = filePath;
+        task._project = project || 'Unknown';
+        task._module = module || 'Unknown';
+
+        this.tasks.set(task.id, task);
     }
 
     getTask(id: string): Task | undefined {
@@ -189,39 +189,37 @@ export class TaskStore {
         }
 
         const filePath = task._filePath;
-        const fileContent = fs.readFileSync(filePath, 'utf-8');
-        const lines = fileContent.split('\n');
+        const updatedTask = { ...task, ...updates };
 
-        const newLines = lines.map(line => {
-            if (!line.trim()) { return line; }
-            try {
-                const record = JSON.parse(line);
-                if (record.type === 'task' && record.id === task.id) {
-                    const updatedRecord = { ...record, ...updates };
-                    // Remove runtime properties if any (though JSON.stringify usually ignores undefined, _filePath is optional)
-                    delete updatedRecord._filePath;
-                    return JSON.stringify(updatedRecord);
-                }
-            } catch (e) {
-                // ignore parse errors
-            }
-            return line;
+        // Remove runtime properties before saving
+        const dataToSave = { ...updatedTask };
+        delete dataToSave._filePath;
+        delete dataToSave._project;
+        delete dataToSave._module;
+
+        const yamlContent = yaml.dump(dataToSave, {
+            indent: 2,
+            lineWidth: -1,
+            noRefs: true
         });
 
-        fs.writeFileSync(filePath, newLines.join('\n'), 'utf-8');
+        fs.writeFileSync(filePath, yamlContent, 'utf-8');
         // Watcher will trigger reload
     }
 
     async createTask(task: Task, filePath: string) {
-        // Append to file
-        const content = fs.readFileSync(filePath, 'utf-8');
-        const lines = content.split('\n');
+        const dataToSave = { ...task };
+        delete dataToSave._filePath;
+        delete dataToSave._project;
+        delete dataToSave._module;
 
-        // Ensure new line if needed
-        const lastLine = lines[lines.length - 1];
-        const prefix = (lastLine && lastLine.trim()) ? '\n' : '';
+        const yamlContent = yaml.dump(dataToSave, {
+            indent: 2,
+            lineWidth: -1,
+            noRefs: true
+        });
 
-        fs.appendFileSync(filePath, `${prefix}${JSON.stringify(task)}\n`, 'utf-8');
+        fs.writeFileSync(filePath, yamlContent, 'utf-8');
     }
 
     getLoadedFiles(): string[] {
