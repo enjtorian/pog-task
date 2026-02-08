@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { copyCreatePrompt, copyExecutePrompt, copyTaskContext } from './commands/agentCommands';
 import { copyPromptTemplate, openPromptTemplateFile, previewPromptTemplate } from './commands/promptTemplateCommands';
 import { quickAddTask } from './commands/quickAdd';
+import { initPogTask } from './commands/initPogTask';
 import { PromptTemplateStore } from './core/promptTemplateStore';
 import { TaskStore } from './core/store';
 import { Task } from './core/types';
@@ -39,6 +40,10 @@ export function activate(context: vscode.ExtensionContext) {
         quickAddTask(store);
     });
 
+    const initPogTaskDisposable = vscode.commands.registerCommand('pog-task-manager.initPogTask', () => {
+        initPogTask();
+    });
+
     const copyExecutePromptDisposable = vscode.commands.registerCommand('pog-task-manager.copyExecutePrompt', (task: Task) => {
         copyExecutePrompt(store, task);
     });
@@ -74,7 +79,7 @@ export function activate(context: vscode.ExtensionContext) {
         if (selected) {
             const selectedStatuses = selected.map(s => s.value);
             treeDataProvider.setStatusFilter(selectedStatuses);
-            
+
             if (selectedStatuses.length > 0) {
                 vscode.window.showInformationMessage(`Filtering by: ${selectedStatuses.join(', ')}`);
             }
@@ -139,6 +144,7 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(refreshDisposable);
     context.subscriptions.push(openTaskDisposable);
     context.subscriptions.push(quickAddDisposable);
+    context.subscriptions.push(initPogTaskDisposable);
     context.subscriptions.push(copyExecutePromptDisposable);
     context.subscriptions.push(copyContextDisposable);
     context.subscriptions.push(copyCreatePromptDisposable);

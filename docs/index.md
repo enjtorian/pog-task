@@ -110,7 +110,7 @@ flowchart LR
 | `pog-task/declare.jsonl` | Task categories and metadata definition |
 | `pog-task/list/record/{uuid}/record.md` | **Execution & Reasoning Log** |
 | `pog-task/pog-task-agent-instructions.md` | Agent guide and system documentation |
-| VS Code Plugin | Human-friendly visualization interface |
+| VS Code Plugin | [Human-friendly visualization interface](https://marketplace.visualstudio.com/items?itemName=enjtorian.pog-task-manager) |
 | Multi-agent System | AI agents for autonomous execution |
 
 ### Architecture Overview

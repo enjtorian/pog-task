@@ -5,6 +5,7 @@
 A governance-first framework for managing tasks as structured, auditable units of work that live inside your codebase, designed for environments where AI Agents are first-class participants.
 
 🌐 **Website**: [https://enjtorian.github.io/pog-task](https://enjtorian.github.io/pog-task)
+🛒 **Marketplace**: [POG Task Manager](https://marketplace.visualstudio.com/items?itemName=enjtorian.pog-task-manager)
 
 ---
 
@@ -223,7 +224,7 @@ For questions, suggestions, or collaboration opportunities:
 
 ---
 
-**Version:** 1.0  
+**Version:** 1.0.1  
 **Last Updated:** January 2026  
 **Status:** Published
 

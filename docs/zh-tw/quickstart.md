@@ -4,7 +4,7 @@ POG Task Manager 是一個專為 VS Code 設計的擴充套件，旨在協助開
 
 ## 安裝方式
 
-1.  在 VS Code 擴充套件市場搜尋 **"POG Task Manager"**。
+1.  在 VS Code 擴充套件市場搜尋 **"POG Task Manager"**，或直接訪問 [Marketplace 頁面](https://marketplace.visualstudio.com/items?itemName=enjtorian.pog-task-manager)。
 2.  點擊安裝即可開始使用。
 
 安裝完成後，您可以在 VS Code 的 Activity Bar 中看到 POG Task Manager 的圖示。
@@ -13,21 +13,22 @@ POG Task Manager 是一個專為 VS Code 設計的擴充套件，旨在協助開
 
 在使用 POG Task Manager 之前，請確保您的專案符合 POG Task 的檔案結構規範：
 
-1.  **建立目錄**：在專案根目錄下建立 `pog-task/list/` 資料夾。
-2.  **建立任務檔**：建立符合 POG Task 規範的 `.jsonl` 檔案（例如 `common-improve-task.jsonl`）。
-3.  **(可選) 定義分類**：建立 `pog-task/declare.jsonl` 用於定義任務分類。
+1.  **初始化專案**：開啟命令面板 (`Cmd+Shift+P`)，輸入 `POG Task Manager: Init POG Task` 並執行。這將自動建立 `pog-task` 目錄並下載必要的配置檔。
+2.  (手動替代方案) **建立目錄**：在專案根目錄下建立 `pog-task/list/` 資料夾。
+3.  (手動替代方案) **建立任務檔**：建立符合 POG Task 規範的 `.jsonl` 檔案（例如 `common-improve-task.jsonl`）。
+4.  (手動替代方案) **定義分類**：建立 `pog-task/declare.jsonl` 用於定義任務分類。
 
 標準的目錄結構如下：
 
 ```
 pog-task/
-├── declare.jsonl              # 任務分類定義
-├── pog-task-agent-instructions.md # Agent 操作指南
-├── list/                      # 活躍任務資料庫
-│   ├── task.jsonl             # 結構化任務流 (AI 可讀)
-│   └── record/                # 執行產物
-│       └── {uuid}/            # 每個任務的唯一資料夾
-│           └── record.md      # 執行和推理軌跡
+├── declare.jsonl                               # 任務分類定義
+├── pog-task-agent-instructions.md              # Agent 操作指南
+├── list/                                       # 活躍任務資料庫
+│   ├── task.jsonl                              # 結構化任務流 (AI 可讀)
+│   └── record/                                 # 執行產物
+│       └── {uuid}/                             # 每個任務的唯一資料夾
+│           └── record.md                       # 執行和推理軌跡
 ```
 
 ## 核心工作流

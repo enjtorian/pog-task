@@ -28,6 +28,10 @@ pog-task/
 1. 閱讀 **[系統設計](./pog-task-design.md)** - 系統概念和設計
 2. 查看 **[現有任務](./list/)** - 參考實際運作方式
 3. 開始使用 - 創建或認領任務
+    ## 🛒 工具支援
+
+    推薦使用 VS Code Extension 來管理任務：
+    [**POG Task Manager**](https://marketplace.visualstudio.com/items?itemName=enjtorian.pog-task-manager)
 
 ## ✨ 核心特性
 

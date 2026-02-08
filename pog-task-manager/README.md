@@ -40,7 +40,7 @@ pog-task/
 ### 組件
 
 #### 1. 任務流 (`*.jsonl`)
-任務儲存在 JSONL 檔案中，允許高效的追加和串流。每一行都是一個獨立的 JSON 物件，代表任務狀態或更新。關於檔案命名約定請參閱 `pog-task/README.md`，分類定義請參閱 `pog-task/declare.jsonl`。
+任務儲存在 JSONL 檔案中，允許高效的追加和串流。每一行都是一個獨立的 JSON 物件，代表任務狀態或更新。關於檔案命名約定請參閱 `pog-task/README.md`，分類定義請參閱 [`pog-task/declare.jsonl`](https://github.com/enjtorian/pog-task/blob/main/pog-task/declare.jsonl)。
 
 #### 2. 推理記錄 (`record.md`)
 對於複雜任務，`record.md` 檔案充當執行過程的「大腦」。它捕捉 Agent 的思考過程、原始使用者提示詞 (Prompt) 以及計畫的演變。這對於除錯 Agent 行為和確保意圖對齊至關重要。
@@ -94,7 +94,7 @@ POG Task Manager 提供了兩種主要的 Prompt 生成功能，協助您快速�
 ### 1. 建立新任務 (Create Prompt)
 適用於從零開始建立一個新任務。
 *   **使用時機**：當您有一個新的構想或需求，需要 Agent 協助將其轉化為正式的 POG Task。
-*   **產生內容**：包含閱讀 Agent Guide、Category 定義，以及建立任務與 `record.md` 的標準步驟。
+*   **產生內容**：包含閱讀 [Agent Guide](https://github.com/enjtorian/pog-task/blob/main/pog-task/pog-task-agent-instructions.md)、Category 定義，以及建立任務與 `record.md` 的標準步驟。
 *   **操作方式**：在 Prompt Templates 列表中選擇 "Create Task"，或在任務列表空白處右鍵選擇 "Copy Create Prompt"。
 
 "Copy Create Prompt" 範例：
@@ -161,8 +161,13 @@ POG Task Manager 提供了兩種主要的 Prompt 生成功能，協助您快速�
 3.  **常用操作**:
     *   **Refresh Tasks**: 在 Command Palette 輸入 `POG Task Manager: Refresh Tasks` 可手動強制重新讀取所有任務。
     *   **Context Menu**: 在任務項目上點擊右鍵，可執行相關操作（如複製 Prompt、開啟 Record、切換狀態等）。
+    *   **Init POG Task**: 在 Command Palette 輸入 `POG Task Manager: Init POG Task` 可快速初始化專案結構。
 
 ## 版本資訊 (Release Notes)
+
+### 1.0.1
+*   新增 `Init POG Task` 指令，自動初始化專案結構。
+*   更新文件連結與 Marketplace 資訊。
 
 ### 1.0.0
 *   專案初始化。

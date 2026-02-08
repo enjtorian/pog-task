@@ -43,7 +43,7 @@ Agent 透過兩種主要模式互動：
 ## VS Code 擴充套件
 
 ### POG Task Manager 提供哪些核心功能？
-- **任務列表 (Task List)**：自動分組顯示專案中的所有 POG Task，支援狀態篩選與即時更新。
+- **任務列表 (Task List)**：自動分組顯示專案中的所有 POG Task，支援狀態篩選與即時更新。[前往 Marketplace 下載](https://marketplace.visualstudio.com/items?itemName=enjtorian.pog-task-manager)。
 - **Prompt Templates**：內建 "Create Task" 與 "Execute Task" 等標準提示詞模版，一鍵複製給 Agent 使用。
 - **任務詳情 (Task Detail)**：提供圖形化介面檢視與編輯任務屬性。
 - **Record 存取**：快速開啟並編輯對應的 `record.md`。

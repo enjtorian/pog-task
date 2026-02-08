@@ -43,7 +43,7 @@ This allows the POG Task Manager (and Agents) to automatically identify and mana
 ## VS Code Extension
 
 ### What core features does POG Task Manager provide?
-- **Task List**: Automatically groups and displays all POG Tasks in the project, supporting status filtering and real-time updates.
+- **Task List**: Automatically groups and displays all POG Tasks in the project, supporting status filtering and real-time updates. [Download on Marketplace](https://marketplace.visualstudio.com/items?itemName=enjtorian.pog-task-manager).
 - **Prompt Templates**: Built-in standard prompt templates like "Create Task" and "Execute Task" for one-click copying to Agents.
 - **Task Detail**: Provides a graphical interface to view and edit task attributes.
 - **Record Access**: Quickly open and edit the corresponding `record.md`.

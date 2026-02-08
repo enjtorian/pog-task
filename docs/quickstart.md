@@ -4,7 +4,7 @@ POG Task Manager is a VS Code extension designed to help developers efficiently 
 
 ## Installation
 
-1.  Search for **"POG Task Manager"** in the VS Code Extension Marketplace.
+1.  Search for **"POG Task Manager"** in the VS Code Extension Marketplace, or visit the [Marketplace Page](https://marketplace.visualstudio.com/items?itemName=enjtorian.pog-task-manager).
 2.  Click install to start using it.
 
 Once installed, you can see the POG Task Manager icon in the VS Code Activity Bar.
@@ -13,21 +13,22 @@ Once installed, you can see the POG Task Manager icon in the VS Code Activity Ba
 
 Before using POG Task Manager, ensure your project complies with the POG Task file structure specification:
 
-1.  **Create Directory**: Create a `pog-task/list/` folder in the project root directory.
-2.  **Create Task File**: Create a `.jsonl` file that complies with the POG Task specification (e.g., `common-improve-task.jsonl`).
-3.  **(Optional) Define Categories**: Create `pog-task/declare.jsonl` to define task categories.
+1.  **Initialize Project**: Open Command Palette (`Cmd+Shift+P`), type `POG Task Manager: Init POG Task` and run it. This will automatically create the `pog-task` directory and download necessary configuration files.
+2.  (Manual Alternative) **Create Directory**: Create a `pog-task/list/` folder in the project root directory.
+3.  (Manual Alternative) **Create Task File**: Create a `.jsonl` file that complies with the POG Task specification (e.g., `common-improve-task.jsonl`).
+4.  (Manual Alternative) **Define Categories**: Create `pog-task/declare.jsonl` to define task categories.
 
 The standard directory structure is as follows:
 
 ```
 pog-task/
-├── declare.jsonl              # Task category definitions
-├── pog-task-agent-instructions.md # Agent operation guide
-├── list/                      # Active task database
-│   ├── task.jsonl             # Structured task stream (AI readable)
-│   └── record/                # Execution artifacts
-│       └── {uuid}/            # Unique folder for each task
-│           └── record.md      # Execution and reasoning trace
+├── declare.jsonl                               # Task category definitions
+├── pog-task-agent-instructions.md              # Agent operation guide
+├── list/                                       # Active task database
+│   ├── task.jsonl                              # Structured task stream (AI readable)
+│   └── record/                                 # Execution artifacts
+│       └── {uuid}/                             # Unique folder for each task
+│           └── record.md                       # Execution and reasoning trace
 ```
 
 ## Core Workflow

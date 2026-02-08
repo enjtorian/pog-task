@@ -111,7 +111,7 @@ flowchart LR
 | `pog-task/declare.jsonl` | 任務分類與元數據定義 |
 | `pog-task/list/record/{uuid}/record.md` | **執行與推理日誌** |
 | `pog-task/pog-task-agent-instructions.md` | Agent 指南與系統文檔 |
-| VS Code Plugin | 人類友善的視覺化介面 |
+| VS Code Plugin | [人類友善的視覺化介面](https://marketplace.visualstudio.com/items?itemName=enjtorian.pog-task-manager) |
 | Multi-agent System | 用於自主執行的 AI Agent |
 
 ### 架構概覽

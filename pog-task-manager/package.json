@@ -5,7 +5,7 @@
     "description": "POG Task Management Plugin",
     "publisher": "enjtorian",
     "license": "Apache-2.0",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "repository": {
         "type": "git",
         "url": "https://github.com/enjtorian/pog-task.git"
@@ -63,6 +63,11 @@
                 "command": "pog-task-manager.refreshTasks",
                 "title": "POG Task Manager: Refresh Tasks",
                 "icon": "$(refresh)"
+            },
+            {
+                "command": "pog-task-manager.initPogTask",
+                "title": "POG Task Manager: Init POG Task",
+                "icon": "$(rocket)"
             },
             {
                 "command": "pog-task-manager.openTaskDetail",

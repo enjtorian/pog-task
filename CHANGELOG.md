@@ -2,6 +2,17 @@
 
 All notable changes to the POG Task project will be documented in this file.
 
+## [1.0.1] - 2026-02-08
+
+### 🧩 `pog-task-manager/` (VS Code Plugin)
+
+*   **New Feature**:
+    *   Added `Init POG Task` command for one-click project initialization.
+    *   Automatically fetches `pog-task-agent-instructions.md` and `declare.jsonl` from Git.
+*   **Documentation**:
+    *   Updated READMEs with VS Code Marketplace link.
+    *   Added Developer Guide (`pog-task-manager/DEVELOPMENT.md`).
+
 ## [1.0.0] - 2026-02-08
 
 ### 📚 `docs/` (Whitepaper & Guides)
