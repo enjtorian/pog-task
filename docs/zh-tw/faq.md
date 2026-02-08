@@ -6,6 +6,9 @@
 
 ## 一般問題
 
+### 什麼是 POG？
+**提示編排治理 (Prompt Orchestration Governance, POG)** 是一個將提示詞 (Prompts) 視為軟體開發生命週期 (SDLC) 中一等軟體資產的綜合管理框架。POG 提供了系統化的流程來發現、標準化、驗證、版本控制和部署提示詞，同時維持治理與品質控制。連結到 [白皮書](https://enjtorian.github.io/prompt-orchestration-governance-whitepaper/zh-tw/)。
+
 ### 什麼是 POG Task？
 POG Task 是一個 **AI 原生任務治理模型**，專為 AI Agent 作為一等公民參與的環境而設計。它將任務視為 **意圖單位 (Units of Intention)** — 結構化、機器可讀、可審計且由 Agent 治理。
 

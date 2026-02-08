@@ -9,6 +9,13 @@ A governance-first framework for managing tasks as structured, auditable units o
 
 ---
 
+### Prompt Orchestration Governance (POG)
+A comprehensive framework for managing prompts as first-class software assets across the Software Development Life Cycle. POG provides systematic processes for discovering, normalizing, validating, versioning, and deploying prompts while maintaining governance and quality controls.
+
+📖 **Whitepaper**: [Prompt Orchestration Governance Whitepaper](https://enjtorian.github.io/prompt-orchestration-governance-whitepaper/)
+
+---
+
 ## 📖 About
 
 This repository contains the specification and reference implementation for **POG Task**, a core component of the Prompt Orchestration Governance (POG) framework.

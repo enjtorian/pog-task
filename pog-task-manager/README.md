@@ -1,6 +1,22 @@
 # POG Task Manager
 
+![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)
+
 這是一個專為管理 POG Task (`pog-task/list/**/*.yaml`) 設計的 VS Code 擴充套件。它旨在協助開發者與 LLM Agent 高效協作，提供直觀的介面來檢視、管理和追蹤專案任務。
+
+🌐 **English Version**: [README.en.md](https://github.com/enjtorian/pog-task/blob/main/pog-task-manager/README.en.md)
+🛒 **Marketplace**: [POG Task Manager](https://marketplace.visualstudio.com/items?itemName=enjtorian.pog-task-manager)
+
+---
+
+## 🧩 Prompt Orchestration Governance (POG)
+
+### 提示編排治理 (Prompt Orchestration Governance, POG)
+一個將提示詞 (Prompts) 視為軟體開發生命週期 (SDLC) 中一等軟體資產的綜合管理框架。POG 提供了系統化的流程來發現、標準化、驗證、版本控制和部署提示詞，同時維持治理與品質控制。
+
+📖 **白皮書**: [Prompt Orchestration Governance Whitepaper](https://enjtorian.github.io/prompt-orchestration-governance-whitepaper/zh-tw/)
+
+---
 
 ## 核心概念：什麼是 POG Task？
 

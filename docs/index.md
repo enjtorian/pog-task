@@ -35,6 +35,15 @@ Unlike traditional task systems built for humans, POG Task ensures that tasks ar
 
 POG Task enables humans and AI agents to collaborate seamlessly, providing reproducible outcomes, full audit trails, and strict governance over "side effects".
 
+## 🧩 Prompt Orchestration Governance (POG)
+
+### Prompt Orchestration Governance (POG)
+A comprehensive framework for managing prompts as first-class software assets across the Software Development Life Cycle. POG provides systematic processes for discovering, normalizing, validating, versioning, and deploying prompts while maintaining governance and quality controls.
+
+📖 **Whitepaper**: [Prompt Orchestration Governance Whitepaper](https://enjtorian.github.io/prompt-orchestration-governance-whitepaper/)
+
+---
+
 ## 2. Why POG Task
 
 Traditional task management tools (Trello, Jira, Asana) share a flaw: they assume humans interpret and execute tasks. In AI-first environments, this model breaks because:
@@ -92,6 +101,7 @@ flowchart LR
     TL -->|record| R["pog-task/list/{project}/{module}/record/{uuid}/record.md"]
     A -->|update status| TL
     TL -->|output| O[Artifacts & Code]
+    O -.->|record links| R
 ```
 
 ## 5. POG Task Design Principles
@@ -231,16 +241,14 @@ pog-task/
 ### Task YAML Schema
 
 ```yaml
-{
-  "type": "task",
-  "id": "uuid",
-  "title": "",
-  "description": "",
-  "category": "",
-  "status": "pending|in_progress|completed",
-  "checklist": [],
-  "history": []
-}
+type: task
+id: "uuid"
+title: ""
+description: ""
+category: ""
+status: "pending|in_progress|completed"
+checklist: []
+history: []
 ```
 
 ### Record.md Example

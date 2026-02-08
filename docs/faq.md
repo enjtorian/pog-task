@@ -6,6 +6,9 @@ Common questions about POG Task.
 
 ## General
 
+### What is POG?
+**Prompt Orchestration Governance (POG)** is a comprehensive framework for managing prompts as first-class software assets across the Software Development Life Cycle. POG provides systematic processes for discovering, normalizing, validating, versioning, and deploying prompts while maintaining governance and quality controls. Link to [Whitepaper](https://enjtorian.github.io/prompt-orchestration-governance-whitepaper/).
+
 ### What is POG Task?
 POG Task is an **AI-native task governance model** designed for environments where AI Agents are first-class participants. It treats tasks as **Units of Intention**—structured, machine-readable, auditable, and agent-governed.
 

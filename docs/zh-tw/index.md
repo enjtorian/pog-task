@@ -36,6 +36,15 @@ POG Task 是新一代的 **AI 原生任務治理模型**，專為 AI Agent 作�
 
 POG Task 使人類與 AI Agent 能無縫協作，提供可重現的結果、完整的審計軌跡，以及對「副作用」的嚴格治理。
 
+## 🧩 提示編排治理 (Prompt Orchestration Governance, POG)
+
+### 提示編排治理 (Prompt Orchestration Governance, POG)
+一個將提示詞 (Prompts) 視為軟體開發生命週期 (SDLC) 中一等軟體資產的綜合管理框架。POG 提供了系統化的流程來發現、標準化、驗證、版本控制和部署提示詞，同時維持治理與品質控制。
+
+📖 **白皮書**: [Prompt Orchestration Governance Whitepaper](https://enjtorian.github.io/prompt-orchestration-governance-whitepaper/zh-tw/)
+
+---
+
 ## 2. 為什麼需要 POG Task
 
 傳統的任務管理工具 (Trello, Jira, Asana) 都有一個共同缺陷：它們假設任務是由人類來解讀與執行。在 AI 優先的環境中，這種模式會失效，因為：
@@ -93,6 +102,7 @@ flowchart LR
     TL -->|記錄| R["pog-task/list/{project}/{module}/record/{uuid}/record.md"]
     A -->|更新狀態| TL
     TL -->|輸出| O[產出物 & 程式碼]
+    O -.->|記錄連結| R
 ```
 
 ## 5. POG Task 設計原則
@@ -232,16 +242,14 @@ pog-task/
 ### 任務 YAML Schema
 
 ```yaml
-{
-  "type": "task",
-  "id": "uuid",
-  "title": "",
-  "description": "",
-  "category": "",
-  "status": "pending|in_progress|completed",
-  "checklist": [],
-  "history": []
-}
+type: task
+id: "uuid"
+title: ""
+description: ""
+category: ""
+status: "pending|in_progress|completed"
+checklist: []
+history: []
 ```
 
 ### Record.md 範例
