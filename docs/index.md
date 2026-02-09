@@ -35,8 +35,6 @@ Unlike traditional task systems built for humans, POG Task ensures that tasks ar
 
 POG Task enables humans and AI agents to collaborate seamlessly, providing reproducible outcomes, full audit trails, and strict governance over "side effects".
 
-## 🧩 Prompt Orchestration Governance (POG)
-
 ### Prompt Orchestration Governance (POG)
 A comprehensive framework for managing prompts as first-class software assets across the Software Development Life Cycle. POG provides systematic processes for discovering, normalizing, validating, versioning, and deploying prompts while maintaining governance and quality controls.
 

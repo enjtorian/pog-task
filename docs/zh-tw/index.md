@@ -36,8 +36,6 @@ POG Task 是新一代的 **AI 原生任務治理模型**，專為 AI Agent 作�
 
 POG Task 使人類與 AI Agent 能無縫協作，提供可重現的結果、完整的審計軌跡，以及對「副作用」的嚴格治理。
 
-## 🧩 提示編排治理 (Prompt Orchestration Governance, POG)
-
 ### 提示編排治理 (Prompt Orchestration Governance, POG)
 一個將提示詞 (Prompts) 視為軟體開發生命週期 (SDLC) 中一等軟體資產的綜合管理框架。POG 提供了系統化的流程來發現、標準化、驗證、版本控制和部署提示詞，同時維持治理與品質控制。
 
