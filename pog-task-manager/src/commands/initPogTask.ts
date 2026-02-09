@@ -34,13 +34,16 @@ export async function initPogTask() {
     // Download files
     const instructionsUrl = 'https://raw.githubusercontent.com/enjtorian/pog-task/main/pog-task/pog-task-agent-instructions.md';
     const declareUrl = 'https://raw.githubusercontent.com/enjtorian/pog-task/main/pog-task/task.schema.json';
+    const pythonScriptUrl = 'https://raw.githubusercontent.com/enjtorian/pog-task/main/pog-task/pog-task.py';
 
     const instructionsPath = path.join(pogTaskDir, 'pog-task-agent-instructions.md');
     const schemaPath = path.join(pogTaskDir, 'task.schema.json');
+    const pythonScriptPath = path.join(pogTaskDir, 'pog-task.py');
 
     try {
         await downloadFile(instructionsUrl, instructionsPath);
         await downloadFile(declareUrl, schemaPath);
+        await downloadFile(pythonScriptUrl, pythonScriptPath);
     } catch (error) {
         vscode.window.showErrorMessage(`Failed to download configuration files: ${error}`);
         // Continue even if download fails, to creates the task file

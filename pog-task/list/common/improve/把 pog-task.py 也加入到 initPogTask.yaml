@@ -1,0 +1,49 @@
+type: "task"
+id: "2ccc2c7d-3935-4310-8a45-dc66359203d7"
+title: "把 pog-task.py 也加入到 initPogTask"
+description: "在 initPogTask 指令中加入 pog-task.py 檔案的下載功能，讓初始化時自動取得該校驗腳本，確保用戶可以立即使用 pog-task.py 來校驗任務 YAML 檔案格式。"
+category: "improvement"
+priority: "medium"
+status: "completed"
+created_at: "2026-02-09T00:00:00+08:00"
+started_at: "2026-02-09T00:00:00+08:00"
+completed_at: "2026-02-09T00:30:00+08:00"
+estimated_hours: 1
+actual_hours: 0.5
+claimed_by: "github-copilot"
+claimed_at: "2026-02-09T00:00:00+08:00"
+related_files:
+  - "pog-task-manager/src/commands/initPogTask.ts"
+  - "pog-task/pog-task.py"
+dependencies: []
+blocking: []
+tags:
+  - "init-command"
+  - "python-script"
+  - "validation"
+checklist:
+  - text: "修改 initPogTask.ts 加入 pog-task.py 下載"
+    completed: true
+  - text: "測試初始化功能是否正常"
+    completed: true
+  - text: "更新相關文件"
+    completed: true
+parent_task: "9d868972-7472-4687-951c-06723223126f"
+notes: ""
+history:
+  - timestamp: "2026-02-09T00:00:00+08:00"
+    agent: "github-copilot"
+    action: "created"
+    message: "建立任務：將 pog-task.py 加入到 initPogTask 初始化流程"
+  - timestamp: "2026-02-09T00:00:00+08:00"
+    agent: "github-copilot"
+    action: "claimed"
+    message: "認領任務並開始執行"
+  - timestamp: "2026-02-09T00:15:00+08:00"
+    agent: "github-copilot"
+    action: "progress"
+    message: "已完成 initPogTask.ts 的修改，加入 pog-task.py 下載功能"
+  - timestamp: "2026-02-09T00:30:00+08:00"
+    agent: "github-copilot"
+    action: "completed"
+    message: "任務完成：已將 pog-task.py 加入到 initPogTask 初始化流程，校驗通過"
