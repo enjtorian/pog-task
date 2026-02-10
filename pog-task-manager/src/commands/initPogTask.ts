@@ -1,3 +1,4 @@
+import * as crypto from 'crypto';
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -32,21 +33,42 @@ export async function initPogTask() {
     }
 
     // Download files
-    const instructionsUrl = 'https://raw.githubusercontent.com/enjtorian/pog-task/main/pog-task/pog-task-agent-instructions.md';
-    const declareUrl = 'https://raw.githubusercontent.com/enjtorian/pog-task/main/pog-task/task.schema.json';
-    const pythonScriptUrl = 'https://raw.githubusercontent.com/enjtorian/pog-task/main/pog-task/pog-task.py';
+    const configFiles = [
+        {
+            url: 'https://raw.githubusercontent.com/enjtorian/pog-task/main/pog-task/pog-task-agent-instructions.md',
+            dest: path.join(pogTaskDir, 'pog-task-agent-instructions.md'),
+            sha256: '1c2cbbe4cfa1e24be97501d23e481166df3eba9c937e04ae253bf0ff628f9f08'
+        },
+        {
+            url: 'https://raw.githubusercontent.com/enjtorian/pog-task/main/pog-task/task.schema.json',
+            dest: path.join(pogTaskDir, 'task.schema.json'),
+            sha256: '74ae3883ee3d8b4e0f65f7ec6fe209d5d8e525c4d0cd22579ad1e7d29b89888b'
+        },
+        {
+            url: 'https://raw.githubusercontent.com/enjtorian/pog-task/main/pog-task/pog-task.py',
+            dest: path.join(pogTaskDir, 'pog-task.py'),
+            sha256: '69b8cf5a2f28f62eecb8cb011c099fc09341ea2bed7918544ffa0d821926a284'
+        }
+    ];
 
-    const instructionsPath = path.join(pogTaskDir, 'pog-task-agent-instructions.md');
-    const schemaPath = path.join(pogTaskDir, 'task.schema.json');
-    const pythonScriptPath = path.join(pogTaskDir, 'pog-task.py');
+    let hasErrors = false;
 
-    try {
-        await downloadFile(instructionsUrl, instructionsPath);
-        await downloadFile(declareUrl, schemaPath);
-        await downloadFile(pythonScriptUrl, pythonScriptPath);
-    } catch (error) {
-        vscode.window.showErrorMessage(`Failed to download configuration files: ${error}`);
-        // Continue even if download fails, to creates the task file
+    for (const config of configFiles) {
+        if (fs.existsSync(config.dest)) {
+            // calculated hash check could be added here too, but for now we just skip to avoid overwrite
+            continue;
+        }
+
+        try {
+            await downloadFile(config.url, config.dest, config.sha256);
+        } catch (error) {
+            vscode.window.showErrorMessage(`Failed to download ${path.basename(config.dest)}: ${error}`);
+            hasErrors = true;
+        }
+    }
+
+    if (hasErrors) {
+        vscode.window.showWarningMessage('Some configuration files failed to download. You may need to manualy fix them.');
     }
 
     // Create initial task file
@@ -76,8 +98,16 @@ export async function initPogTask() {
                     action: "created",
                     message: "系統初始化生成"
                 }
-            ]
+            ],
+            record_path: "record/00000000-0000-0000-0000-000000000000/record.md"
         };
+
+        // Ensure record directory exists
+        const initRecordDir = path.join(moduleDir, 'record', '00000000-0000-0000-0000-000000000000');
+        if (!fs.existsSync(initRecordDir)) {
+            fs.mkdirSync(initRecordDir, { recursive: true });
+            fs.writeFileSync(path.join(initRecordDir, 'record.md'), '# Task Record: 初始化系統任務\n\n');
+        }
 
         try {
             const yaml = require('js-yaml');
@@ -91,22 +121,35 @@ export async function initPogTask() {
     }
 }
 
-function downloadFile(url: string, dest: string): Promise<void> {
+function downloadFile(url: string, dest: string, expectedSha256?: string): Promise<void> {
     return new Promise((resolve, reject) => {
-        const file = fs.createWriteStream(dest);
         https.get(url, (response) => {
             if (response.statusCode !== 200) {
                 reject(new Error(`Failed to download ${url}, status code: ${response.statusCode}`));
                 return;
             }
 
-            response.pipe(file);
-            file.on('finish', () => {
-                file.close();
-                resolve();
+            const data: Buffer[] = [];
+            response.on('data', (chunk) => data.push(chunk));
+            response.on('end', () => {
+                const buffer = Buffer.concat(data);
+
+                if (expectedSha256) {
+                    const hash = crypto.createHash('sha256').update(buffer).digest('hex');
+                    if (hash !== expectedSha256) {
+                        vscode.window.showWarningMessage(`Checksum mismatch for ${path.basename(dest)}. Expected ${expectedSha256}, got ${hash}. File downloaded anyway.`);
+                        // Don't return/reject, proceed to write file
+                    }
+                }
+
+                try {
+                    fs.writeFileSync(dest, buffer);
+                    resolve();
+                } catch (err) {
+                    reject(err);
+                }
             });
         }).on('error', (err) => {
-            fs.unlink(dest, () => { }); // Delete the file async. (But we don't check the result)
             reject(err);
         });
     });

@@ -180,16 +180,3 @@ POG Task Manager 提供了兩種主要的 Prompt 生成功能，協助您快速�
     *   **Refresh Tasks**: 在 Command Palette 輸入 `POG Task Manager: Refresh Tasks` 可手動強制重新讀取所有任務。
     *   **Context Menu**: 在任務項目上點擊右鍵，可執行相關操作（如複製 Prompt、開啟 Record、切換狀態等）。
     *   **Init POG Task**: 在 Command Palette 輸入 `POG Task Manager: Init POG Task` 可快速初始化專案結構。
-
-## 版本資訊 (Release Notes)
-
-### 1.1.0
-*   **YAML 全面轉型**：外掛程式現在支援全新的 YAML 格式與 `{project}/{module}` 巢狀目錄結構。
-*   **效能優化**：改進了 YAML 任務列表的讀取與渲染效能。
-
-### 1.0.1
-*   新增 `Init POG Task` 指令，自動初始化專案結構。
-*   更新文件連結與 Marketplace 資訊。
-
-### 1.0.0
-*   專案初始化。

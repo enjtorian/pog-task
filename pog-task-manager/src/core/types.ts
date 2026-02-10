@@ -45,6 +45,7 @@ export interface Task {
     claimed_at?: string | null;
 
     related_files?: string[];
+    context_files?: string[];
     dependencies?: string[];
     blocking?: string[];
     tags?: string[];
@@ -56,6 +57,8 @@ export interface Task {
 
     notes?: string;
     history: TaskHistory[];
+
+    record_path?: string;
 
     // Runtime properties (not in YAML)
     _filePath?: string;

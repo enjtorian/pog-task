@@ -174,16 +174,3 @@ Used for executing an existing task.
     *   **Refresh Tasks**: Use `POG Task Manager: Refresh Tasks` in the Command Palette to manually force a reload of all tasks.
     *   **Context Menu**: Right-click on a task item to perform actions like copying prompts, opening records, or toggling status.
     *   **Init POG Task**: Use `POG Task Manager: Init POG Task` in the Command Palette to quickly initialize the project structure.
-
-## Release Notes
-
-### 1.1.0
-*   **Full YAML Migration**: The extension now supports the new YAML format and `{project}/{module}` nested directory structure.
-*   **Performance Optimization**: Improved reading and rendering performance for the YAML task list.
-
-### 1.0.1
-*   Added `Init POG Task` command to automatically initialize the project structure.
-*   Updated documentation links and Marketplace information.
-
-### 1.0.0
-*   Initial release.

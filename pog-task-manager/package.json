@@ -5,7 +5,7 @@
     "description": "POG Task Management Plugin",
     "publisher": "enjtorian",
     "license": "Apache-2.0",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "repository": {
         "type": "git",
         "url": "https://github.com/enjtorian/pog-task.git"
@@ -132,6 +132,12 @@
                 "command": "pog-task-manager.expandAll",
                 "title": "POG Task Manager: Expand All Tasks",
                 "icon": "$(expand-all)"
+            },
+            {
+                "command": "pog-task-manager.toggleContextAware",
+                "title": "POG Task Manager: Toggle Context Awareness",
+                "icon": "$(magnet)",
+                "enablement": "true"
             }
         ],
         "menus": {
@@ -170,6 +176,11 @@
                     "command": "pog-task-manager.refreshPromptTemplates",
                     "when": "view == pog-task-manager.promptTemplates",
                     "group": "navigation"
+                },
+                {
+                    "command": "pog-task-manager.toggleContextAware",
+                    "when": "view == pog-task-manager.taskList",
+                    "group": "navigation@1"
                 }
             ],
             "view/item/context": [

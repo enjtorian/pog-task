@@ -157,7 +157,42 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(previewPromptTemplateDisposable);
     context.subscriptions.push(openPromptTemplateFileDisposable);
 
+    // Context Awareness
+    let isContextAware = false;
+    vscode.commands.executeCommand('setContext', 'pog-task-manager.contextAwareEnabled', false);
+
+    const toggleContextAwareDisposable = vscode.commands.registerCommand('pog-task-manager.toggleContextAware', () => {
+        isContextAware = !isContextAware;
+        vscode.commands.executeCommand('setContext', 'pog-task-manager.contextAwareEnabled', isContextAware);
+
+        if (isContextAware) {
+            const activeEditor = vscode.window.activeTextEditor;
+            if (activeEditor) {
+                treeDataProvider.setFileFilter(activeEditor.document.fileName);
+            }
+            vscode.window.showInformationMessage('Context Awareness Enabled');
+        } else {
+            treeDataProvider.setFileFilter(null);
+            vscode.window.showInformationMessage('Context Awareness Disabled');
+        }
+    });
+
+    const activeEditorListener = vscode.window.onDidChangeActiveTextEditor(editor => {
+        if (isContextAware) {
+            if (editor) {
+                treeDataProvider.setFileFilter(editor.document.fileName);
+            } else {
+                // Keep last filter or clear? Let's keep it to avoid flashing empty list
+                // or maybe clear if no editor is active?
+                treeDataProvider.setFileFilter(null);
+            }
+        }
+    });
+
     // Expose store for testing if needed
+    context.subscriptions.push(toggleContextAwareDisposable);
+    context.subscriptions.push(activeEditorListener);
+
     return { store, promptTemplateStore };
 }
 

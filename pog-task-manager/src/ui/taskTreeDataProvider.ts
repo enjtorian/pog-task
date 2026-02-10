@@ -17,6 +17,7 @@ export class TaskTreeDataProvider implements vscode.TreeDataProvider<TreeElement
     private _onDidChangeTreeData: vscode.EventEmitter<TreeElement | undefined | null | void> = new vscode.EventEmitter<TreeElement | undefined | null | void>();
     readonly onDidChangeTreeData: vscode.Event<TreeElement | undefined | null | void> = this._onDidChangeTreeData.event;
     private _statusFilter: Set<string> = new Set();
+    private _fileFilter: string | null = null;
 
     constructor(private store: TaskStore) {
         this.store.onDidUpdate(() => this.refresh());
@@ -35,13 +36,23 @@ export class TaskTreeDataProvider implements vscode.TreeDataProvider<TreeElement
         return Array.from(this._statusFilter);
     }
 
+    setFileFilter(filePath: string | null): void {
+        this._fileFilter = filePath;
+        this.refresh();
+    }
+
+    getFileFilter(): string | null {
+        return this._fileFilter;
+    }
+
     clearFilter(): void {
         this._statusFilter.clear();
+        this._fileFilter = null;
         this.refresh();
     }
 
     hasFilter(): boolean {
-        return this._statusFilter.size > 0;
+        return this._statusFilter.size > 0 || this._fileFilter !== null;
     }
 
     getTreeItem(element: TreeElement): vscode.TreeItem {
@@ -131,17 +142,20 @@ export class TaskTreeDataProvider implements vscode.TreeDataProvider<TreeElement
     }
 
     private filterTasks(tasks: Task[]): Task[] {
-        if (this._statusFilter.size === 0) {
+        if (this._statusFilter.size === 0 && this._fileFilter === null) {
             return tasks;
         }
-        
+
         // Filter tasks and include parents if any child passes the filter
         return tasks.filter(task => {
-            // If task itself matches filter, include it
-            if (this._statusFilter.has(task.status)) {
+            // Check filters for this task
+            const matchesStatus = this._statusFilter.size === 0 || this._statusFilter.has(task.status);
+            const matchesFile = this.matchesFileFilter(task);
+
+            if (matchesStatus && matchesFile) {
                 return true;
             }
-            
+
             // Check if any subtasks pass the filter
             const subtasks = this.store.getSubtasks(task.id);
             if (subtasks.length > 0) {
@@ -149,25 +163,56 @@ export class TaskTreeDataProvider implements vscode.TreeDataProvider<TreeElement
                 const hasMatchingSubtask = this.hasMatchingDescendant(subtasks);
                 return hasMatchingSubtask;
             }
-            
+
             return false;
         });
     }
-    
+
+    private matchesFileFilter(task: Task): boolean {
+        if (!this._fileFilter) {
+            return true;
+        }
+
+        const filterPath = this._fileFilter.toLowerCase();
+
+        // Check related_files
+        if (task.related_files) {
+            for (const file of task.related_files) {
+                if (filterPath.endsWith(file.toLowerCase()) || filterPath.includes(file.toLowerCase())) {
+                    return true;
+                }
+            }
+        }
+
+        // Check context_files
+        if (task.context_files) {
+            for (const file of task.context_files) {
+                if (filterPath.endsWith(file.toLowerCase()) || filterPath.includes(file.toLowerCase())) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     private hasMatchingDescendant(tasks: Task[]): boolean {
         for (const task of tasks) {
             // Check if this task matches
-            if (this._statusFilter.has(task.status)) {
+            const matchesStatus = this._statusFilter.size === 0 || this._statusFilter.has(task.status);
+            const matchesFile = this.matchesFileFilter(task);
+
+            if (matchesStatus && matchesFile) {
                 return true;
             }
-            
+
             // Check descendants
             const subtasks = this.store.getSubtasks(task.id);
             if (subtasks.length > 0 && this.hasMatchingDescendant(subtasks)) {
                 return true;
             }
         }
-        
+
         return false;
     }
 

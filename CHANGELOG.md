@@ -2,6 +2,11 @@
 
 All notable changes to the POG Task project will be documented in this file.
 
+## [1.1.1] - 2026-02-10
+
+### Fixed: Data Loss in `quickAdd`
+### Fixed: Config Overwrite & Unverified Download in `initPogTask`
+
 ## [1.1.0] - 2026-02-08
 
 ### ⚡ `pog-task/` (Core Specification)

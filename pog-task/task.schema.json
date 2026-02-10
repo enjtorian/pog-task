@@ -167,6 +167,17 @@
             "type": "string",
             "description": "Additional notes"
         },
+        "record_path": {
+            "type": "string",
+            "description": "Relative path to the record file (e.g. record/{uuid}/record.md)"
+        },
+        "context_files": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "List of files that provide context for this task"
+        },
         "history": {
             "type": "array",
             "items": {
