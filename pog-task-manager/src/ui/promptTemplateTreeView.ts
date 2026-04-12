@@ -16,9 +16,9 @@ class PromptTemplateTreeItem extends vscode.TreeItem {
         if (template) {
             this.contextValue = 'promptTemplate';
             this.command = {
-                command: 'pog-task-manager.previewPromptTemplate',
-                title: 'Preview Prompt Template',
-                arguments: [template]
+                command: 'pog-task-manager.openPromptTemplateFile',
+                title: 'Open Prompt Template File',
+                arguments: [this]
             };
             this.iconPath = new vscode.ThemeIcon('file-text');
             this.tooltip = template.path;

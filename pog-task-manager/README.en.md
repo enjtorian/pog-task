@@ -106,9 +106,9 @@ POG Task Manager provides two main prompt generation functions to help you quick
 Used for creating a new task from scratch.
 *   **When to use**: When you have a new idea or requirement and need an Agent's help to transform it into a formal POG Task.
 *   **Generated Content**: Includes reading the [Agent Guide](https://github.com/enjtorian/pog-task/blob/main/pog-task/pog-task-agent-instructions.md), category definition, and standard steps for creating the task and `record.md`.
-*   **How to operate**: Select "Create Task" from the Prompt Templates list, or right-click in an empty area of the task list and select "Copy Create Prompt."
+*   **How to operate**: Select "Create Task" from the Prompt Templates list, or right-click in an empty area of the task list and select "Copy Task Create."
 
-"Copy Create Prompt" Example:
+"Copy Task Create" Example:
 ---
     # Step 1: Read Context
     Please read the following documents and relevant resources:

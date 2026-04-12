@@ -2,6 +2,13 @@
 
 All notable changes to the POG Task project will be documented in this file.
 
+## [1.2.1] - 2026-04-13
+
+### 🧩 `pog-task-manager/` (VS Code Plugin)
+- **Improved**: Project Inline Creation now prompts for module selection for better consistency.
+- **Improved**: Prompt Template TreeView now opens template files directly in the editor.
+- **Added**: Inline "Copy Context" button in Task Detail webview.
+
 ## [1.2.0] - 2026-04-12
 
 ### 🧩 `pog-task-manager/` (VS Code Plugin)

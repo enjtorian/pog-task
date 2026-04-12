@@ -263,8 +263,8 @@ export class TaskWebviewPanel {
 
                 <div style="margin-top: 20px; display: flex; gap: 10px;">
                     <button onclick="save()">Save</button>
-                    <button onclick="copyExecutePrompt()">Copy Execute Prompt</button>
-                    <button onclick="copyCreatePrompt()">Copy Create Prompt</button>
+                    <button onclick="copyExecutePrompt()">Copy Task Execute</button>
+                    <button onclick="copyCreatePrompt()">Copy Task Create</button>
                 </div>
                 </div>
                 

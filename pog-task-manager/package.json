@@ -5,7 +5,7 @@
     "description": "POG Task Management Plugin",
     "publisher": "enjtorian",
     "license": "Apache-2.0",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "repository": {
         "type": "git",
         "url": "https://github.com/enjtorian/pog-task.git"
@@ -96,16 +96,17 @@
             },
             {
                 "command": "pog-task-manager.copyExecutePrompt",
-                "title": "POG Task Manager: Copy Execute Prompt",
+                "title": "POG Task Manager: Copy Task Execute",
                 "icon": "$(play)"
             },
             {
                 "command": "pog-task-manager.copyContext",
-                "title": "POG Task Manager: Copy Task Context"
+                "title": "POG Task Manager: Copy Task Context",
+                "icon": "$(copy)"
             },
             {
                 "command": "pog-task-manager.copyCreatePrompt",
-                "title": "POG Task Manager: Copy Create Prompt",
+                "title": "POG Task Manager: Copy Task Create",
                 "icon": "$(add)"
             },
             {
@@ -166,12 +167,12 @@
             },
             {
                 "command": "pog-task-manager.createPromptForProject",
-                "title": "POG Task Manager: Create Prompt for Project",
+                "title": "POG Task Manager: Copy Create Task for Project",
                 "icon": "$(add)"
             },
             {
                 "command": "pog-task-manager.createPromptForModule",
-                "title": "POG Task Manager: Create Prompt for Module",
+                "title": "POG Task Manager: Copy Create Task for Module",
                 "icon": "$(add)"
             }
         ],
@@ -242,7 +243,7 @@
                 {
                     "command": "pog-task-manager.copyContext",
                     "when": "view == pog-task-manager.taskList && viewItem == task",
-                    "group": "2_actions"
+                    "group": "inline"
                 },
                 {
                     "command": "pog-task-manager.copyCreatePrompt",

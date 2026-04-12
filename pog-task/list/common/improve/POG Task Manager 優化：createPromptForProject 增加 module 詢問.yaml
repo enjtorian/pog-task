@@ -1,0 +1,39 @@
+type: "task"
+id: "a64db027-2b10-4797-962a-ee73675119ae"
+title: "POG Task Manager 優化：createPromptForProject 增加 module 詢問"
+description: "調整在點擊 project inline 的 createPromptForProject 時，如同 Quick Add Task 一樣，要額外詢問 module。"
+category: "improvement"
+priority: "medium"
+status: "in_review"
+created_at: "2026-04-13T02:18:00+08:00"
+started_at: "2026-04-13T02:18:00+08:00"
+estimated_hours: 1
+actual_hours: 0
+claimed_by: "antigravity"
+claimed_at: "2026-04-13T02:18:00+08:00"
+related_files:
+  - "pog-task-manager/src/extension.ts"
+  - "pog-task-manager/src/commands/agentCommands.ts"
+parent_task: "9d8f6c3a-2e1b-4f5a-8b3c-1d5e7f9a2b4c"
+original_prompt: "調整 在 點擊 project inline 的 createPromptForProject 如同 Quick Add Task 一樣 要額外詢問 module"
+checklist:
+  - text: "研究 createPromptForProject 指令實作"
+    completed: true
+  - text: "修改指令流程以加入 module 詢問"
+    completed: true
+  - text: "驗證功能是否正常運作"
+    completed: true
+record_path: "record/a64db027-2b10-4797-962a-ee73675119ae/record.md"
+history:
+  - timestamp: "2026-04-13T02:18:00+08:00"
+    agent: "antigravity"
+    action: "created"
+    message: "建立任務：POG Task Manager 優化：createPromptForProject 增加 module 詢問"
+  - timestamp: "2026-04-13T02:18:00+08:00"
+    agent: "antigravity"
+    action: "claimed"
+    message: "認領任務並開始實作"
+  - timestamp: "2026-04-13T02:20:00+08:00"
+    agent: "antigravity"
+    action: "progress"
+    message: "完成程式碼修改並通過編譯驗證，提交審核"

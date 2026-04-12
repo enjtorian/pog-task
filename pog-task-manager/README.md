@@ -113,9 +113,9 @@ POG Task Manager 提供了兩種主要的 Prompt 生成功能，協助您快速�
 適用於從零開始建立一個新任務。
 *   **使用時機**：當您有一個新的構想或需求，需要 Agent 協助將其轉化為正式的 POG Task。
 *   **產生內容**：包含閱讀 [Agent Guide](https://github.com/enjtorian/pog-task/blob/main/pog-task/pog-task-agent-instructions.md)、Category 定義，以及建立任務與 `record.md` 的標準步驟。
-*   **操作方式**：在 Prompt Templates 列表中選擇 "Create Task"，或在任務列表空白處右鍵選擇 "Copy Create Prompt"。
+*   **操作方式**：在 Prompt Templates 列表中選擇 "Create Task"，或在任務列表空白處右鍵選擇 "Copy Task Create"。
 
-"Copy Create Prompt" 範例：
+"Copy Task Create" 範例：
 ---
     # Step 1: Read Context
     請閱讀以下文件及相關資源：
@@ -126,19 +126,27 @@ POG Task Manager 提供了兩種主要的 Prompt 生成功能，協助您快速�
     請在 pog-task/list 下操作：
     - project: {${project}}
     - module: {${module}}
-    - 如果任務不存在 → 新建任務
-    - 如果任務已存在 → 加入該任務
-    - parent task id: {task.parent_task}
+    - 如果任務不存在 → 新建任務 (立即建立一個新的 yaml 檔案)
+    - 如果任務已存在 → 加入該任務 (直接修改 yaml 檔案)
+    - parent task id: {${task.id}}
 
-    # Step 3: 理解任務 本次任務：
-        xxxxxxxx
-
-    # Step 4: Generate Task Record
-    請生成 record.md 檔案（位於 pog-task/list/{project}/{module}/record/{task-uuid}/record.md），內容包含：
+    # Step 3: Generate Task Record
+    請生成 record.md 檔案（位於 pog-task/list/${project}/${module}/record/{task-uuid}/record.md），內容包含：
     - Original Prompt
     - Task 目標
     - Execution Plan / Checklist
     - 相關參考文件
+    - implementation plan 的內容也記錄下來
+    - 每做到一個段落 就透過 git commit 的方式提交一次，commit message 概述該段落的內容
+
+    # Step 4: 理解任務 本次任務：
+        xxxxxxxx
+
+    # Step 5: Update Progress
+    - 更新 status: in_progress → in_review
+    - 更新 checklist / notes / actual_hours
+    - 在 history 中加入執行紀錄
+    - 在 record.md 中記錄關鍵決策與產出物 把 walkthrough 的內容也記錄下來
 ---
 
 ### 2. 執行任務 (Execute Prompt)
@@ -151,35 +159,36 @@ POG Task Manager 提供了兩種主要的 Prompt 生成功能，協助您快速�
 
 "Copy Execute Prompt" 範例：
 ---
-# Step 1: Read Context
-請閱讀以下文件及相關資源：
-- pog-task/pog-task-agent-instructions.md
-- pog-task/task.schema.json
+    # Step 1: Read Context
+    請閱讀以下文件及相關資源：
+    - pog-task/pog-task-agent-instructions.md
+    - pog-task/task.schema.json
 
-# Step 2: Create or Join Task
-請在 pog-task/list 下操作：
-- project: {${project}}
-- module: {${module}}
-- 如果任務不存在 → 新建任務 (立即建立一個新的 yaml 檔案)
-- 如果任務已存在 → 加入該任務 (直接修改 yaml 檔案)
-${parentLine}
+    # Step 2: Create or Join Task
+    請在 pog-task/list 下操作：
+    - project: {${project}}
+    - module: {${module}}
+    - 如果任務不存在 → 新建任務 (立即建立一個新的 yaml 檔案)
+    - 如果任務已存在 → 加入該任務 (直接修改 yaml 檔案)
+    ${parentLine}
 
-# Step 3: Generate Task Record
-請生成 record.md 檔案（位於 pog-task/list/${project}/${module}/record/{task-uuid}/record.md），內容包含：
-- Original Prompt
-- Task 目標
-- Execution Plan / Checklist
-- 相關參考文件
-- 每做到一個段落 就透過 git commit 的方式提交一次，commit message 概述該段落的內容
+    # Step 3: Generate Task Record
+    請生成 record.md 檔案（位於 pog-task/list/${project}/${module}/record/{task-uuid}/record.md），內容包含：
+    - Original Prompt
+    - Task 目標
+    - Execution Plan / Checklist
+    - 相關參考文件
+    - implementation plan 的內容也記錄下來
+    - 每做到一個段落 就透過 git commit 的方式提交一次，commit message 概述該段落的內容
 
-# Step 4: 理解任務 本次任務：
-    xxxxxxxx
+    # Step 4: 理解任務 本次任務：
+        xxxxxxxx
 
-# Step 5: Update Progress
-- 更新 status: in_progress → in_review
-- 更新 checklist / notes / actual_hours
-- 在 history 中加入執行紀錄
-- 在 record.md 中記錄關鍵決策與產出物 把 implementation plan, walkthrough 的內容也記錄下來
+    # Step 5: Update Progress
+    - 更新 status: in_progress → in_review
+    - 更新 checklist / notes / actual_hours
+    - 在 history 中加入執行紀錄
+    - 在 record.md 中記錄關鍵決策與產出物 把 walkthrough 的內容也記錄下來
 ---
 
 ## 使用方式 (Usage)

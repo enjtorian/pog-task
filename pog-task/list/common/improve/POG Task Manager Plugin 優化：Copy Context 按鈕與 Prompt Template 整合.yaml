@@ -1,0 +1,42 @@
+type: "task"
+id: "04036ca3-e2b8-4580-a440-08d6f26276b4"
+title: "POG Task Manager Plugin 優化：Copy Context 按鈕與 Prompt Template 整合"
+description: "優化 POG Task Manager 的使用者介面，包括將 Copy Task Context 改為行內按鈕、點擊 Prompt Template 直接開啟檔案，以及優化 Prompt 複製功能。"
+category: "improvement"
+priority: "medium"
+status: "in_review"
+created_at: "2026-04-13T01:57:17+08:00"
+estimated_hours: 4
+actual_hours: 2
+claimed_by: "Antigravity"
+claimed_at: "2026-04-13T01:57:17+08:00"
+related_files:
+  - "pog-task-manager/src/ui/taskWebviewPanel.ts"
+  - "pog-task-manager/src/ui/promptTemplateTreeView.ts"
+  - "pog-task-manager/src/commands/promptTemplateCommands.ts"
+parent_task: "9d8f6c3a-2e1b-4f5a-8b3c-1d5e7f9a2b4c"
+original_prompt: |
+  # Step 4: 理解任務 本次任務：
+  1.1 調整 copy task context 改成 inline 的按鈕 $(copy)
+  2.1 調整 prompt tempaltes list 點擊 tree 開啟 目標 prompt 檔案 view
+  2.2 copyPromptTemplate 的 複製 內容 調整成 建立一個 copyCreatePrompt 然後把 目標 的 prompt tempalte 的檔案名稱 帶入 "# Step 4: 理解任務 本次任務："
+checklist:
+  - text: "1.1 調整 copy task context 改成 inline 的按鈕 $(copy)"
+    completed: true
+  - text: "2.1 調整 prompt tempaltes list 點擊 tree 開啟 目標 prompt 檔案 view"
+    completed: true
+  - text: "2.2 調整 copyPromptTemplate 功能為 copyCreatePrompt 並帶入檔名"
+    completed: true
+history:
+  - timestamp: "2026-04-13T01:57:17+08:00"
+    agent: "Antigravity"
+    action: "created"
+    message: "建立任務：介面優化與 Prompt 整合"
+  - timestamp: "2026-04-13T01:57:17+08:00"
+    agent: "Antigravity"
+    action: "claimed"
+    message: "認領任務"
+  - timestamp: "2026-04-13T02:00:36+08:00"
+    agent: "Antigravity"
+    action: "progress"
+    message: "完成介面調整與邏輯優化，進入審閱階段"

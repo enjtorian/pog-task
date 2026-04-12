@@ -35,7 +35,7 @@ export async function copyExecutePrompt(store: TaskStore, task: Task) {
     `.trim();
 
     await vscode.env.clipboard.writeText(prompt);
-    vscode.window.showInformationMessage('Execute Prompt copied to clipboard!');
+    vscode.window.showInformationMessage('Execute Task copied to clipboard!');
 }
 
 export async function copyTaskContext(task: Task) {
@@ -90,6 +90,7 @@ export async function copyCreatePrompt(task: Task) {
 - Task 目標
 - Execution Plan / Checklist
 - 相關參考文件
+- implementation plan 的內容也記錄下來
 - 每做到一個段落 就透過 git commit 的方式提交一次，commit message 概述該段落的內容
 
 # Step 4: 理解任務 本次任務：
@@ -99,25 +100,44 @@ export async function copyCreatePrompt(task: Task) {
 - 更新 status: in_progress → in_review
 - 更新 checklist / notes / actual_hours
 - 在 history 中加入執行紀錄
-- 在 record.md 中記錄關鍵決策與產出物 把 implementation plan, walkthrough 的內容也記錄下來
+- 在 record.md 中記錄關鍵決策與產出物 把 walkthrough 的內容也記錄下來
 
 ---
     `.trim();
 
     await vscode.env.clipboard.writeText(prompt);
-    vscode.window.showInformationMessage('Create Prompt copied to clipboard!');
+    vscode.window.showInformationMessage('Create Task copied to clipboard!');
 }
 
-export async function copyCreatePromptForProject(projectName: string) {
-    const prompt = buildCreatePromptTemplate(projectName, '{module}', null);
+export async function copyCreatePromptForProject(store: TaskStore, projectName: string) {
+    // 1. Select or Enter Module
+    const modules = store.getModules(projectName);
+    const createNewModuleItem = '$(plus) Create New Module...';
+    const moduleItems = [createNewModuleItem, ...modules];
+
+    let module = await vscode.window.showQuickPick(moduleItems, {
+        placeHolder: `Select Module for project "${projectName}"`
+    });
+
+    if (!module) { return; }
+
+    if (module === createNewModuleItem) {
+        module = await vscode.window.showInputBox({
+            prompt: 'Enter New Module Name',
+            placeHolder: 'e.g., core'
+        });
+        if (!module) { return; }
+    }
+
+    const prompt = buildCreatePromptTemplate(projectName, module, null);
     await vscode.env.clipboard.writeText(prompt);
-    vscode.window.showInformationMessage('Create Prompt copied to clipboard!');
+    vscode.window.showInformationMessage('Create Task copied to clipboard!');
 }
 
 export async function copyCreatePromptForModule(projectName: string, moduleName: string) {
     const prompt = buildCreatePromptTemplate(projectName, moduleName, null);
     await vscode.env.clipboard.writeText(prompt);
-    vscode.window.showInformationMessage('Create Prompt copied to clipboard!');
+    vscode.window.showInformationMessage('Create Task copied to clipboard!');
 }
 
 function buildCreatePromptTemplate(project: string, module: string, parentTaskId: string | null): string {
@@ -146,6 +166,7 @@ ${parentLine}
 - Task 目標
 - Execution Plan / Checklist
 - 相關參考文件
+- implementation plan 的內容也記錄下來
 - 每做到一個段落 就透過 git commit 的方式提交一次，commit message 概述該段落的內容
 
 # Step 4: 理解任務 本次任務：
@@ -155,7 +176,7 @@ ${parentLine}
 - 更新 status: in_progress → in_review
 - 更新 checklist / notes / actual_hours
 - 在 history 中加入執行紀錄
-- 在 record.md 中記錄關鍵決策與產出物 把 implementation plan, walkthrough 的內容也記錄下來
+- 在 record.md 中記錄關鍵決策與產出物 把 walkthrough 的內容也記錄下來
 
 ---
     `.trim();

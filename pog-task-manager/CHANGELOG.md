@@ -4,6 +4,12 @@ All notable changes to the "pog-task-manager" extension will be documented in th
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.2.1] - 2026-04-13
+
+- **UI/UX**: Added "Copy Context" button to Task Detail webview.
+- **Project Creation**: Enhanced inline project creation with module selection.
+- **Templates**: Implemented dynamic remote fetching for prompt templates and editor-direct opening.
+
 ## [1.2.0] - 2026-04-12
 
 - **Task Detail**: Display `original_prompt` in webview.

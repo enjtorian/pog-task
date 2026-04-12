@@ -97,7 +97,7 @@ export function activate(context: vscode.ExtensionContext) {
     // Component 8: Project/Module level create prompt
     const createPromptForProjectDisposable = vscode.commands.registerCommand('pog-task-manager.createPromptForProject', (item: ProjectItem) => {
         if (item && item.name) {
-            copyCreatePromptForProject(item.name);
+            copyCreatePromptForProject(store, item.name);
         }
     });
 
