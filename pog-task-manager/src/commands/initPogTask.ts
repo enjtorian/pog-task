@@ -37,17 +37,27 @@ export async function initPogTask() {
         {
             url: 'https://raw.githubusercontent.com/enjtorian/pog-task/main/pog-task/pog-task-agent-instructions.md',
             dest: path.join(pogTaskDir, 'pog-task-agent-instructions.md'),
-            sha256: '1c2cbbe4cfa1e24be97501d23e481166df3eba9c937e04ae253bf0ff628f9f08'
+            sha256: ''
         },
         {
             url: 'https://raw.githubusercontent.com/enjtorian/pog-task/main/pog-task/task.schema.json',
             dest: path.join(pogTaskDir, 'task.schema.json'),
-            sha256: '74ae3883ee3d8b4e0f65f7ec6fe209d5d8e525c4d0cd22579ad1e7d29b89888b'
+            sha256: ''
         },
         {
             url: 'https://raw.githubusercontent.com/enjtorian/pog-task/main/pog-task/pog-task.py',
             dest: path.join(pogTaskDir, 'pog-task.py'),
-            sha256: '69b8cf5a2f28f62eecb8cb011c099fc09341ea2bed7918544ffa0d821926a284'
+            sha256: ''
+        },
+        {
+            url: 'https://raw.githubusercontent.com/enjtorian/pog-task/main/pog-task/README.md',
+            dest: path.join(pogTaskDir, 'README.md'),
+            sha256: ''
+        },
+        {
+            url: 'https://raw.githubusercontent.com/enjtorian/pog-task/main/pog-task/pog-task-design.md',
+            dest: path.join(pogTaskDir, 'pog-task-design.md'),
+            sha256: ''
         }
     ];
 

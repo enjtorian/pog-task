@@ -56,6 +56,8 @@ checklist:
 
 parent_task: null
 
+original_prompt: null
+
 notes: ""
 history:
   - timestamp: "ISO 8601"
@@ -75,8 +77,9 @@ history:
 當 Agent 收到用戶請求需要建立任務時：
 
 1. **確定分類** - 根據專案與模組確定目錄：`pog-task/list/{project}/{module}/`
-2. **生成 UUID v4** - 為任務建立唯一識別碼
+2. **生成 UUID v4** - 為任務建立唯一識別碼 推薦透過： `uuidgen`
 3. **編寫 YAML** - 填寫所有必填欄位
+   - 需要紀錄 original_prompt
 4. **校驗格式**（關鍵步驟）：
    執行 `python3 pog-task.py` 確保新建立的 YAML 符合 `task.schema.json`
 5. **✨ 建立 record.md**：

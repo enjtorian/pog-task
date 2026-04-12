@@ -2,6 +2,18 @@
 
 All notable changes to the POG Task project will be documented in this file.
 
+## [1.2.0] - 2026-04-12
+
+### 🧩 `pog-task-manager/` (VS Code Plugin)
+- **Added**: Task Detail Webview now displays `original_prompt`.
+- **Added**: Inline `+` button in Task List to quickly execute `Copy Create Prompt`.
+- **Added**: Task Dashboard for visual overview of projects and modules.
+- **Added**: `Init Prompt Templates` command and Prompt Templates TreeView.
+- **Added**: Startup detection with masked UI for uninitialized workspaces.
+- **Improved**: Task List now supports Project/Module grouping and status filtering.
+- **Improved**: `initPogTask` now generates `README.md` and `pog-task-design.md`.
+- **Fixed**: `copyCreatePrompt` correctly handles `parent_task` and cross-directory task creation.
+
 ## [1.1.1] - 2026-02-10
 
 ### Fixed: Data Loss in `quickAdd`

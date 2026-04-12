@@ -200,6 +200,7 @@ export class TaskWebviewPanel {
                     button:hover { background: var(--vscode-button-hoverBackground); }
                     .file-link { cursor: pointer; color: var(--vscode-textLink-foreground); margin: 5px 0; display: flex; align-items: center; gap: 5px; }
                     .file-link:hover { text-decoration: underline; }
+                    .original-prompt-area { background: var(--vscode-textBlockQuote-background); color: var(--vscode-input-foreground); border: 1px solid var(--vscode-input-border); padding: 10px; font-family: var(--vscode-editor-font-family); font-size: 0.9em; resize: vertical; min-height: 100px; max-height: 400px; }
                 </style>
             </head>
             <body>
@@ -231,6 +232,11 @@ export class TaskWebviewPanel {
                         <option value="high" ${task.priority === 'high' ? 'selected' : ''}>High</option>
                         <option value="critical" ${task.priority === 'critical' ? 'selected' : ''}>Critical</option>
                     </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Original Prompt</label>
+                    <textarea id="original_prompt" class="original-prompt-area">${this.escapeHtml(task.original_prompt || '')}</textarea>
                 </div>
 
                 <div class="form-group">
@@ -289,10 +295,11 @@ export class TaskWebviewPanel {
                         const status = document.getElementById('status').value;
                         const priority = document.getElementById('priority').value;
                         const description = document.getElementById('description').value;
+                        const original_prompt = document.getElementById('original_prompt').value;
                         
                         vscode.postMessage({
                             command: 'updateTask',
-                            data: { status, priority, description }
+                            data: { status, priority, description, original_prompt }
                         });
                     }
 

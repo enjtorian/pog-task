@@ -35,7 +35,7 @@ export class PromptTemplateStore {
 
         // Get prompt directory from configuration
         const config = vscode.workspace.getConfiguration('pog.taskManager');
-        const configPath = config.get<string>('promptTemplateDirectory', './.github/prompts');
+        const configPath = config.get<string>('promptTemplateDirectory', './pog-task/prompts');
         this.promptDirectory = path.join(this.workspaceRoot, configPath);
     }
 

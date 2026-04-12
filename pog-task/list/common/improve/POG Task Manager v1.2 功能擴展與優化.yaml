@@ -1,0 +1,48 @@
+type: "task"
+id: "63d20895-3bd0-497b-a8c5-149ccae2d3c8"
+title: "POG Task Manager v1.2 功能擴展與優化"
+description: "大幅度功能更新：initPogTask 增強、啟動偵測、initPogTaskPrompt、Dashboard、copyCreatePrompt 修正、original_prompt 欄位、quickAdd 優化、Task List +按鈕"
+category: "improvement"
+priority: "high"
+status: "in_review"
+created_at: "2026-04-12T22:36:42+08:00"
+started_at: "2026-04-12T22:36:42+08:00"
+estimated_hours: 8
+actual_hours: 2
+parent_task: "9d8f6c3a-2e1b-4f5a-8b3c-1d5e7f9a2b4c"
+tags:
+  - "v1.2"
+  - "enhancement"
+  - "plugin"
+checklist:
+  - text: "initPogTask 增加 README.md, pog-task-design.md"
+    completed: true
+  - text: "Plugin 啟動偵測 + Welcome View"
+    completed: true
+  - text: "initPogTaskPrompt (Prompt Templates view)"
+    completed: true
+  - text: "Task Dashboard webview"
+    completed: true
+  - text: "copyCreatePrompt 修正 parent_task"
+    completed: true
+  - text: "Schema + Instructions 更新 original_prompt"
+    completed: true
+  - text: "quickAdd 優化"
+    completed: true
+  - text: "Task List project/module + 按鈕"
+    completed: true
+notes: "所有 8 個子項目已全部實作完成，npm run compile 通過"
+record_path: "record/63d20895-3bd0-497b-a8c5-149ccae2d3c8/record.md"
+history:
+  - timestamp: "2026-04-12T22:36:42+08:00"
+    agent: "antigravity"
+    action: "created"
+    message: "建立任務：POG Task Manager v1.2 大幅度功能更新"
+  - timestamp: "2026-04-12T22:36:42+08:00"
+    agent: "antigravity"
+    action: "claimed"
+    message: "認領任務並開始實作"
+  - timestamp: "2026-04-12T22:45:00+08:00"
+    agent: "antigravity"
+    action: "progress"
+    message: "完成全部 8 項子項目實作，通過編譯驗證"

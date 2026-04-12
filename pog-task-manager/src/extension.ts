@@ -1,18 +1,35 @@
 import * as vscode from 'vscode';
-import { copyCreatePrompt, copyExecutePrompt, copyTaskContext } from './commands/agentCommands';
+import * as fs from 'fs';
+import * as path from 'path';
+import { copyCreatePrompt, copyCreatePromptForModule, copyCreatePromptForProject, copyExecutePrompt, copyTaskContext } from './commands/agentCommands';
 import { copyPromptTemplate, openPromptTemplateFile, previewPromptTemplate } from './commands/promptTemplateCommands';
 import { quickAddTask } from './commands/quickAdd';
 import { initPogTask } from './commands/initPogTask';
+import { initPogTaskPrompt } from './commands/initPogTaskPrompt';
 import { PromptTemplateStore } from './core/promptTemplateStore';
 import { TaskStore } from './core/store';
 import { Task } from './core/types';
 import { TaskWatcher } from './core/watcher';
 import { PromptTemplateTreeDataProvider } from './ui/promptTemplateTreeView';
-import { ProjectItem, TaskTreeDataProvider } from './ui/taskTreeDataProvider';
+import { ModuleItem, ProjectItem, TaskTreeDataProvider } from './ui/taskTreeDataProvider';
 import { TaskWebviewPanel } from './ui/taskWebviewPanel';
+import { TaskDashboardPanel } from './ui/taskDashboardPanel';
 
 export function activate(context: vscode.ExtensionContext) {
     console.log('Congratulations, your extension "pog-task-manager" is now active!');
+
+    // --- Component 2: Check if pog-task is initialized ---
+    const workspaceFolders = vscode.workspace.workspaceFolders;
+    let pogTaskInitialized = false;
+
+    if (workspaceFolders) {
+        const rootPath = workspaceFolders[0].uri.fsPath;
+        const instructionsPath = path.join(rootPath, 'pog-task', 'pog-task-agent-instructions.md');
+        const schemaPath = path.join(rootPath, 'pog-task', 'task.schema.json');
+        pogTaskInitialized = fs.existsSync(instructionsPath) && fs.existsSync(schemaPath);
+    }
+
+    vscode.commands.executeCommand('setContext', 'pog-task-manager.pogTaskInitialized', pogTaskInitialized);
 
     // Task management
     const store = new TaskStore();
@@ -40,8 +57,29 @@ export function activate(context: vscode.ExtensionContext) {
         quickAddTask(store);
     });
 
-    const initPogTaskDisposable = vscode.commands.registerCommand('pog-task-manager.initPogTask', () => {
-        initPogTask();
+    const initPogTaskDisposable = vscode.commands.registerCommand('pog-task-manager.initPogTask', async () => {
+        await initPogTask();
+        // After init, re-check and update context
+        if (workspaceFolders) {
+            const rootPath = workspaceFolders[0].uri.fsPath;
+            const instructionsPath = path.join(rootPath, 'pog-task', 'pog-task-agent-instructions.md');
+            const schemaPath = path.join(rootPath, 'pog-task', 'task.schema.json');
+            const initialized = fs.existsSync(instructionsPath) && fs.existsSync(schemaPath);
+            vscode.commands.executeCommand('setContext', 'pog-task-manager.pogTaskInitialized', initialized);
+            if (initialized) {
+                store.load();
+            }
+        }
+    });
+
+    // Component 3: initPogTaskPrompt command
+    const initPogTaskPromptDisposable = vscode.commands.registerCommand('pog-task-manager.initPogTaskPrompt', () => {
+        initPogTaskPrompt();
+    });
+
+    // Component 4: Dashboard command
+    const openDashboardDisposable = vscode.commands.registerCommand('pog-task-manager.openDashboard', () => {
+        TaskDashboardPanel.createOrShow(store);
     });
 
     const copyExecutePromptDisposable = vscode.commands.registerCommand('pog-task-manager.copyExecutePrompt', (task: Task) => {
@@ -54,6 +92,19 @@ export function activate(context: vscode.ExtensionContext) {
 
     const copyCreatePromptDisposable = vscode.commands.registerCommand('pog-task-manager.copyCreatePrompt', (task: Task) => {
         copyCreatePrompt(task);
+    });
+
+    // Component 8: Project/Module level create prompt
+    const createPromptForProjectDisposable = vscode.commands.registerCommand('pog-task-manager.createPromptForProject', (item: ProjectItem) => {
+        if (item && item.name) {
+            copyCreatePromptForProject(item.name);
+        }
+    });
+
+    const createPromptForModuleDisposable = vscode.commands.registerCommand('pog-task-manager.createPromptForModule', (item: ModuleItem) => {
+        if (item && item.project && item.name) {
+            copyCreatePromptForModule(item.project, item.name);
+        }
     });
 
     // Filter commands
@@ -101,7 +152,7 @@ export function activate(context: vscode.ExtensionContext) {
         for (const project of projects) {
             const projectItem = new ProjectItem(project);
             try {
-                await taskListView.reveal(projectItem, { expand: 2, select: false, focus: false });
+                await taskListView.reveal(projectItem, { expand: 3, select: false, focus: false });
             } catch (e) {
                 console.log(`Failed to expand project ${project}:`, e);
             }
@@ -145,9 +196,13 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(openTaskDisposable);
     context.subscriptions.push(quickAddDisposable);
     context.subscriptions.push(initPogTaskDisposable);
+    context.subscriptions.push(initPogTaskPromptDisposable);
+    context.subscriptions.push(openDashboardDisposable);
     context.subscriptions.push(copyExecutePromptDisposable);
     context.subscriptions.push(copyContextDisposable);
     context.subscriptions.push(copyCreatePromptDisposable);
+    context.subscriptions.push(createPromptForProjectDisposable);
+    context.subscriptions.push(createPromptForModuleDisposable);
     context.subscriptions.push(filterByStatusDisposable);
     context.subscriptions.push(clearFilterDisposable);
     context.subscriptions.push(collapseAllDisposable);
@@ -182,8 +237,6 @@ export function activate(context: vscode.ExtensionContext) {
             if (editor) {
                 treeDataProvider.setFileFilter(editor.document.fileName);
             } else {
-                // Keep last filter or clear? Let's keep it to avoid flashing empty list
-                // or maybe clear if no editor is active?
                 treeDataProvider.setFileFilter(null);
             }
         }

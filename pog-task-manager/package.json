@@ -5,7 +5,7 @@
     "description": "POG Task Management Plugin",
     "publisher": "enjtorian",
     "license": "Apache-2.0",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/enjtorian/pog-task.git"
@@ -29,7 +29,8 @@
         "ai"
     ],
     "activationEvents": [
-        "workspaceContains:pog-task/list/**/*.yaml"
+        "workspaceContains:pog-task/list/**/*.yaml",
+        "workspaceContains:pog-task/**"
     ],
     "main": "./dist/extension.js",
     "extensionKind": [
@@ -51,15 +52,28 @@
                 {
                     "id": "pog-task-manager.taskList",
                     "name": "Task List",
-                    "icon": "$(checklist)"
+                    "icon": "$(checklist)",
+                    "when": "pog-task-manager.pogTaskInitialized"
+                },
+                {
+                    "id": "pog-task-manager.welcome",
+                    "name": "Welcome",
+                    "when": "!pog-task-manager.pogTaskInitialized"
                 },
                 {
                     "id": "pog-task-manager.promptTemplates",
                     "name": "Prompt Templates",
-                    "icon": "$(megaphone)"
+                    "icon": "$(megaphone)",
+                    "when": "pog-task-manager.pogTaskInitialized"
                 }
             ]
         },
+        "viewsWelcome": [
+            {
+                "view": "pog-task-manager.welcome",
+                "contents": "POG Task is not initialized in this workspace.\n[Init POG Task](command:pog-task-manager.initPogTask)\nThis will download the required configuration files and create the initial task structure."
+            }
+        ],
         "commands": [
             {
                 "command": "pog-task-manager.refreshTasks",
@@ -91,7 +105,8 @@
             },
             {
                 "command": "pog-task-manager.copyCreatePrompt",
-                "title": "POG Task Manager: Copy Create Prompt"
+                "title": "POG Task Manager: Copy Create Prompt",
+                "icon": "$(add)"
             },
             {
                 "command": "pog-task-manager.refreshPromptTemplates",
@@ -138,39 +153,64 @@
                 "title": "POG Task Manager: Toggle Context Awareness",
                 "icon": "$(magnet)",
                 "enablement": "true"
+            },
+            {
+                "command": "pog-task-manager.initPogTaskPrompt",
+                "title": "POG Task Manager: Init Prompt Templates",
+                "icon": "$(cloud-download)"
+            },
+            {
+                "command": "pog-task-manager.openDashboard",
+                "title": "POG Task Manager: Open Dashboard",
+                "icon": "$(dashboard)"
+            },
+            {
+                "command": "pog-task-manager.createPromptForProject",
+                "title": "POG Task Manager: Create Prompt for Project",
+                "icon": "$(add)"
+            },
+            {
+                "command": "pog-task-manager.createPromptForModule",
+                "title": "POG Task Manager: Create Prompt for Module",
+                "icon": "$(add)"
             }
         ],
         "menus": {
             "view/title": [
                 {
+                    "command": "pog-task-manager.openDashboard",
+                    "when": "view == pog-task-manager.taskList",
+                    "group": "navigation@0"
+                },
+                {
                     "command": "pog-task-manager.quickAdd",
                     "when": "view == pog-task-manager.taskList",
-                    "group": "navigation"
+                    "group": "navigation@1"
                 },
                 {
                     "command": "pog-task-manager.refreshTasks",
                     "when": "view == pog-task-manager.taskList",
-                    "group": "navigation"
+                    "group": "navigation@2"
                 },
                 {
                     "command": "pog-task-manager.filterByStatus",
                     "when": "view == pog-task-manager.taskList",
-                    "group": "navigation"
+                    "group": "navigation@3"
                 },
                 {
                     "command": "pog-task-manager.clearFilter",
                     "when": "view == pog-task-manager.taskList",
-                    "group": "navigation"
+                    "group": "navigation@4"
                 },
                 {
                     "command": "pog-task-manager.collapseAll",
                     "when": "view == pog-task-manager.taskList",
-                    "group": "navigation"
+                    "group": "navigation@5"
                 },
                 {
                     "command": "pog-task-manager.expandAll",
                     "when": "view == pog-task-manager.taskList",
-                    "group": "navigation"
+                    "group": "navigation@6"
                 },
                 {
                     "command": "pog-task-manager.refreshPromptTemplates",
@@ -178,15 +218,25 @@
                     "group": "navigation"
                 },
                 {
-                    "command": "pog-task-manager.toggleContextAware",
-                    "when": "view == pog-task-manager.taskList",
-                    "group": "navigation@1"
+                    "command": "pog-task-manager.initPogTaskPrompt",
+                    "when": "view == pog-task-manager.promptTemplates",
+                    "group": "navigation"
                 }
             ],
             "view/item/context": [
                 {
                     "command": "pog-task-manager.copyExecutePrompt",
                     "when": "view == pog-task-manager.taskList && viewItem == task",
+                    "group": "inline"
+                },
+                {
+                    "command": "pog-task-manager.createPromptForProject",
+                    "when": "view == pog-task-manager.taskList && viewItem == project",
+                    "group": "inline"
+                },
+                {
+                    "command": "pog-task-manager.createPromptForModule",
+                    "when": "view == pog-task-manager.taskList && viewItem == module",
                     "group": "inline"
                 },
                 {
@@ -197,7 +247,7 @@
                 {
                     "command": "pog-task-manager.copyCreatePrompt",
                     "when": "view == pog-task-manager.taskList && viewItem == task",
-                    "group": "2_actions"
+                    "group": "inline"
                 },
                 {
                     "command": "pog-task-manager.copyPromptTemplate",
@@ -231,8 +281,13 @@
                 },
                 "pog.taskManager.promptTemplateDirectory": {
                     "type": "string",
-                    "default": "./.github/prompts",
+                    "default": "./pog-task/prompts",
                     "description": "Directory containing prompt templates."
+                },
+                "pog.taskManager.promptListApiUrl": {
+                    "type": "string",
+                    "default": "https://pog-task.ai/vscode-plugin/index.json",
+                    "description": "API URL to fetch the list of prompt templates."
                 }
             }
         }

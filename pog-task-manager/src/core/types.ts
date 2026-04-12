@@ -58,6 +58,7 @@ export interface Task {
     notes?: string;
     history: TaskHistory[];
 
+    original_prompt?: string;
     record_path?: string;
 
     // Runtime properties (not in YAML)

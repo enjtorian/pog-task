@@ -6,14 +6,7 @@ import { TaskStore } from '../core/store';
 import { Task } from '../core/types';
 
 export async function quickAddTask(store: TaskStore) {
-    const title = await vscode.window.showInputBox({
-        prompt: 'Enter Task Title',
-        placeHolder: 'e.g., Fix login bug'
-    });
-
-    if (!title) { return; }
-
-    // 1. Select or Enter Project
+    // 1. Select or Enter Project (先選 project)
     const projects = store.getProjects();
     const createNewProjectItem = '$(plus) Create New Project...';
     const projectItems = [createNewProjectItem, ...projects];
@@ -32,7 +25,7 @@ export async function quickAddTask(store: TaskStore) {
         if (!project) { return; }
     }
 
-    // 2. Select or Enter Module
+    // 2. Select or Enter Module (再選 module)
     const modules = store.getModules(project);
     const createNewModuleItem = '$(plus) Create New Module...';
     const moduleItems = [createNewModuleItem, ...modules];
@@ -51,12 +44,18 @@ export async function quickAddTask(store: TaskStore) {
         if (!module) { return; }
     }
 
-    // 3. Generate Filename and Path
+    // 3. Enter Task Title (最後輸入 task name)
+    const title = await vscode.window.showInputBox({
+        prompt: 'Enter Task Title',
+        placeHolder: 'e.g., Fix login bug'
+    });
+
+    if (!title) { return; }
+
+    // 4. Generate Filename and Path
     const safeTitle = title.replace(/[^a-z0-9\u4e00-\u9fa5]+/gi, '_').replace(/^_+|_+$/g, '');
     const filename = `${safeTitle}.yaml`;
 
-    // Assume standard structure: pog-task/list/{project}/{module}/{filename}
-    // We should probably loop through workspace folders to find the root
     if (!vscode.workspace.workspaceFolders) {
         vscode.window.showErrorMessage('No workspace open');
         return;
@@ -66,20 +65,20 @@ export async function quickAddTask(store: TaskStore) {
     const taskDir = path.join(rootPath, 'pog-task', 'list', project, module);
     const filePath = path.join(taskDir, filename);
 
-    // 4. Check for Existence
+    // 5. Check for Existence
     if (fs.existsSync(filePath)) {
         vscode.window.showErrorMessage(`Task file already exists: ${filename}`);
         return;
     }
 
-    // 5. Create Task
+    // 6. Create Task (不建立 record.md)
     const taskId = crypto.randomUUID();
     const newTask: Task = {
         type: 'task',
         id: taskId,
         title: title,
         description: '',
-        category: 'feature', // default
+        category: 'feature',
         priority: 'medium',
         status: 'pending',
         created_at: new Date().toISOString(),
@@ -95,15 +94,11 @@ export async function quickAddTask(store: TaskStore) {
     try {
         fs.mkdirSync(taskDir, { recursive: true });
 
-        // Create record directory as well (optional but good practice per strict rules)
-        const recordDir = path.join(taskDir, 'record', taskId);
-        fs.mkdirSync(recordDir, { recursive: true });
-        const recordPath = path.join(recordDir, 'record.md');
-        fs.writeFileSync(recordPath, `# Task Record: ${title}\n\n`);
-
-        newTask.record_path = `record/${taskId}/record.md`;
-
         await store.createTask(newTask, filePath);
+
+        // 建立後立即執行 refresh
+        await store.load();
+
         vscode.window.showInformationMessage(`Task "${title}" created at ${project}/${module}!`);
     } catch (e) {
         vscode.window.showErrorMessage(`Failed to create task: ${e}`);

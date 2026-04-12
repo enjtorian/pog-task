@@ -178,6 +178,13 @@
             },
             "description": "List of files that provide context for this task"
         },
+        "original_prompt": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "The original prompt that created this task"
+        },
         "history": {
             "type": "array",
             "items": {
