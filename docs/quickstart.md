@@ -42,7 +42,7 @@ POG Task Manager is designed around the collaboration cycle with AI Agents:
 When you have a new idea or requirement and need an Agent's help to transform it into a formal POG Task:
 
 1.  Open the POG Task Manager sidebar.
-2.  Select **"Create Task"** in the **Prompt Templates** list, or right-click in the empty space of the task list and select **"Copy Create Prompt"**.
+2.  Select **"Create Task"** in the **Prompt Templates** list, or right-click in the empty space of the task list and select **"Copy Task Create"**.
 3.  Paste the copied instructions to the LLM Agent.
 4.  After the Agent executes this instruction, it will help you create a task in a `.yaml` file and generate an initial `record.md`.
 
@@ -51,7 +51,7 @@ When you have a new idea or requirement and need an Agent's help to transform it
 When a task has been created (status is usually `pending` or `in_progress`) and you want to assign an Agent to start the actual work:
 
 1.  Right-click on the target task in the task list.
-2.  Select **"Copy Execute Prompt"**.
+2.  Select **"Copy Task Execute"**.
 3.  Paste the copied instructions to the LLM Agent.
 4.  The instruction will automatically include the task context (YAML content, Record path, etc.), and the Agent will execute the task and update progress based on this.
 

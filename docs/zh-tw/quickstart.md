@@ -42,7 +42,7 @@ POG Task Manager 的設計圍繞著與 AI Agent 的協作循環：
 當您有一個新的構想或需求，需要 Agent 協助將其轉化為正式的 POG Task 時：
 
 1.  開啟 POG Task Manager 側邊欄。
-2.  在 **Prompt Templates** 列表中選擇 **"Create Task"**，或在任務列表空白處右鍵選擇 **"Copy Create Prompt"**。
+2.  在 **Prompt Templates** 列表中選擇 **"Create Task"**，或在任務列表空白處右鍵選擇 **"Copy Task Create"**。
 3.  將複製的指令貼給 LLM Agent。
 4.  Agent 將此指令執行後，會幫助您在 `.yaml` 中建立任務並生成初始的 `record.md`。
 
@@ -51,7 +51,7 @@ POG Task Manager 的設計圍繞著與 AI Agent 的協作循環：
 當任務已經建立（狀態通常為 `pending` 或 `in_progress`），您希望指派 Agent 開始實際工作時：
 
 1.  在任務列表中的目標任務上點擊右鍵。
-2.  選擇 **"Copy Execute Prompt"**。
+2.  選擇 **"Copy Task Execute"**。
 3.  將複製的指令貼給 LLM Agent。
 4.  指令中會自動包含任務的上下文（YAML 內容、Record 路徑等），Agent 將據此執行任務並更新進度。
 

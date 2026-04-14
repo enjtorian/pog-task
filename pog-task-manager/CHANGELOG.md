@@ -20,7 +20,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [1.2.0] - 2026-04-12
 
 - **Task Detail**: Display `original_prompt` in webview.
-- **UI Enhancements**: Added inline `+` button in Task List for `Copy Create Prompt`.
+- **UI Enhancements**: Added inline `+` button in Task List for `Copy Task Create`.
 - **Dashboard**: New webview for project/module summary and statistics.
 - **Prompt Templates**: Added `Init Prompt Templates` and a dedicated TreeView for managing templates.
 - **Initialization**: `initPogTask` now provides richer set of default files.

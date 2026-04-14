@@ -69,4 +69,4 @@ Used when a task already exists (e.g., status is `todo` or `in_progress`) and yo
 3.  Update task status and progress records.
 
 ### How do I get these Prompts?
-In the **Task List** of the VS Code extension, right-click on any task to see the `Copy Create Prompt` or `Copy Execute Prompt` options.
+In the **Task List** of the VS Code extension, right-click on any task to see the `Copy Task Create` or `Copy Task Execute` options.

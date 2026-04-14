@@ -156,9 +156,9 @@ POG Task Manager 提供了兩種主要的 Prompt 生成功能，協助您快速�
 *   **產生內容**：
     *   **Context**：自動包含任務所在的 YAML 檔案與對應的 `record.md` 路徑。
     *   **指令**：明確指示 Agent 執行特定 ID 的任務，並更新狀態與進度。
-*   **操作方式**：在任務列表中的特定任務上右鍵，選擇 "Copy Execute Prompt"。
+*   **操作方式**：在任務列表中的特定任務上右鍵，選擇 "Copy Task Execute"。
 
-"Copy Execute Prompt" 範例：
+"Copy Task Execute" 範例：
 ---
     # Step 1: Read Context
     請閱讀以下文件及相關資源：

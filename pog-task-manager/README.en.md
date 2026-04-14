@@ -141,9 +141,9 @@ Used for executing an existing task.
 *   **Generated Content**:
     *   **Context**: Automatically includes the YAML file path and the corresponding `record.md` path.
     *   **Instruction**: Explicitly tells the Agent to execute a specific task ID and update status and progress.
-*   **How to operate**: Right-click on a specific task in the task list and select "Copy Execute Prompt."
+*   **How to operate**: Right-click on a specific task in the task list and select "Copy Task Execute."
 
-"Copy Execute Prompt" Example:
+"Copy Task Execute" Example:
 ---
     # Step 1: Read Context
     Please read the following documents and relevant resources:

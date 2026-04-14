@@ -1,7 +1,7 @@
 type: "task"
 id: "6B4FC215-2CA7-473B-AB79-F91B575182D5"
 title: "POG Task Manager Plugin 優化：Task List 增加快捷按鈕"
-description: "在 Task TreeView 的每個任務項目旁增加一個 '+' 按鈕，點擊可直接執行 'Copy Create Prompt' 命令。"
+description: "在 Task TreeView 的每個任務項目旁增加一個 '+' 按鈕，點擊可直接執行 'Copy Task Create' 命令。"
 category: "improvement"
 priority: "medium"
 status: "in_review"
@@ -23,7 +23,7 @@ checklist:
 parent_task: "9d8f6c3a-2e1b-4f5a-8b3c-1d5e7f9a2b4c"
 record_path: "record/6b4fc215-2ca7-473b-ab79-f91b575182d5/record.md"
 original_prompt: |
-  在 task list 中 每個 task 增加一個 + 可以 快速執行 copy create prompt
+  在 task list 中 每個 task 增加一個 + 可以 快速執行 Copy Task Create
 notes: ""
 history:
   - timestamp: "2026-04-12T23:46:20+08:00"

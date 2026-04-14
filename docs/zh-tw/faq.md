@@ -69,4 +69,4 @@ Agent 透過兩種主要模式互動：
 3.  更新任務狀態與進度記錄。
 
 ### 如何獲取這些 Prompt？
-在 VS Code 擴充套件的 **任務列表** 中，對任一任務點擊右鍵，即可看到 `Copy Create Prompt` 或 `Copy Execute Prompt` 選項。
+在 VS Code 擴充套件的 **任務列表** 中，對任一任務點擊右鍵，即可看到 `Copy Task Create` 或 `Copy Task Execute` 選項。
