@@ -2,6 +2,14 @@
 
 All notable changes to the POG Task project will be documented in this file.
 
+## [1.2.2] - 2026-04-15
+
+### 🧩 `pog-task-manager/` (VS Code Plugin)
+- **Improved**: Updated Agent Prompt templates to include explicit instructions for recording "implementation plans" in `record.md`.
+- **Standardized**: Unified "Copy Create Prompt" naming to "Copy Task Create" for consistency across UI and command prompts.
+- **Fixed**: Corrected `promptListApiUrl` host to ensure reliable remote template fetching.
+- **Improved**: Enhanced `README.md` with better clarity on the task execution flow and governance model.
+
 ## [1.2.1] - 2026-04-13
 
 ### 🧩 `pog-task-manager/` (VS Code Plugin)

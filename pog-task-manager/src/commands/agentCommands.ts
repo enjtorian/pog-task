@@ -21,7 +21,7 @@ export async function copyExecutePrompt(store: TaskStore, task: Task) {
 - pog-task/list/${project}/${module}/record/${task.id}/record.md
 
 # Step 2: Update Progress
-- 更新 status: in_progress → in_review
+- 更新 status: in_progress
 - 更新 checklist / notes / actual_hours
 - 在 history 中加入執行紀錄
 - 在 record.md 中記錄關鍵決策與產出物 把 implementation plan 的內容也記錄下來
@@ -31,6 +31,12 @@ export async function copyExecutePrompt(store: TaskStore, task: Task) {
 請執行 pog-task/list/${project}/${module}/${filename} 中指定 Task：
 - task id: ${task.id}
 
+# Step 4: Update Progress
+- 更新 status: in_progress → in_review
+- 更新 checklist / notes / actual_hours
+- 在 history 中加入執行紀錄
+- 在 record.md 中記錄關鍵決策與產出物 把 walkthrough 的內容也記錄下來
+- 重要 在未建立 新的 task 時，後續修改的提示與實現，從 Step 2 開始繼續實現
 ---
     `.trim();
 
@@ -101,6 +107,7 @@ export async function copyCreatePrompt(task: Task) {
 - 更新 checklist / notes / actual_hours
 - 在 history 中加入執行紀錄
 - 在 record.md 中記錄關鍵決策與產出物 把 walkthrough 的內容也記錄下來
+- 重要 在未建立 新的 task 時，後續修改的提示與實現，從 Step 2 開始繼續實現
 
 ---
     `.trim();
@@ -177,6 +184,7 @@ ${parentLine}
 - 更新 checklist / notes / actual_hours
 - 在 history 中加入執行紀錄
 - 在 record.md 中記錄關鍵決策與產出物 把 walkthrough 的內容也記錄下來
+- 重要 在未建立 新的 task 時，後續修改的提示與實現，從 Step 2 開始繼續實現
 
 ---
     `.trim();

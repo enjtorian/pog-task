@@ -27,7 +27,7 @@ export async function initPogTaskPrompt() {
 
     // Step 2: Fetch prompt list
     const config = vscode.workspace.getConfiguration('pog.taskManager');
-    const apiUrl = config.get<string>('promptListApiUrl', 'https://pog-task.ai/vscode-plugin/index.json');
+    const apiUrl = config.get<string>('promptListApiUrl', 'https://task.pog-ai.net/vscode-plugin/index.json');
 
     let promptFiles: PromptFile[] = [];
     try {

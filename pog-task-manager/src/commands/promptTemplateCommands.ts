@@ -40,6 +40,7 @@ ${filename}
 - 更新 checklist / notes / actual_hours
 - 在 history 中加入執行紀錄
 - 在 record.md 中記錄關鍵決策與產出物 把 walkthrough 的內容也記錄下來
+- 重要 在未建立 新的 task 時，後續修改的提示與實現，從 Step 2 開始繼續實現
 
 ---
     `.trim();

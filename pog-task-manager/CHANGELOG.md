@@ -4,6 +4,13 @@ All notable changes to the "pog-task-manager" extension will be documented in th
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.2.2] - 2026-04-15
+
+- **Prompts**: Updated Agent Prompt template to include instructions for recording implementation plans in `record.md`.
+- **Naming**: Standardized "Copy Create Prompt" naming to "Copy Task Create" across UI and generated prompts.
+- **Config**: Updated default `promptListApiUrl` to `https://task.pog-ai.net/vscode-plugin/index.json`.
+- **Documentation**: Updated `README.md` to reflect new prompt structures and record-keeping requirements.
+
 ## [1.2.1] - 2026-04-13
 
 - **UI/UX**: Added "Copy Context" button to Task Detail webview.
