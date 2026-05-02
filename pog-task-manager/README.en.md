@@ -98,15 +98,15 @@ Built-in Agent Prompt Template management for various scenarios (e.g., creating 
 *   **Webview Editor**: View and edit task details through a form interface.
 *   **Record Access**: Quickly open the corresponding `record.md` for a task to inspect the execution process and reasoning logs.
 
-## Agent Prompt Usage Guide
+## Agent Task Usage Guide
 
-POG Task Manager provides two main prompt generation functions to help you quickly start collaborating with Agents:
+POG Task Manager provides two main task generation functions to help you quickly start collaborating with Agents:
 
-### 1. Create Prompt
+### 1. Create Task
 Used for creating a new task from scratch.
 *   **When to use**: When you have a new idea or requirement and need an Agent's help to transform it into a formal POG Task.
 *   **Generated Content**: Includes reading the [Agent Guide](https://github.com/enjtorian/pog-task/blob/main/pog-task/pog-task-agent-instructions.md), category definition, and standard steps for creating the task and `record.md`.
-*   **How to operate**: Select "Create Task" from the Prompt Templates list, or right-click in an empty area of the task list and select "Copy Task Create."
+*   **How to operate**: Select "Create Task" from the Task list, or right-click in an empty area of the task list and select "Copy Task Create."
 
 "Copy Task Create" Example:
 ---
@@ -135,7 +135,7 @@ Used for creating a new task from scratch.
     - Relevant reference documents
 ---
 
-### 2. Execute Prompt
+### 2. Execute Task
 Used for executing an existing task.
 *   **When to use**: When a task has already been created (in Pending or In Progress status) and you want to assign an Agent to start the actual work.
 *   **Generated Content**:

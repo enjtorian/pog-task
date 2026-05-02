@@ -105,15 +105,15 @@ Agent 建立 `record.md` 來記錄其計畫。它執行工作（編碼、研究�
 *   **Webview 編輯器**：透過表單介面檢視與編輯任務詳細資訊。
 *   **Record 存取**：快速開啟任務對應的 `record.md`，檢視執行過程與推理紀錄。
 
-## Agent Prompt 指南 (Prompt Usage)
+## Agent Task 指南 (Task Usage)
 
-POG Task Manager 提供了兩種主要的 Prompt 生成功能，協助您快速啟動與 Agent 的協作：
+POG Task Manager 提供了兩種主要的 Task 生成功能，協助您快速啟動與 Agent 的協作：
 
-### 1. 建立新任務 (Create Prompt)
+### 1. 建立新任務 (Create Task)
 適用於從零開始建立一個新任務。
 *   **使用時機**：當您有一個新的構想或需求，需要 Agent 協助將其轉化為正式的 POG Task。
 *   **產生內容**：包含閱讀 [Agent Guide](https://github.com/enjtorian/pog-task/blob/main/pog-task/pog-task-agent-instructions.md)、Category 定義，以及建立任務與 `record.md` 的標準步驟。
-*   **操作方式**：在 Prompt Templates 列表中選擇 "Create Task"，或在任務列表空白處右鍵選擇 "Copy Task Create"。
+*   **操作方式**：在 Task List 列表中選擇 "Create Task"，或在任務列表空白處右鍵選擇 "Copy Task Create"。
 
 "Copy Task Create" 範例：
 ---
@@ -150,7 +150,7 @@ POG Task Manager 提供了兩種主要的 Prompt 生成功能，協助您快速�
     - 重要 在未建立 新的 task 時，後續修改的提示與實現，從 Step 2 開始繼續實現
 ---
 
-### 2. 執行任務 (Execute Prompt)
+### 2. 執行任務 (Execute Task)
 適用於執行已經存在的任務。
 *   **使用時機**：當任務已經建立（處於 Pending 或 In Progress 狀態），您希望指派 Agent 開始實際工作。
 *   **產生內容**：
