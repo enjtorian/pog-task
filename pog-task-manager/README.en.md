@@ -98,6 +98,19 @@ Built-in Agent Prompt Template management for various scenarios (e.g., creating 
 *   **Webview Editor**: View and edit task details through a form interface.
 *   **Record Access**: Quickly open the corresponding `record.md` for a task to inspect the execution process and reasoning logs.
 
+### 4. Jira Integration (Server / Data Center)
+
+Minimal Jira bridge: tasks carrying an external issue key are surfaced in a dedicated **Issue Tasks** view, and three view-title buttons cover the Pull / Push flow. Everything between Pull and Push happens locally — Jira is silent while the agent codes and the human reviews, which sidesteps the cost of two-way sync.
+
+*   **`issue` field**: `task.schema.json` gains an optional `issue: string` for external issue keys (e.g. `PROJ-123`).
+*   **Issue Tasks view**: Coexists with the regular Task List; **only shows tasks with a non-empty `issue` field**. Labels render as `[KEY] Title`.
+*   **Three view-title buttons**:
+    *   **$(cloud-download) Pull Todos** — runs your JQL and writes each issue as a YAML task at `pog-task/list/<pullProject>/<pullModule>/<KEY> - <slug>.yaml`. Existing issues are skipped, never overwritten.
+    *   **$(cloud-upload) Push Selected** — lists tasks where `issue` is set and `status ∈ {in_review, completed}`. Pick which to push; the plugin transitions each Jira issue and posts a comment containing the task notes, last history entry, and `git log --grep=<KEY>` commit links (with URLs). A progress entry is appended to the task `history`.
+    *   **$(gear) Set Connection** — input boxes for base URL and PAT. The PAT goes into VS Code SecretStorage (`pog-task-manager.jira.token`), **not into `settings.json`**.
+*   **Settings** (`pog.taskManager.jira.*`): `baseUrl` / `defaultJql` / `pullProject` (default `jira`) / `pullModule` (default `inbox`) / `inReviewTransitionName` (default `In Review`) / `doneTransitionName` (default `Done`).
+*   **Known limits**: Jira Server / Data Center only (REST v2 + Bearer PAT); no two-way sync; commit URL inference covers GitHub / GitLab / standard SSH remotes — Bitbucket Server needs a small extension.
+
 ## Agent Task Usage Guide
 
 POG Task Manager provides two main task generation functions to help you quickly start collaborating with Agents:

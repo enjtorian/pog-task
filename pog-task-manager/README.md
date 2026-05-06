@@ -105,6 +105,19 @@ Agent 建立 `record.md` 來記錄其計畫。它執行工作（編碼、研究�
 *   **Webview 編輯器**：透過表單介面檢視與編輯任務詳細資訊。
 *   **Record 存取**：快速開啟任務對應的 `record.md`，檢視執行過程與推理紀錄。
 
+### 4. Jira 整合 (Jira Integration — Server / Data Center)
+
+提供最小可用的 Jira 串接：把帶有外部 issue key 的 task 集中到獨立的 **Issue Tasks** view，並用三顆 view title 按鈕完成 Pull / Push 流程。中間階段（agent 寫 code、人工 review）對 Jira 完全靜默，避免雙向同步帶來的衝突處理成本。
+
+*   **`issue` 欄位**：`task.schema.json` 新增 optional `issue: string`，用來存外部 issue key（例如 `PROJ-123`）。
+*   **Issue Tasks view**：與既有 Task List 並存，**只顯示 `issue` 欄位非空的 task**，label 顯示 `[KEY] Title`。
+*   **三顆 view title 按鈕**：
+    *   **$(cloud-download) Pull Todos** — 跑 JQL，把每個 issue 寫成 YAML task 到 `pog-task/list/<pullProject>/<pullModule>/<KEY> - <slug>.yaml`，已存在的 issue 跳過不覆蓋。
+    *   **$(cloud-upload) Push Selected** — 列出 `issue` 非空、`status ∈ {in_review, completed}` 的 task，QuickPick 勾選後做 transition + 留 comment（含 task notes、最後一筆 history、`git log --grep=<KEY>` 的 commit 列表與 URL），並在 task `history` 補一筆 progress。
+    *   **$(gear) Set Connection** — InputBox 設定 baseUrl 與 PAT；PAT 進 VS Code SecretStorage（`pog-task-manager.jira.token`），**不入 settings.json**。
+*   **Settings**（`pog.taskManager.jira.*`）：`baseUrl` / `defaultJql` / `pullProject` (default `jira`) / `pullModule` (default `inbox`) / `inReviewTransitionName` (default `In Review`) / `doneTransitionName` (default `Done`)。
+*   **已知限制**：僅 Jira Server / Data Center（REST v2 + Bearer PAT）；無雙向同步；commit URL 內建支援 GitHub / GitLab / 標準 SSH remote，Bitbucket Server 需自行擴充。
+
 ## Agent Task 指南 (Task Usage)
 
 POG Task Manager 提供了兩種主要的 Task 生成功能，協助您快速啟動與 Agent 的協作：
