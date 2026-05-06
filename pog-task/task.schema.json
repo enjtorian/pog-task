@@ -171,6 +171,10 @@
             "type": "string",
             "description": "Relative path to the record file (e.g. record/{uuid}/record.md)"
         },
+        "issue": {
+            "type": "string",
+            "description": "External issue identifier (e.g. Jira issue key like PROJ-123). Optional."
+        },
         "context_files": {
             "type": "array",
             "items": {

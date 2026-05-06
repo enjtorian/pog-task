@@ -60,6 +60,7 @@ export interface Task {
 
     original_prompt?: string;
     record_path?: string;
+    issue?: string;
 
     // Runtime properties (not in YAML)
     _filePath?: string;

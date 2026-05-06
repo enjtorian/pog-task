@@ -5,7 +5,7 @@
     "description": "POG Task Management Plugin",
     "publisher": "enjtorian",
     "license": "Apache-2.0",
-    "version": "1.2.2",
+    "version": "1.3.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/enjtorian/pog-task.git"
@@ -61,6 +61,12 @@
                     "when": "!pog-task-manager.pogTaskInitialized"
                 },
                 {
+                    "id": "pog-task-manager.issueTaskList",
+                    "name": "Issue Tasks",
+                    "icon": "$(issue-opened)",
+                    "when": "pog-task-manager.pogTaskInitialized"
+                },
+                {
                     "id": "pog-task-manager.promptTemplates",
                     "name": "Prompt Templates",
                     "icon": "$(megaphone)",
@@ -79,6 +85,26 @@
                 "command": "pog-task-manager.refreshTasks",
                 "title": "POG Task Manager: Refresh Tasks",
                 "icon": "$(refresh)"
+            },
+            {
+                "command": "pog-task-manager.refreshIssueTasks",
+                "title": "POG Task Manager: Refresh Issue Tasks",
+                "icon": "$(refresh)"
+            },
+            {
+                "command": "pog-task-manager.jira.pullTodos",
+                "title": "POG Task Manager: Jira — Pull Todos",
+                "icon": "$(cloud-download)"
+            },
+            {
+                "command": "pog-task-manager.jira.pushSelected",
+                "title": "POG Task Manager: Jira — Push Selected",
+                "icon": "$(cloud-upload)"
+            },
+            {
+                "command": "pog-task-manager.jira.setCredentials",
+                "title": "POG Task Manager: Jira — Set Connection",
+                "icon": "$(gear)"
             },
             {
                 "command": "pog-task-manager.initPogTask",
@@ -166,6 +192,21 @@
                 "icon": "$(dashboard)"
             },
             {
+                "command": "pog-task-manager.openIssueDashboard",
+                "title": "POG Task Manager: Open Issue Task Dashboard",
+                "icon": "$(graph)"
+            },
+            {
+                "command": "pog-task-manager.copyAnalyzePrompt",
+                "title": "POG Task Manager: Copy Task Analyze",
+                "icon": "$(search)"
+            },
+            {
+                "command": "pog-task-manager.jira.pushIssueTask",
+                "title": "POG Task Manager: Jira — Push This Issue",
+                "icon": "$(cloud-upload)"
+            },
+            {
                 "command": "pog-task-manager.createPromptForProject",
                 "title": "POG Task Manager: Copy Create Task for Project",
                 "icon": "$(add)"
@@ -214,6 +255,31 @@
                     "group": "navigation@6"
                 },
                 {
+                    "command": "pog-task-manager.openIssueDashboard",
+                    "when": "view == pog-task-manager.issueTaskList",
+                    "group": "navigation@-1"
+                },
+                {
+                    "command": "pog-task-manager.jira.pullTodos",
+                    "when": "view == pog-task-manager.issueTaskList",
+                    "group": "navigation@0"
+                },
+                {
+                    "command": "pog-task-manager.jira.pushSelected",
+                    "when": "view == pog-task-manager.issueTaskList",
+                    "group": "navigation@1"
+                },
+                {
+                    "command": "pog-task-manager.jira.setCredentials",
+                    "when": "view == pog-task-manager.issueTaskList",
+                    "group": "navigation@2"
+                },
+                {
+                    "command": "pog-task-manager.refreshIssueTasks",
+                    "when": "view == pog-task-manager.issueTaskList",
+                    "group": "navigation@3"
+                },
+                {
                     "command": "pog-task-manager.refreshPromptTemplates",
                     "when": "view == pog-task-manager.promptTemplates",
                     "group": "navigation"
@@ -249,6 +315,21 @@
                     "command": "pog-task-manager.copyCreatePrompt",
                     "when": "view == pog-task-manager.taskList && viewItem == task",
                     "group": "inline"
+                },
+                {
+                    "command": "pog-task-manager.copyAnalyzePrompt",
+                    "when": "view == pog-task-manager.issueTaskList && viewItem == issueTask",
+                    "group": "inline@1"
+                },
+                {
+                    "command": "pog-task-manager.copyExecutePrompt",
+                    "when": "view == pog-task-manager.issueTaskList && viewItem == issueTask",
+                    "group": "inline@2"
+                },
+                {
+                    "command": "pog-task-manager.jira.pushIssueTask",
+                    "when": "view == pog-task-manager.issueTaskList && viewItem == issueTask",
+                    "group": "inline@3"
                 },
                 {
                     "command": "pog-task-manager.copyPromptTemplate",
@@ -289,6 +370,36 @@
                     "type": "string",
                     "default": "https://task.pog-ai.net/vscode-plugin/index.json",
                     "description": "API URL to fetch the list of prompt templates."
+                },
+                "pog.taskManager.jira.baseUrl": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Jira base URL (e.g. https://jira.company.com). Server / Data Center only."
+                },
+                "pog.taskManager.jira.defaultJql": {
+                    "type": "string",
+                    "default": "assignee=currentUser() AND status=\"To Do\"",
+                    "description": "Default JQL prefilled when running Jira — Pull Todos."
+                },
+                "pog.taskManager.jira.pullProject": {
+                    "type": "string",
+                    "default": "jira",
+                    "description": "Project folder under pog-task/list/ where pulled issues are written."
+                },
+                "pog.taskManager.jira.pullModule": {
+                    "type": "string",
+                    "default": "inbox",
+                    "description": "Module folder under pog-task/list/<project>/ where pulled issues are written."
+                },
+                "pog.taskManager.jira.inReviewTransitionName": {
+                    "type": "string",
+                    "default": "In Review",
+                    "description": "Jira transition name used when pushing a task with status=in_review."
+                },
+                "pog.taskManager.jira.doneTransitionName": {
+                    "type": "string",
+                    "default": "Done",
+                    "description": "Jira transition name used when pushing a task with status=completed."
                 }
             }
         }

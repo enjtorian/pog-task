@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-import { copyCreatePrompt, copyCreatePromptForModule, copyCreatePromptForProject, copyExecutePrompt, copyTaskContext } from './commands/agentCommands';
+import { copyAnalyzePrompt, copyCreatePrompt, copyCreatePromptForModule, copyCreatePromptForProject, copyExecutePrompt, copyTaskContext } from './commands/agentCommands';
 import { copyPromptTemplate, openPromptTemplateFile, previewPromptTemplate } from './commands/promptTemplateCommands';
 import { quickAddTask } from './commands/quickAdd';
 import { initPogTask } from './commands/initPogTask';
@@ -11,9 +11,14 @@ import { TaskStore } from './core/store';
 import { Task } from './core/types';
 import { TaskWatcher } from './core/watcher';
 import { PromptTemplateTreeDataProvider } from './ui/promptTemplateTreeView';
+import { IssueTaskTreeDataProvider } from './ui/issueTaskTreeDataProvider';
+import { setJiraCredentials } from './jira/credentials';
+import { pullFromJira } from './jira/pull';
+import { pushIssueTask, pushSelectedToJira } from './jira/push';
 import { ModuleItem, ProjectItem, TaskTreeDataProvider } from './ui/taskTreeDataProvider';
 import { TaskWebviewPanel } from './ui/taskWebviewPanel';
 import { TaskDashboardPanel } from './ui/taskDashboardPanel';
+import { IssueDashboardPanel } from './ui/issueDashboardPanel';
 
 export function activate(context: vscode.ExtensionContext) {
     console.log('Congratulations, your extension "pog-task-manager" is now active!');
@@ -35,6 +40,7 @@ export function activate(context: vscode.ExtensionContext) {
     const store = new TaskStore();
     const watcher = new TaskWatcher(store);
     const treeDataProvider = new TaskTreeDataProvider(store);
+    const issueTreeDataProvider = new IssueTaskTreeDataProvider(store);
 
     // Prompt Template management
     const promptTemplateStore = new PromptTemplateStore();
@@ -47,6 +53,23 @@ export function activate(context: vscode.ExtensionContext) {
     const refreshDisposable = vscode.commands.registerCommand('pog-task-manager.refreshTasks', () => {
         store.load();
         vscode.window.showInformationMessage('Tasks refreshed!');
+    });
+
+    const refreshIssueTasksDisposable = vscode.commands.registerCommand('pog-task-manager.refreshIssueTasks', () => {
+        store.load();
+        vscode.window.showInformationMessage('Issue tasks refreshed!');
+    });
+
+    const setJiraCredentialsDisposable = vscode.commands.registerCommand('pog-task-manager.jira.setCredentials', () => {
+        setJiraCredentials(context).catch(e => vscode.window.showErrorMessage(`Set credentials failed: ${e.message}`));
+    });
+
+    const pullFromJiraDisposable = vscode.commands.registerCommand('pog-task-manager.jira.pullTodos', () => {
+        pullFromJira(context, store).catch(e => vscode.window.showErrorMessage(`Pull failed: ${e.message}`));
+    });
+
+    const pushToJiraDisposable = vscode.commands.registerCommand('pog-task-manager.jira.pushSelected', () => {
+        pushSelectedToJira(context, store).catch(e => vscode.window.showErrorMessage(`Push failed: ${e.message}`));
     });
 
     const openTaskDisposable = vscode.commands.registerCommand('pog-task-manager.openTaskDetail', (task: Task) => {
@@ -82,8 +105,20 @@ export function activate(context: vscode.ExtensionContext) {
         TaskDashboardPanel.createOrShow(store);
     });
 
+    const openIssueDashboardDisposable = vscode.commands.registerCommand('pog-task-manager.openIssueDashboard', () => {
+        IssueDashboardPanel.createOrShow(store);
+    });
+
     const copyExecutePromptDisposable = vscode.commands.registerCommand('pog-task-manager.copyExecutePrompt', (task: Task) => {
         copyExecutePrompt(store, task);
+    });
+
+    const copyAnalyzePromptDisposable = vscode.commands.registerCommand('pog-task-manager.copyAnalyzePrompt', (task: Task) => {
+        copyAnalyzePrompt(store, task);
+    });
+
+    const pushIssueTaskDisposable = vscode.commands.registerCommand('pog-task-manager.jira.pushIssueTask', (task: Task) => {
+        pushIssueTask(context, store, task).catch(e => vscode.window.showErrorMessage(`Push failed: ${e.message}`));
     });
 
     const copyContextDisposable = vscode.commands.registerCommand('pog-task-manager.copyContext', (task: Task) => {
@@ -187,18 +222,29 @@ export function activate(context: vscode.ExtensionContext) {
     const taskListView = vscode.window.createTreeView('pog-task-manager.taskList', {
         treeDataProvider: treeDataProvider
     });
+    const issueTaskListView = vscode.window.createTreeView('pog-task-manager.issueTaskList', {
+        treeDataProvider: issueTreeDataProvider
+    });
     vscode.window.registerTreeDataProvider('pog-task-manager.promptTemplates', promptTemplateTreeProvider);
 
     // Add to subscriptions
     context.subscriptions.push(watcher);
     context.subscriptions.push(taskListView);
+    context.subscriptions.push(issueTaskListView);
     context.subscriptions.push(refreshDisposable);
+    context.subscriptions.push(refreshIssueTasksDisposable);
+    context.subscriptions.push(setJiraCredentialsDisposable);
+    context.subscriptions.push(pullFromJiraDisposable);
+    context.subscriptions.push(pushToJiraDisposable);
     context.subscriptions.push(openTaskDisposable);
     context.subscriptions.push(quickAddDisposable);
     context.subscriptions.push(initPogTaskDisposable);
     context.subscriptions.push(initPogTaskPromptDisposable);
     context.subscriptions.push(openDashboardDisposable);
+    context.subscriptions.push(openIssueDashboardDisposable);
     context.subscriptions.push(copyExecutePromptDisposable);
+    context.subscriptions.push(copyAnalyzePromptDisposable);
+    context.subscriptions.push(pushIssueTaskDisposable);
     context.subscriptions.push(copyContextDisposable);
     context.subscriptions.push(copyCreatePromptDisposable);
     context.subscriptions.push(createPromptForProjectDisposable);

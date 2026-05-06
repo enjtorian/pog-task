@@ -44,6 +44,54 @@ export async function copyExecutePrompt(store: TaskStore, task: Task) {
     vscode.window.showInformationMessage('Execute Task copied to clipboard!');
 }
 
+export async function copyAnalyzePrompt(store: TaskStore, task: Task) {
+    let filename = 'unknown.yaml';
+    const project = task._project || 'alpha';
+    const module = task._module || 'activate';
+
+    if (task._filePath) {
+        filename = path.basename(task._filePath);
+    }
+
+    const issueLine = task.issue ? `- issue: ${task.issue}\n` : '';
+
+    const prompt = `
+---
+# Step 1: Read Context
+請閱讀以下文件及相關資源：
+- pog-task/pog-task-agent-instructions.md
+- pog-task/list/${project}/${module}/${filename}
+- pog-task/list/${project}/${module}/record/${task.id}/record.md
+
+# Step 2: 分析任務
+請針對下列 task 進行分析：
+- task id: ${task.id}
+${issueLine}
+請輸出：
+1. 任務目標與成功定義
+2. 影響範圍 / 需要動到的模組
+3. Implementation Plan (步驟、風險、預估時數)
+4. 驗證計畫 (測試 / 手動驗證 / 邊界情況)
+
+並把分析結果寫入：
+- pog-task/list/${project}/${module}/record/${task.id}/record.md
+
+# Step 3: 更新狀態
+- 把 status 從 ${task.status} → in_planning
+- 在 history 中加入一筆 progress：分析完成、產出 implementation plan
+- 更新 checklist / notes 反映分析結果
+
+⚠️ 重要：分析完成後請務必把 status 改為 in_planning，這是一個信號讓後續執行流程能接手。
+
+# Step 4: Hand-off
+分析完成後可以直接複製 task 的「複製執行提示」按鈕產出的 prompt，進入下一階段。
+---
+    `.trim();
+
+    await vscode.env.clipboard.writeText(prompt);
+    vscode.window.showInformationMessage('Analyze Task prompt copied — 分析完請把 status 改為 in_planning');
+}
+
 export async function copyTaskContext(task: Task) {
     let filename = 'unknown.yaml';
     if (task._filePath) {
